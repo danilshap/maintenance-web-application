@@ -3,19 +3,25 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Maintenance.Models.MaintenanceEntities
 {
-    public class Address {
+    public sealed class Address {
         [Key]
         // id для адреса
         public int Id { get; set; }
+
         // улица
+        [Required]
+        [MaxLength(100)]
         public string Street { get; set; }
+
         // здание
+        [Required]
+        [MaxLength(20)]
         public string Building { get; set; }
         // квартира
-        public int Flat { get; set; }
+        public int? Flat { get; set; }
 
-        // список клиентов проживающих по этому адресу
-        public virtual ICollection<Client> Clients { get; set; }
+        // список клиентов проживающих по этому адрес
+        public ICollection<Client> Clients { get; set; }
 
         public Address() {
             Clients = new HashSet<Client>();

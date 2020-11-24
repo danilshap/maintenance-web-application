@@ -8,7 +8,10 @@ namespace Maintenance.Models.MaintenanceEntities
         [Key]
         // id
         public int Id { get; set; }
+
         // статус работника
+        [Required]
+        [MaxLength(50)]
         public string Status { get; set; }
 
         // коллекция ссылок на работников

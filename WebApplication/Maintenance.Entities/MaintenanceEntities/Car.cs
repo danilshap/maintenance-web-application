@@ -8,20 +8,26 @@ namespace Maintenance.Models.MaintenanceEntities
         [Key]
         // id
         public int Id { get; set; }
+
         // гос. номер
+        [Required]
+        [MaxLength(10)]
         public string StateNumber { get; set; }
+
         // цвет авто
+        [Required]
+        [MaxLength(50)]
         public string Color { get; set; }
+
         // год выпуска
+        [Required]
         public int YearOfIssue { get; set; }
 
         // марка авто
-        [ForeignKey("Mark")]
         public int MarkId { get; set; }
         public virtual Mark Mark { get; set; }
 
         // владелец авто
-        [ForeignKey("Owner")]
         public int OwnerId { get; set; }
         public virtual Person Owner { get; set; }
 

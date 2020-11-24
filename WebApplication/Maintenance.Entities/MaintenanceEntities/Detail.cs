@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Maintenance.Models.MaintenanceEntities
 {
@@ -7,11 +8,19 @@ namespace Maintenance.Models.MaintenanceEntities
         [Key]
         // id
         public int Id { get; set; }
+
         // название детали
+        [Required]
+        [MaxLength(50)]
         public string Title { get; set; }
+
         // стоимость детали
-        public int Price { get; set; }
+        [Required]
+        [Column("decimal(10, 2)")]
+        public decimal Price { get; set; }
+
         // было ли куплена деталь для ремонта неисправности
+        [Required]
         public bool IsBuyingToFix { get; set; }
 
         // неисправности в которых может использоваться данная деталь

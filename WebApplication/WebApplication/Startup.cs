@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using WebApplication.Data;
 
 namespace WebApplication
 {
@@ -32,6 +34,11 @@ namespace WebApplication
                     Description = "Серверная часть приложения \"Техобслуживание\" для курсового проекта №2.",
                 });
             });
+
+            services.AddDbContext<MaintenanceDatabaseContext>(
+                options => options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")
+                ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

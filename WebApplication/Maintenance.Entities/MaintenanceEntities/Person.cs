@@ -8,23 +8,31 @@ namespace Maintenance.Models.MaintenanceEntities
         [Key]
         // id
         public int Id { get; set; }
+
         // фамилия
+        [Required]
+        [MaxLength(20)]
         public string Surname { get; set; }
+
         // имя
+        [Required]
+        [MaxLength(20)]
         public string Name { get; set; }
+
         // отчество
+        [Required]
+        [MaxLength(40)]
         public string Patronymic { get; set; }
+
         // паспорт
+        [Required]
+        [MaxLength(20)]
         public string Passport { get; set; }
 
         // ссылка на клиента
-        [ForeignKey("Client")]
-        public int ClientId { get; set; }
         public virtual Client Client { get; set; }
 
         // ссылка на работника
-        [ForeignKey("Worker")]
-        public int WorkerId { get; set; }
         public virtual Worker Worker { get; set; }
 
         // машины во владении

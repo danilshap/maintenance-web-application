@@ -9,8 +9,12 @@ namespace Maintenance.Models.MaintenanceEntities
         public int Id { get; set; }
 
         // название неисправности
+        [Required]
+        [MaxLength(100)]
         public string Title { get; set; }
+
         // количество часов которые займут на ремонт
+        [Required]
         public int TimeToFix { get; set; }
 
         // коллекция заявок на ремонт

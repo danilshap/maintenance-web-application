@@ -7,6 +7,9 @@ namespace Maintenance.Models.MaintenanceEntities
         [Key]
         // id
         public int Id { get; set; }
+
+        [Required]
+        [MaxLength(100)]
         public string Title { get; set; }
 
         public virtual ICollection<Worker> Workers { get; set; }

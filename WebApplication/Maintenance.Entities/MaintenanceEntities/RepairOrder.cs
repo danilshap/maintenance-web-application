@@ -10,24 +10,25 @@ namespace Maintenance.Models.MaintenanceEntities
         [Key]
         // id
         public int Id { get; set; }
+
         // дата оформления заявки
+        [Required]
         public DateTime DateOfTheApplication { get; set; }
+        
         // выполнена ли работа или нет
+        [Required]
         public bool IsReady { get; set; }
 
         // клиент
-        [ForeignKey("Client")]
-        public int ClientId { get; set; }
+        public int? ClientId { get; set; }
         public virtual Client Client { get; set; }
 
         // автомобиль
-        [ForeignKey("Car")]
-        public int CarId { get; set; }
+        public int? CarId { get; set; }
         public virtual Car Car { get; set; }
 
         // работник
-        [ForeignKey("Worker")]
-        public int WorkerId { get; set; }
+        public int? WorkerId { get; set; }
         public virtual Worker Worker { get; set; }
         
         // неисправности

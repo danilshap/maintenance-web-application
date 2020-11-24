@@ -9,20 +9,21 @@ namespace Maintenance.Models.MaintenanceEntities
         [Key]
         // id
         public int Id { get; set; }
+
         // дата рождения клиента
+        [Required]
         public DateTime DateOfBorn { get; set; }
+
         // номер телефона
+        [Required]
+        [MaxLength(20)]
         public string TelephoneNumber { get; set; }
-        // даты обращения клиента
-        public List<DateTime> AppealDates { get; set; }
 
         // данные о человеке
-        [ForeignKey("Person")]
         public int PersonId { get; set; }
         public virtual Person Person { get; set; }
 
         // адрес проживания
-        [ForeignKey("Address")]
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }
 
@@ -31,7 +32,6 @@ namespace Maintenance.Models.MaintenanceEntities
 
         public Client() {
             RepairOrders = new HashSet<RepairOrder>();
-            AppealDates = new List<DateTime>();
         }
     }
 }

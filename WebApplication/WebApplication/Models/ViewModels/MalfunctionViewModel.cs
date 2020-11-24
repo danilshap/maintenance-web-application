@@ -27,6 +27,6 @@ namespace WebApplication.Models.ViewModels
         }
 
         // стоимость неисправности
-        public int Price { get; private set; }
+        public decimal Price { get; private set; }
     }
 }

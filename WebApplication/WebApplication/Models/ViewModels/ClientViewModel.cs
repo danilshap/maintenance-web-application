@@ -36,7 +36,7 @@ namespace WebApplication.Models.ViewModels
             DateOfBorn = client.DateOfBorn;
             Street = address.Street;
             Building = address.Building;
-            Flat = address.Flat;
+            if (address.Flat != null) Flat = (int) address.Flat;
         }
     }
 }
