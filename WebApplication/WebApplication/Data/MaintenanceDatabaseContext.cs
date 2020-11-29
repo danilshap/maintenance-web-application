@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Linq;
+using System.Runtime.CompilerServices;
 using Maintenance.Models;
 using Maintenance.Models.MaintenanceEntities;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ namespace WebApplication.Data
         public MaintenanceDatabaseContext(DbContextOptions<MaintenanceDatabaseContext> options)
             : base(options)
         {
+            if(!Persons.Any()) this.Seed();
         }
 
         // данные о персонах
@@ -37,8 +39,6 @@ namespace WebApplication.Data
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            // инициализация БД
-            modelBuilder.Seed();
             base.OnModelCreating(modelBuilder);
         }
     }

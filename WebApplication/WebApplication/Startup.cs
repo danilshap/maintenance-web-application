@@ -45,8 +45,7 @@ namespace WebApplication
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
@@ -56,8 +55,11 @@ namespace WebApplication
             }
 
             app.UseRouting();
-
             app.UseAuthorization();
+
+            app.UseCors(options => {
+                options.AllowAnyOrigin().AllowAnyMethod();
+            });
 
             app.UseEndpoints(endpoints =>
             {

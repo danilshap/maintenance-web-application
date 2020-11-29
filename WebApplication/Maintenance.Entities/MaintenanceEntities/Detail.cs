@@ -16,12 +16,7 @@ namespace Maintenance.Models.MaintenanceEntities
 
         // стоимость детали
         [Required]
-        [Column("decimal(10, 2)")]
         public decimal Price { get; set; }
-
-        // было ли куплена деталь для ремонта неисправности
-        [Required]
-        public bool IsBuyingToFix { get; set; }
 
         // неисправности в которых может использоваться данная деталь
         public virtual ICollection<Malfunction> Malfunctions { get; set; }
