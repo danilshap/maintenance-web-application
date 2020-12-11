@@ -10,31 +10,13 @@ using WebApplication.Models.ViewData;
 namespace WebApplication.Models.Processes
 {
     public class ClientProcess {
+        // данные бд
         private readonly MaintenanceDatabaseContext _context;
+        // обработка для персоны
+        private readonly PersonProcess _personProcess;
         public ClientProcess(MaintenanceDatabaseContext context) {
             _context = context;
-        }
-
-        // получить персону по id
-        private Person GetPerson(int id) => _context.Persons.FirstOrDefault(p => p.Id == id);
-
-        // добавить персону
-        private async void AppendPerson(Person person) {
-            _context.Persons.Add(person);
-            await _context.SaveChangesAsync();
-        }
-
-        // изменение персоны
-        private async void ChangePerson(Person person){
-            var templPerson = _context.Persons.FirstOrDefault(p => p.Passport == person.Passport);
-            
-            if(templPerson == null) throw new Exception("Человека не было найдено");
-
-            templPerson.Surname = person.Surname;
-            templPerson.Name = person.Name;
-            templPerson.Patronymic = person.Patronymic;
-
-            await _context.SaveChangesAsync();
+            _personProcess = new PersonProcess(_context);
         }
 
         // получить адрес по id
@@ -54,7 +36,7 @@ namespace WebApplication.Models.Processes
         public ClientViewData GetClientData(int id) {
             Client result = _context.Clients.FirstOrDefault(p => p.Id == id);
             if (result == null) throw new Exception("Клиент не был найден");
-            return new ClientViewData(result, GetPerson(result.PersonId), GetAddress(result.AddressId));
+            return new ClientViewData(result, _personProcess.GetPerson(result.PersonId), GetAddress(result.AddressId));
         }
 
         // добавить нового клиента
@@ -77,7 +59,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
                 p.Patronymic == person.Patronymic || p.Passport != person.Passport))
-                AppendPerson(person);
+                _personProcess.AppendPerson(person);
 
             // проверка данных по адресу
             Address address = new Address {
@@ -117,7 +99,7 @@ namespace WebApplication.Models.Processes
                 Passport = clientViewData.Passport
             }; 
             // изменение данных персоны
-            ChangePerson(person);
+            _personProcess.ChangePerson(person);
 
             Address address = new Address {
                 Street = clientViewData.Street,

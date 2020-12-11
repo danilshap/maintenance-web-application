@@ -10,17 +10,10 @@ namespace WebApplication.Models.Processes
 {
     public class CarProcess {
         private readonly MaintenanceDatabaseContext _context;
+        private readonly PersonProcess _personProcess;
         public CarProcess(MaintenanceDatabaseContext context) {
             _context = context;
-        }
-
-        // получить персону по id
-        private Person GetPerson(int id) => _context.Persons.FirstOrDefault(p => p.Id == id);
-
-        // добавить персону
-        private async void AppendPerson(Person person) {
-            _context.Persons.Add(person);
-            await _context.SaveChangesAsync();
+            _personProcess = new PersonProcess(_context);
         }
 
         // получить адрес по id
@@ -33,14 +26,14 @@ namespace WebApplication.Models.Processes
         }
 
         // получить всех клиентов
-        public List<CarViewData> GetClientsData() =>
-            _context.Cars.Select(c => new CarViewData(c, GetPerson(c.OwnerId), GetMark(c.MarkId))).ToList();
+        public List<CarViewData> GetCarsData() =>
+            _context.Cars.Select(c => new CarViewData(c, _personProcess.GetPerson(c.OwnerId), GetMark(c.MarkId))).ToList();
 
         // получить определенного клиента
-        public CarViewData GetClientData(int id) {
+        public CarViewData GetCarData(int id) {
             Car result = _context.Cars.FirstOrDefault(p => p.Id == id);
             if (result == null) throw new Exception("Авто не было найдено");
-            return new CarViewData(result, GetPerson(result.OwnerId), GetMark(result.MarkId));
+            return new CarViewData(result, _personProcess.GetPerson(result.OwnerId), GetMark(result.MarkId));
         }
 
         // добавить нового клиента
@@ -63,7 +56,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
                 p.Patronymic == person.Patronymic || p.Passport != person.Passport))
-                AppendPerson(person);
+                _personProcess.AppendPerson(person);
 
 
             // проверка данных по адресу
@@ -112,7 +105,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
                 p.Patronymic == person.Patronymic || p.Passport != person.Passport))
-                AppendPerson(person);
+                _personProcess.AppendPerson(person);
 
             car.Color = carViewData.Color;
             car.StateNumber = carViewData.StateNumber;

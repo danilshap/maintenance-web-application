@@ -8,9 +8,10 @@ namespace WebApplication.Data
 {
     public class MaintenanceDatabaseContext: DbContext {
         public MaintenanceDatabaseContext(DbContextOptions<MaintenanceDatabaseContext> options)
-            : base(options)
-        {
-            if(!Persons.Any()) this.Seed();
+            : base(options) {
+            // для заполнения БД случайными данными
+            // раскоментировать перед созданием миграции (второй)
+            // this.Seed();
         }
 
         // данные о персонах

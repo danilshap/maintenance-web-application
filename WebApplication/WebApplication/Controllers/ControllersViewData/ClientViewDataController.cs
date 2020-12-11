@@ -23,7 +23,7 @@ namespace WebApplication.Controllers.ControllersViewData
 
         // GET: api/ClientViewData/5
         [HttpGet("{id}")]
-        public ActionResult<ClientViewData> GetClient(int id) => _process.GetClientData(id);
+        public ClientViewData GetClient(int id) => _process.GetClientData(id);
 
         // PUT: api/ClientViewData/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
