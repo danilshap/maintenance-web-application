@@ -28,7 +28,6 @@ namespace WebApplication.Controllers.ControllersViewData
 
         // GET: api/MalfunctionViewData/5
         [HttpGet("{id}")]
-        public MalfunctionViewData GetMalfunction(int id) =>
-            _malfunctionProcess.GetMalfunctionData(id);
+        public MalfunctionViewData GetMalfunction(int id) => _malfunctionProcess.GetMalfunctionData(id);
     }
 }

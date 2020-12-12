@@ -23,7 +23,7 @@ namespace WebApplication.Models.Processes
 
         // выбор конкретной неисправности
         public MalfunctionViewData GetMalfunctionData(int id) {
-            Malfunction malfunction = _context.Malfunctions.FirstOrDefault(m => m.Id == id);
+            Malfunction malfunction = _context.Malfunctions.Include(m => m.Details).FirstOrDefault(m => m.Id == id);
             if(malfunction == null) throw new Exception("Данная неисправность не была найдена");
             return new MalfunctionViewData(malfunction, malfunction.Details.ToList());
         }
@@ -56,5 +56,8 @@ namespace WebApplication.Models.Processes
             _context.Malfunctions.Add(malfunction);
             await _context.SaveChangesAsync();
         }
+
+        // проверка на существование неисправности для обработки для заявки на ремонт
+        public async Task<bool> isSetMalfunction(string title) => await _context.Malfunctions.AnyAsync(m => m.Title == title);
     }
 }

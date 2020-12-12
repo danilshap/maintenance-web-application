@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Maintenance.Models.MaintenanceEntities;
+using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
 using WebApplication.Models.ViewData;
 
@@ -17,7 +18,7 @@ namespace WebApplication.Models.Processes
         }
 
         // получить адрес по id
-        private Mark GetMark(int id) => _context.Marks.FirstOrDefault(m => m.Id == id);
+        private async Task<Mark> GetMark(int id) => await _context.Marks.FirstOrDefaultAsync(m => m.Id == id);
 
         // добавить адрес
         private async void AppendMark(Mark mark) {
@@ -27,13 +28,13 @@ namespace WebApplication.Models.Processes
 
         // получить всех клиентов
         public List<CarViewData> GetCarsData() =>
-            _context.Cars.Select(c => new CarViewData(c, _personProcess.GetPerson(c.OwnerId), GetMark(c.MarkId))).ToList();
+            _context.Cars.Include(c => c.Mark).Include(c => c.Owner).Select(c => new CarViewData(c, c.Owner, c.Mark)).ToList();
 
         // получить определенного клиента
         public CarViewData GetCarData(int id) {
-            Car result = _context.Cars.FirstOrDefault(p => p.Id == id);
+            Car result = _context.Cars.Include(c => c.Mark).Include(c => c.Owner).FirstOrDefault(p => p.Id == id);
             if (result == null) throw new Exception("Авто не было найдено");
-            return new CarViewData(result, _personProcess.GetPerson(result.OwnerId), GetMark(result.MarkId));
+            return new CarViewData(result, result.Owner, result.Mark);
         }
 
         // добавить нового клиента
@@ -112,5 +113,8 @@ namespace WebApplication.Models.Processes
             car.OwnerId = _context.Persons.First(p => p.Passport == person.Passport).Id;
             await _context.SaveChangesAsync();
         }
+
+        // проверка на существование авто для работы с заявкой на ремонт
+        public async Task<bool> isSetCat(string stateNumber) => await _context.Cars.AnyAsync(c => c.StateNumber == stateNumber);
     }
 }

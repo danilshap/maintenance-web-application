@@ -116,5 +116,9 @@ namespace WebApplication.Models.Processes
             client.TelephoneNumber = clientViewData.TelephoneNumber;
             await _context.SaveChangesAsync();
         }
+
+        // поиск клиента для обработки в заявке на ремонт
+        public async Task<bool> isSetClient(string passport) =>
+            await _context.Clients.Include(c => c.Person).AnyAsync(c => c.Person.Passport == passport);
     }
 }

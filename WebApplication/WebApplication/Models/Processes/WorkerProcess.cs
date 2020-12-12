@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Maintenance.Models.MaintenanceEntities;
+using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
 using WebApplication.Models.ViewData;
 
@@ -89,5 +90,9 @@ namespace WebApplication.Models.Processes
             worker.StatusId = workerStatus.Id;
             await _context.SaveChangesAsync();
         }
+
+        // проверка на существование работника для обработки при добавлении новой заявки на ремонт
+        public async Task<bool> isSetWorker(string passport) =>
+            await _context.Workers.Include(w => w.Person).AnyAsync(w => w.Person.Passport == passport);
     }
 }
