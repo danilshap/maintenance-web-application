@@ -1,27 +1,27 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/out-tsc
+/WebClient/dist
+/WebClient/tmp
+/WebClient/out-tsc
 # Only exists if Bazel was run
-/bazel-out
+/WebClient/bazel-out
 
 # dependencies
-/node_modules
+/WebClient/node_modules
 
 # profiling files
-chrome-profiler-events*.json
-speed-measure-plugin*.json
+WebClient/chrome-profiler-events*.json
+WebClient/speed-measure-plugin*.json
 
 # IDEs and editors
 WebClient/.idea
 WebClient/.project
 WebClient/.classpath
 WebClient/.c9/
-*.launch
+*WebClient/.launch
 WebClient/.settings/
-*.sublime-workspace
+*WebClient/.sublime-workspace
 
 # IDE - VSCode
 WebClient/.vscode/*
