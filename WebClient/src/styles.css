@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 
+/*
 .form-control::placeholder {
   font-size: 0.95rem;
   font-style: italic;
@@ -9,3 +10,7 @@
 .form-control.shadow-0:focus {
   box-shadow: none;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+*/

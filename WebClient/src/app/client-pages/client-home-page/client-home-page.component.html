@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" routerLink="index">
       <h3><span class="badge badge-primary">Maitenace</span></h3>
     </a>
     <button
@@ -16,16 +16,30 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item active">
-          <a class="nav-link" href="#"
+        <li class="nav-item">
+          <a class="nav-link" routerLink="index"
             >Главная страница <span class="sr-only">(current)</span></a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Оформить заявку</a>
+          <a class="nav-link" routerLink="form">Оформить заявку</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">О нас</a>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="dropdownId"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Дополнительно</a
+          >
+          <div class="dropdown-menu" aria-labelledby="dropdownId">
+            <a class="dropdown-item" routerLink="about">О нас</a>
+            <a class="dropdown-item" routerLink="task"
+              >Задание курсового проекта</a
+            >
+          </div>
         </li>
       </ul>
     </div>
@@ -35,7 +49,7 @@
 <router-outlet></router-outlet>
 
 <!-- Footer -->
-<footer class="bg-white mt-5">
+<footer class="bg-white mt-4 footer">
   <div class="container py-5">
     <div class="row py-4">
       <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
@@ -76,12 +90,19 @@
         <h6 class="text-uppercase font-weight-bold mb-4">Компания</h6>
         <ul class="list-unstyled mb-0">
           <li class="mb-2">
-            <a href="#" class="text-muted">Главная страница</a>
+            <a routerLink="index" class="text-muted">Главная страница</a>
           </li>
           <li class="mb-2">
-            <a href="#" class="text-muted">Оформить заявку</a>
+            <a routerLink="form" class="text-muted">Оформить заявку</a>
           </li>
-          <li class="mb-2"><a href="#" class="text-muted">О нас</a></li>
+          <li class="mb-2">
+            <a routerLink="about" class="text-muted">О нас</a>
+          </li>
+          <li class="mb-2">
+            <a routerLink="task" class="text-muted"
+              >Задание курсового проекта</a
+            >
+          </li>
         </ul>
       </div>
       <div class="col-lg-4 col-md-6 mb-lg-0">
