@@ -14,18 +14,14 @@ namespace WebApplication.Models.Processes
             _context = context;
         }
 
-        // получить персону по id
-        public Person GetPerson(int id) => _context.Persons.FirstOrDefault(p => p.Id == id);
-
         // добавить персону
-        public async void AppendPerson(Person person)
-        {
+        public async Task AppendPerson(Person person) {
             _context.Persons.Add(person);
             await _context.SaveChangesAsync();
         }
 
         // изменение персоны
-        public async void ChangePerson(Person person)
+        public async Task ChangePerson(Person person)
         {
             var templPerson = _context.Persons.FirstOrDefault(p => p.Passport == person.Passport);
 

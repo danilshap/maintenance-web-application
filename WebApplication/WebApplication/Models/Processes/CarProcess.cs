@@ -17,28 +17,31 @@ namespace WebApplication.Models.Processes
             _personProcess = new PersonProcess(_context);
         }
 
-        // получить адрес по id
-        private async Task<Mark> GetMark(int id) => await _context.Marks.FirstOrDefaultAsync(m => m.Id == id);
-
         // добавить адрес
-        private async void AppendMark(Mark mark) {
+        private async Task AppendMark(Mark mark) {
             _context.Marks.Add(mark);
             await _context.SaveChangesAsync();
         }
 
         // получить всех клиентов
         public List<CarViewData> GetCarsData() =>
-            _context.Cars.Include(c => c.Mark).Include(c => c.Owner).Select(c => new CarViewData(c, c.Owner, c.Mark)).ToList();
+            _context.Cars
+                .Include(c => c.Mark)
+                .Include(c => c.Owner)
+                .Select(c => new CarViewData(c, c.Owner, c.Mark)).ToList();
 
         // получить определенного клиента
         public CarViewData GetCarData(int id) {
-            Car result = _context.Cars.Include(c => c.Mark).Include(c => c.Owner).FirstOrDefault(p => p.Id == id);
+            Car result = _context.Cars
+                .Include(c => c.Mark)
+                .Include(c => c.Owner)
+                .FirstOrDefault(p => p.Id == id);
             if (result == null) throw new Exception("Авто не было найдено");
             return new CarViewData(result, result.Owner, result.Mark);
         }
 
         // добавить нового клиента
-        public async void AppendCar(CarViewData carViewData) {
+        public async Task AppendCar(CarViewData carViewData) {
             // проверка данных по персоне
             Person person = new Person {
                 Surname = carViewData.Surname,
@@ -57,7 +60,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
                 p.Patronymic == person.Patronymic || p.Passport != person.Passport))
-                _personProcess.AppendPerson(person);
+                await _personProcess.AppendPerson(person);
 
 
             // проверка данных по адресу
@@ -68,7 +71,7 @@ namespace WebApplication.Models.Processes
 
             // в случае если мы не нашли такой адрес, то мы просто будем добавлять его
             if (!_context.Marks.Any(m => m.Title == mark.Title && m.Model == mark.Model))
-                AppendMark(mark);
+                await AppendMark(mark);
 
             // создание и добавление клиента в БД
             Car car = new Car {
@@ -83,7 +86,7 @@ namespace WebApplication.Models.Processes
         }
 
         // изменение данных клиента
-        public async void ChangeCar(CarViewData carViewData) {
+        public async Task ChangeCar(CarViewData carViewData) {
             // получаем клиента для изменения
             Car car = _context.Cars.First(c => c.Id == carViewData.Id);
 
@@ -106,7 +109,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
                 p.Patronymic == person.Patronymic || p.Passport != person.Passport))
-                _personProcess.AppendPerson(person);
+                await _personProcess.AppendPerson(person);
 
             car.Color = carViewData.Color;
             car.StateNumber = carViewData.StateNumber;
@@ -115,6 +118,6 @@ namespace WebApplication.Models.Processes
         }
 
         // проверка на существование авто для работы с заявкой на ремонт
-        public async Task<bool> isSetCat(string stateNumber) => await _context.Cars.AnyAsync(c => c.StateNumber == stateNumber);
+        public async Task<bool> IsSetCat(string stateNumber) => await _context.Cars.AnyAsync(c => c.StateNumber == stateNumber);
     }
 }

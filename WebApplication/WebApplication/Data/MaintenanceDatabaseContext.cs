@@ -38,9 +38,9 @@ namespace WebApplication.Data
         public DbSet<WorkerStatus> WorkerStatuses { get; set; }
         // данные о пользователях
         public DbSet<User> Users { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            base.OnModelCreating(modelBuilder);
-        }
+        // данные о заявках на ремонт отправленных с сайта
+        public DbSet<PersonRequest> PersonRequests { get; set; }
+        // статусы заявок отправленных с сайта
+        public DbSet<PersonRequestStatus> PersonRequestStatuses { get; set; }
     }
 }

@@ -35,11 +35,15 @@ namespace Maintenance.Models.MaintenanceEntities
         // ссылка на работника
         public virtual Worker Worker { get; set; }
 
+        // ссылка на список обращений в сервисный центр
+        public virtual ICollection<PersonRequest> PersonRequests { get; set; }
+
         // машины во владении
         public virtual ICollection<Car> Cars { get; set; }
 
         // конструктор
         public Person() {
+            PersonRequests = new HashSet<PersonRequest>();
             Cars = new HashSet<Car>();
         }
     }

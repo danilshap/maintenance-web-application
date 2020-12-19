@@ -6,6 +6,4 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
   templateUrl: './client-form-page.component.html',
 })
 export class ClientFormPageComponent{
-  constructor() {
-  }
 }

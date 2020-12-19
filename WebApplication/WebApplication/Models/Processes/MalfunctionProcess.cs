@@ -18,18 +18,22 @@ namespace WebApplication.Models.Processes
 
         // выбор всех неисправностей
         public List<MalfunctionViewData> GetMalfunctionsData() =>
-            _context.Malfunctions.Include(m => m.Details).Select(m => new MalfunctionViewData(m, m.Details.ToList()))
+            _context.Malfunctions
+                .Include(m => m.Details)
+                .Select(m => new MalfunctionViewData(m, m.Details.ToList()))
                 .ToList();
 
         // выбор конкретной неисправности
         public MalfunctionViewData GetMalfunctionData(int id) {
-            Malfunction malfunction = _context.Malfunctions.Include(m => m.Details).FirstOrDefault(m => m.Id == id);
+            Malfunction malfunction = _context.Malfunctions
+                .Include(m => m.Details)
+                .FirstOrDefault(m => m.Id == id);
             if(malfunction == null) throw new Exception("Данная неисправность не была найдена");
             return new MalfunctionViewData(malfunction, malfunction.Details.ToList());
         }
 
         // добавление неисправности
-        public async void AppendMalfunction(MalfunctionViewData malfunctionViewData) {
+        public async Task AppendMalfunction(MalfunctionViewData malfunctionViewData) {
             // поиск неисправности. если мы находим неисправность, то ругаемся что данная неисправность уже существует
             Malfunction malfunction =
                 _context.Malfunctions.FirstOrDefault(m => String.Equals(m.Title, malfunctionViewData.Title, StringComparison.CurrentCultureIgnoreCase));
@@ -58,6 +62,6 @@ namespace WebApplication.Models.Processes
         }
 
         // проверка на существование неисправности для обработки для заявки на ремонт
-        public async Task<bool> isSetMalfunction(string title) => await _context.Malfunctions.AnyAsync(m => m.Title == title);
+        public async Task<bool> IsSetMalfunction(string title) => await _context.Malfunctions.AnyAsync(m => m.Title == title);
     }
 }

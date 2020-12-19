@@ -33,12 +33,12 @@ namespace WebApplication.Controllers.ControllersViewData
             // PUT: api/RepairOrderViewData/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public void PutRepairOrder(int id) => _repairOrderProcess.ChangeRepairOrderStatus(id);
+        public async Task PutRepairOrder(int id) => await _repairOrderProcess.ChangeRepairOrderStatus(id);
 
             // POST: api/RepairOrderViewData
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public void PostRepairOrder(RepairOrderViewData repairOrder) =>
-            _repairOrderProcess.AppendRepairOrder(repairOrder);
+        public async Task PostRepairOrder(RepairOrderViewData repairOrder) =>
+            await _repairOrderProcess.AppendRepairOrder(repairOrder);
     }
 }

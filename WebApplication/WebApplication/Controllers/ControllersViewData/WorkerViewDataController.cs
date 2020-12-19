@@ -33,10 +33,10 @@ namespace WebApplication.Controllers.ControllersViewData
         // POST: api/WorkerViewData
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public void PostWorker(WorkerViewData worker) => _workerProcess.AppendWorker(worker);
+        public async Task PostWorker(WorkerViewData worker) => await _workerProcess.AppendWorker(worker);
 
         // DELETE: api/WorkerViewData/5
         [HttpDelete("{id}")]
-        public void DeleteWorker(int id) => _workerProcess.SafeRemoveWorker(id);
+        public async Task DeleteWorker(int id) => await _workerProcess.SafeRemoveWorker(id);
     }
 }

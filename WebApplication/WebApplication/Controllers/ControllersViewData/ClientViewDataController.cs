@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Data;
 using WebApplication.Models.Processes;
@@ -28,14 +29,14 @@ namespace WebApplication.Controllers.ControllersViewData
         // PUT: api/ClientViewData/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public void PutClient(int id, ClientViewData client) {
+        public async Task PutClient(int id, ClientViewData client) {
             if (id != client.Id) throw new Exception("");
-            _process.ChangeClient(client);
+            await _process.ChangeClient(client);
         }
 
         // POST: api/ClientViewData
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public void PostClient(ClientViewData client) => _process.AppendClient(client);
+        public async Task PostClient(ClientViewData client) => await _process.AppendClient(client);
     }
 }

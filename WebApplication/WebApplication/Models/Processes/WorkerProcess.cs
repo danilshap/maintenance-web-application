@@ -20,7 +20,6 @@ namespace WebApplication.Models.Processes
             _personProcess = new PersonProcess(context);
         }
 
-
         // получить всех клиентов
         public List<WorkerViewData> GetWorkersData() =>
             _context.Workers.Select(w => new WorkerViewData(w, w.Person, w.Status, w.Specialty)).ToList();
@@ -36,7 +35,7 @@ namespace WebApplication.Models.Processes
         }
 
         // добавление нового работника
-        public async void AppendWorker(WorkerViewData workerViewData) {
+        public async Task AppendWorker(WorkerViewData workerViewData) {
             Person person = new Person {
                 Surname = workerViewData.Surname, Name = workerViewData.Name, Patronymic = workerViewData.Patronymic,
                 Passport = workerViewData.Passport
@@ -52,7 +51,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
                 p.Patronymic == person.Patronymic || p.Passport != person.Passport))
-                _personProcess.AppendPerson(person);
+                await _personProcess.AppendPerson(person);
 
             // ищем данные о статусе. если мы не находим, то кидаем исклчение
             WorkerStatus status = _context.WorkerStatuses.First(ws => ws.Status == workerViewData.Status);
@@ -77,7 +76,7 @@ namespace WebApplication.Models.Processes
         }
 
         // увольнение работника. по факту - изменение статуса
-        public async void SafeRemoveWorker(int id) {
+        public async Task SafeRemoveWorker(int id) {
             // поиск работника. Если мы не нашли его, говорим что работника не существует и что данные некорректны.
             Worker worker = _context.Workers.FirstOrDefault(w => w.Id == id);
             if(worker == null) throw new Exception("Данного работника не существует. Некорректные данные");

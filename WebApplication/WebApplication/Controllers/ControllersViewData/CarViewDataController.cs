@@ -33,14 +33,14 @@ namespace WebApplication.Controllers.ControllersViewData
         // PUT: api/CarViewData/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public void PutCar(int id, CarViewData car) {
+        public async Task PutCar(int id, CarViewData car) {
             if(id == car.Id) throw new Exception("Данного авто не существует");
-            _carProcess.ChangeCar(car);
+            await _carProcess.ChangeCar(car);
         }
 
         // POST: api/CarViewData
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public void PostCar(CarViewData car) => _carProcess.AppendCar(car);
+        public async Task PostCar(CarViewData car) => await _carProcess.AppendCar(car);
     }
 }

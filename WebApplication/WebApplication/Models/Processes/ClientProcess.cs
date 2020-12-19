@@ -19,28 +19,32 @@ namespace WebApplication.Models.Processes
             _personProcess = new PersonProcess(_context);
         }
 
-        // получить адрес по id
-        private Address GetAddress(int id) => _context.Addresses.FirstOrDefault(a => a.Id == id);
-
         // добавить адрес
-        private async void AppendAddress(Address address) {
+        private async Task AppendAddress(Address address) {
             _context.Addresses.Add(address);
             await _context.SaveChangesAsync();
         }
 
         // получить всех клиентов
         public List<ClientViewData> GetClientsData() =>
-            _context.Clients.Select(c => new ClientViewData(c, c.Person, c.Address)).ToList();
+            _context.Clients
+                .Include(c => c.Address)
+                .Include(c => c.Person)
+                .Select(c => new ClientViewData(c, c.Person, c.Address))
+                .ToList();
 
         // получить определенного клиента
         public ClientViewData GetClientData(int id) {
-            Client result = _context.Clients.FirstOrDefault(p => p.Id == id);
+            Client result = _context.Clients
+                .Include(c => c.Address)
+                .Include(c => c.Person)
+                .FirstOrDefault(p => p.Id == id);
             if (result == null) throw new Exception("Клиент не был найден");
-            return new ClientViewData(result, _personProcess.GetPerson(result.PersonId), GetAddress(result.AddressId));
+            return new ClientViewData(result, result.Person, result.Address);
         }
 
         // добавить нового клиента
-        public async void AppendClient(ClientViewData clientViewData) {
+        public async Task AppendClient(ClientViewData clientViewData) {
             // проверка данных по персоне
             Person person = new Person{
                 Surname = clientViewData.Surname,
@@ -59,7 +63,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
                 p.Patronymic == person.Patronymic || p.Passport != person.Passport))
-                _personProcess.AppendPerson(person);
+                await _personProcess.AppendPerson(person);
 
             // проверка данных по адресу
             Address address = new Address {
@@ -71,7 +75,7 @@ namespace WebApplication.Models.Processes
             // в случае если мы не нашли такой адрес, то мы просто будем добавлять его
             if (!_context.Addresses.Any(a =>
                 a.Street == address.Street && a.Building == address.Building && a.Flat == address.Flat))
-                AppendAddress(address);
+                await AppendAddress(address);
 
             // создание и добавление клиента в БД
             Client client = new Client {
@@ -85,7 +89,7 @@ namespace WebApplication.Models.Processes
         }
 
         // изменение данных клиента
-        public async void ChangeClient(ClientViewData clientViewData) {
+        public async Task ChangeClient(ClientViewData clientViewData) {
             // получаем клиента для изменения
             Client client = _context.Clients.First(c => c.Id == clientViewData.Id);
 
@@ -99,7 +103,7 @@ namespace WebApplication.Models.Processes
                 Passport = clientViewData.Passport
             }; 
             // изменение данных персоны
-            _personProcess.ChangePerson(person);
+            await _personProcess.ChangePerson(person);
 
             Address address = new Address {
                 Street = clientViewData.Street,
@@ -111,14 +115,14 @@ namespace WebApplication.Models.Processes
             // менять адрес или добавлять его
             // с одной стороны адрес может измениться только потому что у клиента изменилось место жительство
             // с другой стороны может быть была какая-то опечатка. Поэтому я поставлю добавление, так будет правильнее на мой взгляд
-            AppendAddress(address);
+            await AppendAddress(address);
 
             client.TelephoneNumber = clientViewData.TelephoneNumber;
             await _context.SaveChangesAsync();
         }
 
         // поиск клиента для обработки в заявке на ремонт
-        public async Task<bool> isSetClient(string passport) =>
+        public async Task<bool> IsSetClient(string passport) =>
             await _context.Clients.Include(c => c.Person).AnyAsync(c => c.Person.Passport == passport);
     }
 }

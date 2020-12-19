@@ -1,21 +1,113 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col">
-      <mat-horizontal-stepper linear>
-        <mat-step label="Shipping Address">
-          <p>Shipping Address Details</p>
-        </mat-step>
-        <mat-step label="Billing Address">
-          <p>Billing Address Details</p>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+      <h1>Оформление заявки на ремонт</h1>
+      <div class="card shadow mt-3">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md">
+              <div class="alert alert-info">
+                <h4>Информация для новых клиентов</h4>
+                <p class="text-justify">
+                  Заполнения данной формы и отправки ее нам, с вами созваняться
+                  для уточнения дополнительных сведений о <b>вас</b>,
+                  <b>вашем автомобиле</b> и <b>вашей проблеме</b>. После чего
+                  для вас подберется подходящий специалист под вашу проблему
+                </p>
+              </div>
+              <div class="alert alert-success">
+                <h4>Информация о паспорте</h4>
+                <p class="text-justify">
+                  Уважаемый клиент, если вы переживаете за ваши личные данные,
+                  то не стоит этого делать. Все данные конфеденциальны и паспорт
+                  упрощает работу системы и оператора нашего сервестного центра
+                </p>
+                <p class="text-justify">
+                  Если вы все же не доверяете нашему сайту, то пожалуйста
+                  обратитесь по телефону
+                  <a href="tel:+380660000000">+380660000000</a> для консультации
+                </p>
+              </div>
+            </div>
+            <div class="col-md">
+              <form>
+                <div class="form-group">
+                  <label for="">Имя:</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Укажите ваше имя"
+                    class="form-control"
+                    name="client_name"
+                    id="client_name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="client_surname">Фамилия:</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Укажите вашу фамилию"
+                    class="form-control"
+                    name="client_surname"
+                    id="client_surname"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="client_patronymic">Отчество:</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Укажите ваше отчество"
+                    class="form-control"
+                    name="client_patronymic"
+                    id="client_patronymic"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="client_passport">Серия и номер паспорта:</label>
+                  <input
+                    type="text"
+                    name="client_passport"
+                    id="client_passport"
+                    class="form-control"
+                    required
+                    placeholder="Пожалуйста, укажите вашу серию и номер паспорта"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="client_telephone">Номер телефона:</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="Укажите ваш номер телефона"
+                    class="form-control"
+                    name="client_telephone"
+                    id="client_telephone"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="client_problem">Опишите вашу проблему:</label>
+                  <textarea
+                    name="client_problem"
+                    id="client_problem"
+                    cols="30"
+                    rows="10"
+                    required
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <button type="submit" class="btn btn-success mr-1">
+                  Оформить
+                </button>
+                <button type="reset" class="btn btn-secondary m-1">
+                  Отмена
+                </button>
+              </form>
+            </div>
           </div>
-        </mat-step>
-        <mat-step label="Place Order">
-          <p>Order Details</p>
-        </mat-step>
-      </mat-horizontal-stepper>
+        </div>
+      </div>
     </div>
   </div>
 </div>
