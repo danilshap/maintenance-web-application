@@ -85,7 +85,7 @@ namespace WebApplication.Models.Processes
             for (int i = 0; i < repairOrderViewData.MalfunctionViewModels.Count; i++) 
                 repairOrder.Malfunctions.Add(_context.Malfunctions.FirstOrDefault(m =>
                     m.Title == repairOrderViewData.MalfunctionViewModels[i].Title));
-            
+
             // добавляем и сохраняем изменения
             _context.RepairOrders.Add(repairOrder);
             await _context.SaveChangesAsync();

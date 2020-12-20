@@ -383,8 +383,8 @@ namespace WebApplication.Data
                     Status = "В отпуске"
                 },
             };
-            foreach (var statuses in workerStatuses)
-                context.WorkerStatuses.Add(statuses);
+            foreach (var status in workerStatuses)
+                context.WorkerStatuses.Add(status);
 
             // создание работников - 2
             Worker[] workers = {
@@ -439,6 +439,12 @@ namespace WebApplication.Data
             };
             foreach (var order in repairOrders)
                 context.RepairOrders.Add(order);
+            var statuses = new List<PersonRequestStatus> {
+                new PersonRequestStatus {Title = "Необходимо перезвонить!"},
+                new PersonRequestStatus {Title = "Заявка оформлена"},
+                new PersonRequestStatus {Title = "Отмена оформления заявки на ремонт"}
+            };
+            context.PersonRequestStatuses.AddRange(statuses);
 
             context.SaveChanges();
         }

@@ -41,6 +41,8 @@ namespace WebApplication
                 options => options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")
                 ));
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,8 +65,7 @@ namespace WebApplication
                 options.AllowAnyOrigin().AllowAnyMethod();
             });
 
-            app.UseEndpoints(endpoints =>
-            {
+            app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
         }

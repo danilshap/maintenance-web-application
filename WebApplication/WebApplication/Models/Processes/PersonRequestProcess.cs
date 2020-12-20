@@ -36,5 +36,54 @@ namespace WebApplication.Models.Processes
             if(personRequest == null) throw new Exception("Данное обращение не было найдено");
             return new PersonRequestViewData(personRequest, personRequest.Person, personRequest.PersonRequestStatus);
         }
+
+        // добавление нового обращения
+        public async Task AppendPersonRequest(PersonRequestViewData personRequestViewData) {
+            Person person = new Person {
+                Surname = personRequestViewData.Surname,
+                Name = personRequestViewData.Name,
+                Patronymic = personRequestViewData.Patronymic,
+                Passport = personRequestViewData.Passport
+            };
+
+            // проверяем есть ли уже человек с таким паспортом но с другими ФИО. Если есть то мы будем кидать исключение
+            if (_context.Persons.Any(p =>
+                p.Passport == person.Passport && (p.Surname != person.Surname || p.Patronymic != person.Patronymic ||
+                                                  p.Name != person.Name)))
+                throw new Exception("Человек с таким паспортом уже существует. Проверьте корректность данных");
+
+            // если у нас нет такого человека с такими данными, то мы добавляем его
+            if (_context.Persons.Any(p =>
+                p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
+                p.Patronymic == person.Patronymic || p.Passport != person.Passport))
+                await _personProcess.AppendPerson(person);
+
+            PersonRequest personRequest = new PersonRequest {
+                PersonId = _context.Persons.First(p => p.Passport == person.Passport).Id,
+                PersonRequestStatusId = _context.PersonRequestStatuses.First(prs => prs.Title == "Необходимо перезвонить!").Id,
+                DescriptionOfTheProblem = personRequestViewData.DescriptionOfTheProblem,
+                TelephoneNumber = personRequestViewData.Telephone
+            };
+
+            _context.PersonRequests.Add(personRequest);
+            await _context.SaveChangesAsync();
+        }
+
+        // изменение заявки на перезвон
+        public async Task ChangePersonRequest(int id, string status) {
+            // поиск заявки
+            PersonRequest personRequest = _context.PersonRequests.FirstOrDefault(pr => pr.Id == id);
+            // если ее нет, то мы кидаем исключение
+            if(personRequest == null) throw new Exception("Данной заявки не существует");
+            // поиск статуса для заявки
+            PersonRequestStatus personRequestStatus =
+                _context.PersonRequestStatuses.FirstOrDefault(prs => prs.Title.Equals(status));
+            // если нет такого статуса то мы ругаемся
+            if(personRequestStatus == null) throw new Exception("Данного статуса не существует");
+
+            // изменяем статус
+            personRequest.PersonRequestStatusId = personRequestStatus.Id;
+            await _context.SaveChangesAsync();
+        }
     }
 }
