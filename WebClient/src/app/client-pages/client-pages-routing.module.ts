@@ -10,7 +10,7 @@ import { ClientTaskPageComponent } from './client-task-page/client-task-page.com
 @NgModule({
   imports: [
     RouterModule.forChild([
-      {path: '', redirectTo: 'client', pathMatch: 'full'},
+      {path: '', redirectTo: 'client/index', pathMatch: 'full'},
       {
         path: 'client', component: ClientHomePageComponent,
         children: [

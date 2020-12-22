@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from '../app-routing.module';
 import { MaterialModule } from '../material/material.module';
 
 import { ClientAboutPageComponent } from './client-about-page/client-about-page.component';

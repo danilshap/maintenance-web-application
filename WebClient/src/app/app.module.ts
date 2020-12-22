@@ -1,3 +1,4 @@
+import { AdminPagesModule } from './admin-pages/admin-pages.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -14,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     ClientPagesModule,
+    AdminPagesModule,
     BrowserAnimationsModule,
   ],
   providers: [],
