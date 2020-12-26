@@ -11,6 +11,6 @@ export class CarViewData{
     public surname: string, // фамилия владельца
     public name: string, // имя владельца
     public patronymic: string, // отчество владельца
-    public passprt: string // паспорт владельца
+    public passport: string // паспорт владельца
   ){}
 }

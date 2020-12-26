@@ -1,0 +1,41 @@
+<h2>Заявка на ремонт #{{ repairOrderViewData.id }}</h2>
+<div class="row mt-3">
+  <div class="col-md-4">
+    <p>
+      <b>Дата обращения:</b>
+      {{ repairOrderViewData.dateOfTheApplication.toLocaleDateString() }}
+    </p>
+    <p>
+      <b>Примерная дата завершения ремонта:</b>
+      {{ repairOrderViewData.dateOfCompletion.toLocaleDateString() }}
+    </p>
+    <p><b>Примерная стоимость ремонта:</b> {{ repairOrderViewData.price }}</p>
+    <p><b>Статус ремонта:</b> {{ repairOrderStatus() }}</p>
+    <button class="btn btn-warning">Редактировать</button>
+  </div>
+  <div class="col-md-8" class="d-flex align-content-start flex-wrap">
+    <div *ngFor="let malfunction of repairOrderViewData.malfunctionsViewData" class="ml-3">
+      <p>{{ malfunction.title }}</p>
+      <ul>
+        <div *ngFor="let detail of malfunction.details">
+          <li>{{ detail.title }} ({{ detail.price }} руб.)</li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <car-info
+    [carViewData]="repairOrderViewData.carViewData"
+    class="col-md-4 mt-2"
+  ></car-info>
+  <client-info
+    [clientViewData]="repairOrderViewData.clientViewData"
+    class="col-md-4 mt-2"
+  ></client-info>
+  <worker-info
+    [workerViewData]="repairOrderViewData.workerViewData"
+    class="col-md-4 mt-2"
+  ></worker-info>
+</div>

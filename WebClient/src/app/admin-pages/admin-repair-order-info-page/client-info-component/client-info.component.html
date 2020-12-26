@@ -1,0 +1,28 @@
+<div class="card border-primary h-100">
+  <div class="card-header bg-primary text-white d-flex justify-content-between">
+    <h5 class="block">Данные об клиенте</h5>
+    <button class="block btn btn-warning">
+      <i class="fas fa-edit"></i>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-5">
+        <p><b>Фамилия:</b> {{ clientViewData.surname }}</p>
+        <p><b>Имя:</b> {{ clientViewData.name }}</p>
+        <p><b>Отчество:</b> {{ clientViewData.patronymic }}</p>
+        <p><b>Паспорт:</b> {{ clientViewData.passport }}</p>
+      </div>
+      <div class="col-7">
+        <p>
+          <b>Дата рождения:</b> {{ clientViewData.dateOfBorn.toLocaleDateString() }}
+        </p>
+        <p><b>Номер телефона:</b> {{ clientViewData.telephoneNumber }}</p>
+        <p>
+          <b>Адрес проживания:</b> {{ clientViewData.street }}
+          {{ clientViewData.building }} {{ clientViewData.flat }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

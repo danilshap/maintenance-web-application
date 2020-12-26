@@ -6,9 +6,9 @@ export class WorkerViewData{
     public surname: string, // фамилия работника
     public name: string, // имя работника
     public patronymic: string, // отчество работника
-    public passprt: string, // паспорт работниках
+    public passport: string, // паспорт работниках
     public discharge: string, // разряд работниках
-    public WorkExperience: number, // опыт работы
+    public workExperience: number, // опыт работы
     public status: string, // статус работниках
     public specialty: string // специальнность работниках
   ) {}

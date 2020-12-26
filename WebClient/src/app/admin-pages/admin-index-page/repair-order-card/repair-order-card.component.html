@@ -1,0 +1,48 @@
+<div
+  class="card p-4 mt-2 mb-2 mr-2"
+  [class.border-success]="repairOrderViewData.isReady"
+>
+  <h4 class="text-primary">
+    Заявка №{{ repairOrderViewData.id }}
+    <span *ngIf="repairOrderViewData.isReady" class="text-success"
+      ><i class="fas fa-check-circle"></i
+    ></span>
+  </h4>
+  <div class="row">
+    <div class="col">
+      <p>
+        <b>Дата обращения:</b>
+        {{ repairOrderViewData.dateOfTheApplication.toLocaleDateString() }}
+      </p>
+      <p>
+        <b>Примерная дата завершения ремонта:</b>
+        {{ repairOrderViewData.dateOfCompletion.toLocaleDateString() }}
+      </p>
+      <p>
+        <b>Примерная стоимость ремонта:</b> {{ repairOrderViewData.price }}$
+      </p>
+      <p><b>Статус:</b> {{ repairOrderStatus() }}</p>
+      <p>
+        <b>Клиент:</b> {{ repairOrderViewData.clientViewData.surname }}
+        {{ repairOrderViewData.clientViewData.name }}
+        {{ repairOrderViewData.clientViewData.patronymic }}
+      </p>
+      <p>
+        <b>Автоммобиль:</b> {{ repairOrderViewData.carViewData.markTitle }}
+        {{ repairOrderViewData.carViewData.markModel }} [{{
+          repairOrderViewData.carViewData.stateNumber
+        }}]
+      </p>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col d-flex justify-content-between">
+      <button class="btn btn-success" (click)="completeRepair()">
+        Завершить ремонт
+      </button>
+      <button class="btn btn-info" (click)="moreInfoByOrder()">
+        <i class="fas fa-info-circle"></i>
+      </button>
+    </div>
+  </div>
+</div>

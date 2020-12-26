@@ -1,0 +1,24 @@
+<div class="card border-primary h-100">
+  <div class="card-header bg-primary text-white d-flex justify-content-between">
+    <h5 class="block">Данные об автомобиле</h5>
+    <button class="block btn btn-warning">
+      <i class="fas fa-edit"></i>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-5">
+        <p><b>Гос номер:</b> {{ carViewData.stateNumber }}</p>
+        <p><b>Марка:</b> {{ carViewData.markTitle }}</p>
+        <p><b>Модель:</b> {{ carViewData.markModel }}</p>
+        <p><b>Год выпуска:</b> {{ carViewData.yearOfIssue }}</p>
+      </div>
+      <div class="col-7">
+        <p><b>Фамилия владельца:</b> {{ carViewData.surname }}</p>
+        <p><b>Имя владельца:</b> {{ carViewData.name }}</p>
+        <p><b>Отчество владельца:</b> {{ carViewData.patronymic }}</p>
+        <p><b>Пасспорт владельца:</b> {{ carViewData.passport }}</p>
+      </div>
+    </div>
+  </div>
+</div>

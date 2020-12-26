@@ -1,0 +1,24 @@
+<div class="card border-primary h-100">
+  <div class="card-header bg-primary text-white d-flex justify-content-between">
+    <h5 class="block">Данные об работнике</h5>
+    <button class="block btn btn-warning">
+      <i class="fas fa-edit"></i>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <p><b>Фамилия:</b> {{ workerViewData.surname }}</p>
+        <p><b>Имя:</b> {{ workerViewData.name }}</p>
+        <p><b>Отчество:</b> {{ workerViewData.patronymic }}</p>
+        <p><b>Паспорт:</b> {{ workerViewData.passport }}</p>
+      </div>
+      <div class="col">
+        <p><b>Разряд работника:</b> {{ workerViewData.discharge }}</p>
+        <p><b>Опыт работы:</b> {{ workerViewData.workExperience }}</p>
+        <p><b>Специальность:</b> {{ workerViewData.specialty }}</p>
+        <p><b>Статус работника:</b> {{ workerViewData.status }}</p>
+      </div>
+    </div>
+  </div>
+</div>

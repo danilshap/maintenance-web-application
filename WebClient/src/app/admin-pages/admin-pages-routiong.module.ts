@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
 import { AdminIndexPageComponent } from './admin-index-page/admin-index-page.component';
+import { RepairOrderInfoPageComponent } from './admin-repair-order-info-page/admin-repair-order-info-page.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { AdminIndexPageComponent } from './admin-index-page/admin-index-page.com
         path: 'admin', component: AdminHomePageComponent,
         children: [
           {path: '', redirectTo: '/index', pathMatch: 'full'},
-          {path: 'index', component: AdminIndexPageComponent}
+          {path: 'index', component: AdminIndexPageComponent},
+          {path: 'repair_order/:id', component: RepairOrderInfoPageComponent},
         ]
       }
     ])

@@ -7,8 +7,12 @@ import { MaterialModule } from '../material/material.module';
 
 import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
 import { AdminIndexPageComponent } from './admin-index-page/admin-index-page.component';
-import { RepairOrderCardComponent } from './admin-index-page/repair-order-card.component';
+import { RepairOrderCardComponent } from './admin-index-page/repair-order-card/repair-order-card.component';
 import { AdminPagesRoutingModule } from './admin-pages-routiong.module';
+import { CarInfoComponent } from './admin-repair-order-info-page/car-info-component/car-info.component';
+import { ClientInfoComponent } from './admin-repair-order-info-page/client-info-component/client-info.component';
+import { WorkerInfoComponent } from './admin-repair-order-info-page/worker-info-component/worker-info.component';
+import { RepairOrderInfoPageComponent } from './admin-repair-order-info-page/admin-repair-order-info-page.component';
 
 @NgModule({
   imports: [
@@ -23,7 +27,11 @@ import { AdminPagesRoutingModule } from './admin-pages-routiong.module';
   declarations: [
     AdminIndexPageComponent,
     AdminHomePageComponent,
-    RepairOrderCardComponent
+    RepairOrderCardComponent,
+    RepairOrderInfoPageComponent,
+    CarInfoComponent,
+    ClientInfoComponent,
+    WorkerInfoComponent
   ],
   providers: [],
 })
