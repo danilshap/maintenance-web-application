@@ -13,6 +13,8 @@ import { CarInfoComponent } from './admin-repair-order-info-page/car-info-compon
 import { ClientInfoComponent } from './admin-repair-order-info-page/client-info-component/client-info.component';
 import { WorkerInfoComponent } from './admin-repair-order-info-page/worker-info-component/worker-info.component';
 import { RepairOrderInfoPageComponent } from './admin-repair-order-info-page/admin-repair-order-info-page.component';
+import { AdminPersonsRequestsPageComponent } from './admin-persons-requests-page/admin-persons-requests-page.component';
+import { PersonRequestCardComponent } from './admin-persons-requests-page/person-request-card/person-request-card.component';
 
 @NgModule({
   imports: [
@@ -27,8 +29,10 @@ import { RepairOrderInfoPageComponent } from './admin-repair-order-info-page/adm
   declarations: [
     AdminIndexPageComponent,
     AdminHomePageComponent,
+    AdminPersonsRequestsPageComponent,
     RepairOrderCardComponent,
     RepairOrderInfoPageComponent,
+    PersonRequestCardComponent,
     CarInfoComponent,
     ClientInfoComponent,
     WorkerInfoComponent

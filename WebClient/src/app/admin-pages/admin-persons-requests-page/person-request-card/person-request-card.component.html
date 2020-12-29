@@ -1,0 +1,20 @@
+<div class="card text-left mr-1 mt-1">
+  <div class="card-body">
+    <p class="card-text">
+      <b>Заявитель:</b> {{ request.surname }} {{ request.name }}
+      {{ request.patronymic }}
+    </p>
+    <p class="card-text"><b>Номпер телефона:</b> {{ request.telephone }}</p>
+    <p class="card-text">
+      <b>Проблема:</b> {{ request.descriptionOfTheProblem }}
+    </p>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-success m-1">
+      Оформить заявку на ремонт
+    </button>
+    <button class="btn btn-danger m-1">
+      Отклонить оформление
+    </button>
+  </div>
+</div>
