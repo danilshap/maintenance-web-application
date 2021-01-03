@@ -18,6 +18,10 @@ import { PersonRequestCardComponent } from './admin-persons-requests-page/person
 import { AdminReportsPageComponent } from './admin-reports-page/admin-reports-page.component';
 import { AdminClientsTableDataPageComponent } from './admin-clients-table-data-page/admin-clients-table-data-page.component';
 import { AdminCarsTableDataPageComponent } from './admin-cars-table-data-page/admin-cars-table-data-page.component';
+import { AdminWorkersTableDataPageComponent } from './admin-workers-table-data-page/admin-workers-table-data-page.component';
+import { ClientsTableRowComponent } from './admin-clients-table-data-page/clients-table-row/clients-table-row.component';
+import { CarsTableRowComponent } from './admin-cars-table-data-page/cars-table-row/cars-table-row.component';
+import { WorkersTableRowComponent } from './admin-workers-table-data-page/workers-table-row/workers-table-row.component';
 
 @NgModule({
   imports: [
@@ -38,8 +42,11 @@ import { AdminCarsTableDataPageComponent } from './admin-cars-table-data-page/ad
     PersonRequestCardComponent,
     AdminReportsPageComponent,
     AdminClientsTableDataPageComponent,
+    ClientsTableRowComponent,
     AdminCarsTableDataPageComponent,
-    AdminClientsTableDataPageComponent,
+    CarsTableRowComponent,
+    AdminWorkersTableDataPageComponent,
+    WorkersTableRowComponent,
     CarInfoComponent,
     ClientInfoComponent,
     WorkerInfoComponent
