@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class AdminHomePageComponent {
   constructor(private router: Router){}
 
+  // переход на строаницу авторизации
   logout(): void{
     this.router.navigate(['login']);
   }

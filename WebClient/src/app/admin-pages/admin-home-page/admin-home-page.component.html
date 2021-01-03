@@ -49,30 +49,30 @@
         data-parent="#accordionSidebar"
       >
         <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="">Адреса</a>
-          <a class="collapse-item" href="">Машины</a>
-          <a class="collapse-item" href="">Клиенты</a>
-          <a class="collapse-item" href="">Детали</a>
-          <a class="collapse-item" href="">Неисправности</a>
-          <a class="collapse-item" href="">Модели авто</a>
-          <a class="collapse-item" href="">Персоны</a>
-          <a class="collapse-item text-wrap" href=""
+          <a class="collapse-item bg-warning" href="#">Адреса</a>
+          <a class="collapse-item" routerLink="cars_table">Машины</a>
+          <a class="collapse-item" routerLink="clients_table">Клиенты</a>
+          <a class="collapse-item bg-warning" href="">Детали</a>
+          <a class="collapse-item bg-warning" href="">Неисправности</a>
+          <a class="collapse-item bg-warning" href="">Модели авто</a>
+          <a class="collapse-item bg-warning" href="">Персоны</a>
+          <a class="collapse-item text-wrap bg-warning" href=""
             >Обращения в сервисный центр</a
           >
-          <a class="collapse-item text-wrap" href=""
+          <a class="collapse-item text-wrap bg-warning" href=""
             >Статусы обращений в сервисный центр</a
           >
           <a class="collapse-item text-wrap" href="">Заявки на ремонт</a>
-          <a class="collapse-item text-wrap" href=""
+          <a class="collapse-item text-wrap bg-warning" href=""
             >Специальности работников</a
           >
-          <a class="collapse-item" href="">Работники</a>
-          <a class="collapse-item" href="">Статусы работников</a>
+          <a class="collapse-item" routerLink="workers_table">Работники</a>
+          <a class="collapse-item bg-warning" href="">Статусы работников</a>
         </div>
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="">
+      <a class="nav-link" routerLink="reports">
         <i class="fas fa-fw fa-table"></i>
         <span>Отчеты</span></a
       >
@@ -126,7 +126,9 @@
                 Новые обращения от пользователей
               </h6>
 
-              <a class="dropdown-item text-center small text-gray-500" href="#"
+              <a
+                class="dropdown-item text-center small text-gray-500"
+                routerLink="requests"
                 >Больше обращений</a
               >
             </div>
