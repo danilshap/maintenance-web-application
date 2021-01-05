@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col">
+    <h1>Добавление нового клиента</h1>
+    <form class="shadow mt-3 p-3" method="post">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="surname">Фамилия:</label>
+            <input
+              type="text"
+              name="surname"
+              id="surname"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Имя:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="patronymic">Отчество:</label>
+            <input
+              type="text"
+              id="patronymic"
+              name="patronymic"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="passport">Паспорт:</label>
+            <input
+              type="text"
+              id="passport"
+              name="passport"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="dateOfBorn">Дата рождения:</label>
+            <input
+              type="date"
+              id="dateOfBorn"
+              name="dateOfBorn"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="telephoneNumber">Номер телефона:</label>
+            <input
+              type="tel"
+              id="telephoneNumber"
+              name="telephoneNumber"
+              class="form-control"
+              required
+            />
+          </div>
+          <hr />
+          <h5 class="text-muted">Адрес проживания</h5>
+          <div class="form-group">
+            <label for="street">Улица:</label>
+            <input
+              type="text"
+              id="street"
+              name="street"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="building">Здание:</label>
+            <input
+              type="text"
+              id="building"
+              name="building"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="flat">Квартира:</label>
+            <input type="number" id="flat" name="flat" class="form-control" />
+          </div>
+          <button type="submit" class="btn btn-success mr-1">Добавить</button>
+          <button type="reset" class="btn btn-secondary">Отмена</button>
+        </div>
+        <div class="col-md-6">
+          <div *ngIf="exeption !== ''" class="alert alert-danger">
+            <h4>Ошибка!</h4>
+            <p>
+              {{ exeption }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

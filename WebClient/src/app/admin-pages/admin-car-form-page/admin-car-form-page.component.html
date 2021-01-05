@@ -1,0 +1,114 @@
+<div class="row">
+  <div class="col">
+    <h1>Добавление нового авотмобиля</h1>
+    <form class="shadow mt-3 p-3" method="post">
+      <div class="row">
+        <div class="col-md-6">
+          <h5 class="text-muted">Данные автомобиля</h5>
+          <div class="form-group">
+            <label for="stateNumber">Гос. номер авто:</label>
+            <input
+              type="text"
+              name="stateNumber"
+              id="stateNumber"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="color">Цвет:</label>
+            <input
+              type="text"
+              name="color"
+              id="color"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="yearOfIssue">Год выпуска автомобиля:</label>
+            <input
+              type="number"
+              name="yearOfIssue"
+              id="yearOfIssue"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="markTitle">Марка автомобиля:</label>
+            <input
+              type="text"
+              name="markTitle"
+              id="markTitle"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="markModel">Модель автомобиля:</label>
+            <input
+              type="text"
+              name="markModel"
+              id="markModel"
+              class="form-control"
+              required
+            />
+          </div>
+          <hr />
+          <h5 class="text-muted">Данные о владельце</h5>
+          <div class="form-group">
+            <label for="surnameOwner">Фамилия владельца:</label>
+            <input
+              type="text"
+              name="surnameOwner"
+              id="surnameOwner"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="nameOwner">Имя владельца:</label>
+            <input
+              type="text"
+              name="nameOwner"
+              id="nameOwner"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="patronymicOwner">Отчество владельца:</label>
+            <input
+              type="text"
+              name="patronymicOwner"
+              id="patronymicOwner"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="passportOwner">Паспорт владельца:</label>
+            <input
+              type="text"
+              name="passportOwner"
+              id="passportOwner"
+              class="form-control"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-success mr-1">Добавить</button>
+          <button type="reset" class="btn btn-secondary">Отмена</button>
+        </div>
+        <div class="col-md-6">
+          <div *ngIf="exeption !== ''" class="alert alert-danger">
+            <h4>Ошибка!</h4>
+            <p>
+              {{ exeption }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

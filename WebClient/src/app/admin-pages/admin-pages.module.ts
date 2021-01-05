@@ -22,6 +22,9 @@ import { AdminWorkersTableDataPageComponent } from './admin-workers-table-data-p
 import { ClientsTableRowComponent } from './admin-clients-table-data-page/clients-table-row/clients-table-row.component';
 import { CarsTableRowComponent } from './admin-cars-table-data-page/cars-table-row/cars-table-row.component';
 import { WorkersTableRowComponent } from './admin-workers-table-data-page/workers-table-row/workers-table-row.component';
+import { AdminCarFormPageComponent } from './admin-car-form-page/admin-car-form-page.component';
+import { AdminClientFormPageComponent } from './admin-client-form-page/admin-client-form-page.component';
+import { AdminWorkerFormPageComponent } from './admin-worker-form-page/admin-worker-form-page.component';
 
 @NgModule({
   imports: [
@@ -49,7 +52,10 @@ import { WorkersTableRowComponent } from './admin-workers-table-data-page/worker
     WorkersTableRowComponent,
     CarInfoComponent,
     ClientInfoComponent,
-    WorkerInfoComponent
+    WorkerInfoComponent,
+    AdminCarFormPageComponent,
+    AdminClientFormPageComponent,
+    AdminWorkerFormPageComponent
   ],
   providers: [],
 })
