@@ -1,0 +1,247 @@
+<div class="row">
+  <div class="col">
+    <div class="shadow p-3">
+      <h1>Оформление новой заявки</h1>
+      <hr />
+      <form>
+        <h4 class="text-muted">Данные клиента</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <p class="text-muted">Личные данные</p>
+            <div class="form-group">
+              <label for="client_surname">Фамилия:</label>
+              <input
+                type="text"
+                id="client_surname"
+                class="form-control"
+                name="client_surname"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="client_name">Имя:</label>
+              <input
+                type="text"
+                id="client_name"
+                class="form-control"
+                name="client_name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="client_patronymic">Отчество:</label>
+              <input
+                type="text"
+                id="client_patronymic"
+                class="form-control"
+                name="client_patronymic"
+                required
+              />
+            </div>
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="client_passport">Паспорт:</label>
+                  <input
+                    type="text"
+                    id="client_passport"
+                    class="form-control"
+                    name="client_passport"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="client_dateOfBorn">Дата рождения:</label>
+                  <input
+                    type="date"
+                    id="client_dateOfBorn"
+                    class="form-control"
+                    name="client_dateOfBorn"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="client_telephoneNumber">Номер телефона:</label>
+              <input
+                type="text"
+                id="client_telephoneNumber"
+                class="form-control"
+                name="client_telephoneNumber"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  formControlName="isClientOwner"
+                  id="isOwner"
+                  required
+                />
+                <label class="form-check-label" for="isOwner">
+                  <b>Владелец авто</b>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <p class="text-muted">Адрес проживания клиента</p>
+            <div class="form-group">
+              <label for="client_street">Улица:</label>
+              <input
+                type="text"
+                id="client_street"
+                class="form-control"
+                name="client_street"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="client_building">Дом:</label>
+              <input
+                type="text"
+                id="client_building"
+                class="form-control"
+                name="client_building"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="client_flat">Квартира:</label>
+              <input
+                type="text"
+                id="client_flat"
+                class="form-control"
+                name="client_flat"
+              />
+            </div>
+          </div>
+        </div>
+        <hr />
+        <h4 class="text-muted">Данные автомобиля</h4>
+        <div class="alert alert-info">
+          <b>Информация!</b> Если клиент является владельцем авто, то для этого
+          поставтье галочку в графе "Вледелец авто", в части где указывается
+          личные данные клиента.
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p class="text-muted">Описание автомобиля:</p>
+            <div class="form-group">
+              <label for="stateNumber">Гос. номер:</label>
+              <input
+                type="text"
+                id="stateNumber"
+                class="form-control"
+                name="stateNumber"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="model">Модель:</label>
+              <input
+                type="text"
+                id="model"
+                class="form-control"
+                name="model"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="mark">Марка:</label>
+              <input
+                type="text"
+                id="mark"
+                class="form-control"
+                name="mark"
+                required
+              />
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="yearOfIssue">Год выпуска:</label>
+                  <input
+                    type="number"
+                    id="yearOfIssue"
+                    class="form-control"
+                    name="yearOfIssue"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="color">Цвет:</label>
+                  <input
+                    type="text"
+                    id="color"
+                    class="form-control"
+                    name="color"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <p class="text-muted">Данные владельца автомобиля:</p>
+            <div [ngSwitch]="isClientOwner">
+              <div *ngSwitchCase="true" class="alert alert-success">
+                Клиент является владельцем авто. Данные о владельце повторно
+                указывать <b>не нужно</b>
+              </div>
+              <div *ngSwitchCase="false">
+                <div class="form-group">
+                  <label for="owner_surname">Фамилия:</label>
+                  <input
+                    type="text"
+                    id="owner_surname"
+                    class="form-control"
+                    name="owner_surname"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="owner_name">Имя:</label>
+                  <input
+                    type="text"
+                    id="owner_name"
+                    class="form-control"
+                    name="owner_name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="owner-patronymic">Отчество:</label>
+                  <input
+                    type="text"
+                    id="owner-patronymic"
+                    class="form-control"
+                    name="owner-patronymic"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="owner_passport">Паспорт:</label>
+                  <input
+                    type="text"
+                    id="owner_passport"
+                    class="form-control"
+                    name="owner_passport"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

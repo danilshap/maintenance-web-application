@@ -5,6 +5,7 @@ import { ClientViewData } from 'src/models/view-data/client-view-data';
 import { WorkerViewData } from 'src/models/view-data/worker-view-data';
 import { MalfunctionViewData } from 'src/models/view-data/malfunction-view-data';
 import { Detail } from 'src/models/entities/detail';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'admin-index-page',
@@ -12,7 +13,7 @@ import { Detail } from 'src/models/entities/detail';
 })
 export class AdminIndexPageComponent {
   repairOrdersViewData: RepairOrderViewData[];
-  constructor() {
+  constructor(private router: Router) {
     this.repairOrdersViewData = [
       new RepairOrderViewData(1, new Date(), 1, new Date(), false,
       new ClientViewData(
@@ -102,6 +103,10 @@ export class AdminIndexPageComponent {
           1, 'title', 1, [new Detail(1, 'title', 1, []), new Detail(1, 'title', 1, []), new Detail(1, 'title', 1, [])]
         )
       ])];
+  }
+
+  appendNewRepeirOrder(): void {
+    this.router.navigate(['admin/repair_order_form']);
   }
 }
 

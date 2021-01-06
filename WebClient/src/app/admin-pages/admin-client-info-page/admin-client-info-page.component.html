@@ -7,7 +7,7 @@
           <p><b>Фамилия:</b></p>
         </div>
         <div class="col-md-10">
-          <p>{{ workerViewData.surname }}</p>
+          <p>{{ clientViewData.surname }}</p>
         </div>
       </div>
       <div class="row">
@@ -15,7 +15,7 @@
           <p><b>Имя:</b></p>
         </div>
         <div class="col-md-10">
-          <p>{{ workerViewData.name }}</p>
+          <p>{{ clientViewData.name }}</p>
         </div>
       </div>
       <div class="row">
@@ -23,7 +23,7 @@
           <p><b>Отчество:</b></p>
         </div>
         <div class="col-md-10">
-          <p>{{ workerViewData.patronymic }}</p>
+          <p>{{ clientViewData.patronymic }}</p>
         </div>
       </div>
       <div class="row">
@@ -31,31 +31,31 @@
           <p><b>Паспорт:</b></p>
         </div>
         <div class="col-md-10">
-          <p>{{ workerViewData.passport }}</p>
+          <p>{{ clientViewData.passport }}</p>
         </div>
       </div>
       <div class="row">
         <div class="col-md-2">
-          <p><b>Разряд:</b></p>
+          <p><b>Дата рождения:</b></p>
         </div>
         <div class="col-md-10">
-          <p>{{ workerViewData.discharge }}</p>
+          <p>{{ clientViewData.dateOfBorn.toLocaleDateString() }}</p>
         </div>
       </div>
       <div class="row">
         <div class="col-md-2">
-          <p><b>Опыт работы:</b></p>
+          <p><b>Номер телефона:</b></p>
         </div>
         <div class="col-md-10">
-          <p>{{ workerViewData.workExperience }}</p>
+          <p>{{ clientViewData.telephoneNumber }}</p>
         </div>
       </div>
       <div class="row">
         <div class="col-md-2">
-          <p><b>Статус:</b></p>
+          <p><b>Улица проживания:</b></p>
         </div>
         <div class="col-md-10">
-          <p>{{ workerViewData.status }}</p>
+          <p>{{ clientViewData.street }}</p>
         </div>
       </div>
       <div class="row">
@@ -63,7 +63,15 @@
           <p><b>Дом:</b></p>
         </div>
         <div class="col-md-10">
-          <p>{{ workerViewData.specialty }}</p>
+          <p>{{ clientViewData.building }}</p>
+        </div>
+      </div>
+      <div class="row" *ngIf="{{ clientViewData.flat !== undefined }}">
+        <div class="col-md-2">
+          <p><b>Квартира:</b></p>
+        </div>
+        <div class="col-md-10">
+          <p>{{ clientViewData.flat }}</p>
         </div>
       </div>
     </div>

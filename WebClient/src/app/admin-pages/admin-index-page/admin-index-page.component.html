@@ -1,39 +1,54 @@
 <div class="row">
   <div class="col-md-3 mb-4">
     <div class="card border-left-info shadow h-100 py-2">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Количество свободных рабочих</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas fa-user-tie fa-2x text-gray-300"></i>
-                </div>
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div
+              class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+            >
+              Количество свободных рабочих
             </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
+          </div>
         </div>
+      </div>
     </div>
   </div>
   <div class="col-md-3 mb-4">
     <div class="card border-left-info shadow h-100 py-2">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Количество автомобилей на ремонте</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas fa-car fa-2x text-gray-300"></i>
-                </div>
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div
+              class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+            >
+              Количество автомобилей на ремонте
             </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-car fa-2x text-gray-300"></i>
+          </div>
         </div>
+      </div>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col">
-    <h3>Заявки на ремонт</h3>
-    <div class="d-flex align-content-start flex-wrap">
+    <div>
+      <h3>
+        Заявки на ремонт
+        <button class="btn btn-success" (click)="appendNewRepeirOrder()">
+          <i class="fas fa-plus"></i>
+        </button>
+      </h3>
+    </div>
+    <div class="d-flex align-outline-start flex-wrap">
       <div *ngFor="let item of repairOrdersViewData" class="w-25">
         <repair-order-component
           [repairOrderViewData]="item"

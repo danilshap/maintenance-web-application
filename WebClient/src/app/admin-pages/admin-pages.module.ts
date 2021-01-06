@@ -25,6 +25,7 @@ import { WorkersTableRowComponent } from './admin-workers-table-data-page/worker
 import { AdminCarFormPageComponent } from './admin-car-form-page/admin-car-form-page.component';
 import { AdminClientFormPageComponent } from './admin-client-form-page/admin-client-form-page.component';
 import { AdminWorkerFormPageComponent } from './admin-worker-form-page/admin-worker-form-page.component';
+import { AdminRepairOrderFormPageComponent } from './admin-reoair-order-form-page/admin-repair-order-form-page.component';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { AdminWorkerFormPageComponent } from './admin-worker-form-page/admin-wor
     WorkerInfoComponent,
     AdminCarFormPageComponent,
     AdminClientFormPageComponent,
-    AdminWorkerFormPageComponent
+    AdminWorkerFormPageComponent,
+    AdminRepairOrderFormPageComponent
   ],
   providers: [],
 })
