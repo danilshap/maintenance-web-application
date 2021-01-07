@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Maintenance.Models.MaintenanceEntities;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
+using WebApplication.Models.Utils;
 using WebApplication.Models.ViewData;
 
 namespace WebApplication.Models.Processes
@@ -28,7 +29,7 @@ namespace WebApplication.Models.Processes
             Malfunction malfunction = _context.Malfunctions
                 .Include(m => m.Details)
                 .FirstOrDefault(m => m.Id == id);
-            if(malfunction == null) throw new Exception("Данная неисправность не была найдена");
+            if(malfunction == null) throw new WebApiException("Данная неисправность не была найдена");
             return new MalfunctionViewData(malfunction, malfunction.Details.ToList());
         }
 
@@ -37,7 +38,7 @@ namespace WebApplication.Models.Processes
             // поиск неисправности. если мы находим неисправность, то ругаемся что данная неисправность уже существует
             Malfunction malfunction =
                 _context.Malfunctions.FirstOrDefault(m => String.Equals(m.Title, malfunctionViewData.Title, StringComparison.CurrentCultureIgnoreCase));
-            if(malfunction != null) throw new Exception("Данная неисправность уже существует. Добавить еще одну такую же невозможно");
+            if(malfunction != null) throw new WebApiException("Данная неисправность уже существует. Добавить еще одну такую же невозможно");
 
             // создаем неисправность
             malfunction = new Malfunction{TimeToFix = malfunctionViewData.TimeToFix, Title = malfunctionViewData.Title, Details = new List<Detail>()};

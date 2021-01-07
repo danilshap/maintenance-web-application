@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Maintenance.Models.MaintenanceEntities;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
+using WebApplication.Models.Utils;
 using WebApplication.Models.ViewData;
+using WebApplication.Models.ViewForm;
 
 namespace WebApplication.Models.Processes
 {
@@ -44,47 +46,45 @@ namespace WebApplication.Models.Processes
         public RepairOrderViewData GetRepairOrderData(int id) {
             if (_context.RepairOrders.Any(ro => ro.Id == id))
                 return GetRepairOrdersData().First(ro => ro.Id == id);
-            throw new Exception("К сожалению, данные недействительны");
+            throw new WebApiException("К сожалению, данные недействительны");
         }
 
         // добавление нового заказа
-        public async Task AppendRepairOrder(RepairOrderViewData repairOrderViewData) {
+        public async Task AppendRepairOrder(RepairOrderViewForm repairOrderViewForm) {
             // поиск авто. если не нашли то добавляем его
-            if (!_carProcess.IsSetCat(repairOrderViewData.CarViewData.StateNumber).Result)
-                await _carProcess.AppendCar(repairOrderViewData.CarViewData);
+            if (!_carProcess.IsSetCat(repairOrderViewForm.CarViewData.StateNumber).Result)
+                await _carProcess.AppendCar(repairOrderViewForm.CarViewData);
             // после добавления находим это авто
-            Car car = _context.Cars.FirstOrDefault(c => c.StateNumber == repairOrderViewData.CarViewData.StateNumber);
+            Car car = _context.Cars.FirstOrDefault(c => c.StateNumber == repairOrderViewForm.CarViewData.StateNumber);
             // после поиска второй раз убеждаемся что мы все нашли и что все хорошо
-            if(car == null) throw new Exception("Данного авто не существует. Данные недействительны");
+            if(car == null) throw new WebApiException("Данного авто не существует. Данные недействительны");
 
             // поиск клиента. если не нашли, то добавляем
-            if (!_clientProcess.IsSetClient(repairOrderViewData.ClientViewData.Passport).Result)
-                await _clientProcess.AppendClient(repairOrderViewData.ClientViewData);
+            if (!_clientProcess.IsSetClient(repairOrderViewForm.ClientViewData.Passport).Result)
+                await _clientProcess.AppendClient(repairOrderViewForm.ClientViewData);
             // поиск после добавления клиента
             Client client = _context.Clients.Include(c => c.Person)
-                .FirstOrDefault(c => c.Person.Passport == repairOrderViewData.ClientViewData.Passport);
+                .FirstOrDefault(c => c.Person.Passport == repairOrderViewForm.ClientViewData.Passport);
             // убеждаемся что мы все нашли и что добавление прошло успешно
-            if(client == null) throw new Exception("Данного клиента не существует. Данные недействительны");
+            if(client == null) throw new WebApiException("Данного клиента не существует. Данные недействительны");
 
             // поиск работника. если не нашли, то добавляем
-            if (!_workerProcess.isSetWorker(repairOrderViewData.WorkerViewData.Passport).Result)
-                await _workerProcess.AppendWorker(repairOrderViewData.WorkerViewData);
-            // поиск после добавления работника
-            Worker worker = _context.Workers.Include(w => w.Person)
-                .FirstOrDefault(w => w.Person.Passport == repairOrderViewData.WorkerViewData.Passport);
-            // убеждаемся что мы все нашли и что добавление прошло успешно
-            if(worker == null) throw new Exception("Данного работника не существует. Данные недействительны");
+            string[] wokerData = repairOrderViewForm.Worker.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            Worker worker = _context.Workers.Include(w => w.Person).FirstOrDefault(w =>
+                w.Person.Surname == wokerData[0] && w.Person.Name == wokerData[1] &&
+                w.Person.Patronymic == wokerData[2]);
+            if(worker == null) throw new WebApiException("Данного работника не существует. Данные недействительны");
 
             // создание новой заявки
             RepairOrder repairOrder = new RepairOrder {
-                DateOfTheApplication = repairOrderViewData.DateOfTheApplication, IsReady = repairOrderViewData.IsReady,
+                DateOfTheApplication = DateTime.Now, IsReady = false,
                 CarId = car.Id, ClientId = client.Id, WorkerId = worker.Id
             };
 
             // добавляем неисправности
-            for (int i = 0; i < repairOrderViewData.MalfunctionViewModels.Count; i++) 
+            for (int i = 0; i < repairOrderViewForm.MalfunctionViewModels.Count; i++) 
                 repairOrder.Malfunctions.Add(_context.Malfunctions.FirstOrDefault(m =>
-                    m.Title == repairOrderViewData.MalfunctionViewModels[i].Title));
+                    m.Title == repairOrderViewForm.MalfunctionViewModels[i].Title));
 
             // добавляем и сохраняем изменения
             _context.RepairOrders.Add(repairOrder);
@@ -94,7 +94,7 @@ namespace WebApplication.Models.Processes
         // завершение заказа
         public async Task ChangeRepairOrderStatus(int id) {
             RepairOrder repairOrder = _context.RepairOrders.FirstOrDefault(ro => ro.Id == id);
-            if(repairOrder == null) throw new Exception("Заявка на ремонт отсутствует. Данные недействительны");
+            if(repairOrder == null) throw new WebApiException("Заявка на ремонт отсутствует. Данные недействительны");
             repairOrder.IsReady = true;
             await _context.SaveChangesAsync();
         }

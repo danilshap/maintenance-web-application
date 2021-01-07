@@ -9,6 +9,7 @@ using Maintenance.Models.MaintenanceEntities;
 using WebApplication.Data;
 using WebApplication.Models.Processes;
 using WebApplication.Models.ViewData;
+using WebApplication.Models.ViewForm;
 
 namespace WebApplication.Controllers.ControllersViewData
 {
@@ -30,15 +31,15 @@ namespace WebApplication.Controllers.ControllersViewData
         [HttpGet("{id}")]
         public RepairOrderViewData GetRepairOrder(int id) => _repairOrderProcess.GetRepairOrderData(id);
 
-            // PUT: api/RepairOrderViewData/5
+        // PUT: api/RepairOrderViewData/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task PutRepairOrder(int id) => await _repairOrderProcess.ChangeRepairOrderStatus(id);
 
-            // POST: api/RepairOrderViewData
+        // POST: api/RepairOrderViewData
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task PostRepairOrder(RepairOrderViewData repairOrder) =>
+        public async Task PostRepairOrder(RepairOrderViewForm repairOrder) =>
             await _repairOrderProcess.AppendRepairOrder(repairOrder);
     }
 }

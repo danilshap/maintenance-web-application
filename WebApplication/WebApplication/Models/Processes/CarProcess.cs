@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Maintenance.Models.MaintenanceEntities;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
+using WebApplication.Models.Utils;
 using WebApplication.Models.ViewData;
 
 namespace WebApplication.Models.Processes
@@ -36,7 +37,7 @@ namespace WebApplication.Models.Processes
                 .Include(c => c.Mark)
                 .Include(c => c.Owner)
                 .FirstOrDefault(p => p.Id == id);
-            if (result == null) throw new Exception("Авто не было найдено");
+            if (result == null) throw new WebApiException("Авто не было найдено");
             return new CarViewData(result, result.Owner, result.Mark);
         }
 
@@ -54,7 +55,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && (p.Surname != person.Surname || p.Patronymic != person.Patronymic ||
                                                   p.Name != person.Name)))
-                throw new Exception("Человек с таким паспортом уже существует. Проверьте корректность данных");
+                throw new WebApiException("Человек с таким паспортом уже существует. Проверьте корректность данных");
 
             // если у нас нет такого человека с такими данными, то мы добавляем его
             if (_context.Persons.Any(p =>
@@ -90,7 +91,7 @@ namespace WebApplication.Models.Processes
             // получаем клиента для изменения
             Car car = _context.Cars.First(c => c.Id == carViewData.Id);
 
-            if (car == null) throw new Exception("Автомобиль не был найден");
+            if (car == null) throw new WebApiException("Автомобиль не был найден");
 
             // создание человека
             Person person = new Person {
@@ -103,7 +104,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && (p.Surname != person.Surname || p.Patronymic != person.Patronymic ||
                                                   p.Name != person.Name)))
-                throw new Exception("Человек с таким паспортом уже существует. Проверьте корректность данных");
+                throw new WebApiException("Человек с таким паспортом уже существует. Проверьте корректность данных");
 
             // если у нас нет такого человека с такими данными, то мы добавляем его
             if (_context.Persons.Any(p =>

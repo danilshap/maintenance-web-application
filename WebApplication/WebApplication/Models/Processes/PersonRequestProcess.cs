@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Maintenance.Models.MaintenanceEntities;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
+using WebApplication.Models.Utils;
 using WebApplication.Models.ViewData;
 
 namespace WebApplication.Models.Processes
@@ -33,7 +34,7 @@ namespace WebApplication.Models.Processes
                     .Include(pr => pr.Person)
                     .Include(pr => pr.PersonRequestStatus)
                     .FirstOrDefault(pr => pr.Id == id);
-            if(personRequest == null) throw new Exception("Данное обращение не было найдено");
+            if(personRequest == null) throw new WebApiException("Данное обращение не было найдено");
             return new PersonRequestViewData(personRequest, personRequest.Person, personRequest.PersonRequestStatus);
         }
 
@@ -50,7 +51,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && (p.Surname != person.Surname || p.Patronymic != person.Patronymic ||
                                                   p.Name != person.Name)))
-                throw new Exception("Человек с таким паспортом уже существует. Проверьте корректность данных");
+                throw new WebApiException("Человек с таким паспортом уже существует. Проверьте корректность данных");
 
             // если у нас нет такого человека с такими данными, то мы добавляем его
             if (_context.Persons.Any(p =>
@@ -74,12 +75,12 @@ namespace WebApplication.Models.Processes
             // поиск заявки
             PersonRequest personRequest = _context.PersonRequests.FirstOrDefault(pr => pr.Id == id);
             // если ее нет, то мы кидаем исключение
-            if(personRequest == null) throw new Exception("Данной заявки не существует");
+            if(personRequest == null) throw new WebApiException("Данной заявки не существует");
             // поиск статуса для заявки
             PersonRequestStatus personRequestStatus =
                 _context.PersonRequestStatuses.FirstOrDefault(prs => prs.Title.Equals(status));
             // если нет такого статуса то мы ругаемся
-            if(personRequestStatus == null) throw new Exception("Данного статуса не существует");
+            if(personRequestStatus == null) throw new WebApiException("Данного статуса не существует");
 
             // изменяем статус
             personRequest.PersonRequestStatusId = personRequestStatus.Id;

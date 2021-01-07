@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Maintenance.Models.MaintenanceEntities;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
+using WebApplication.Models.Utils;
 using WebApplication.Models.ViewData;
 
 namespace WebApplication.Models.Processes
@@ -57,7 +58,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && (p.Surname != person.Surname || p.Patronymic != person.Patronymic ||
                                                   p.Name != person.Name)))
-                throw new Exception("Человек с таким паспортом уже существует. Проверьте корректность данных");
+                throw new WebApiException("Человек с таким паспортом уже существует. Проверьте корректность данных");
 
             // если у нас нет такого человека с такими данными, то мы добавляем его
             if (_context.Persons.Any(p =>
@@ -93,7 +94,7 @@ namespace WebApplication.Models.Processes
             // получаем клиента для изменения
             Client client = _context.Clients.First(c => c.Id == clientViewData.Id);
 
-            if(client == null) throw new Exception("Клиента не был найден");
+            if(client == null) throw new WebApiException("Клиента не был найден");
 
             // создание человека
             Person person = new Person {
