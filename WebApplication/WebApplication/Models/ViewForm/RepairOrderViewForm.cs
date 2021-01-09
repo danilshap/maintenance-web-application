@@ -17,10 +17,10 @@ namespace WebApplication.Models.ViewForm
         // данные о работнике
         public string Worker { get; set; }
         // список неисправностей
-        public List<MalfunctionViewData> MalfunctionViewModels { get; set; }
+        public List<MalfunctionViewForm> MalfunctionViewModels { get; set; }
 
         public RepairOrderViewForm() { }
-        public RepairOrderViewForm(int id, ClientViewData clientViewData, CarViewData carViewData, string worker, List<MalfunctionViewData> malfunctionViewModels) {
+        public RepairOrderViewForm(int id, ClientViewData clientViewData, CarViewData carViewData, string worker, List<MalfunctionViewForm> malfunctionViewModels) {
             Id = id;
             ClientViewData = clientViewData;
             CarViewData = carViewData;

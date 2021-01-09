@@ -12,7 +12,7 @@ using WebApplication.Models.ViewData;
 
 namespace WebApplication.Controllers.ControllersViewData
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class WorkerViewDataController : ControllerBase
     {
@@ -24,19 +24,29 @@ namespace WebApplication.Controllers.ControllersViewData
 
         // GET: api/WorkerViewData
         [HttpGet]
+        [ActionName("GetWorkers")]
         public IEnumerable<WorkerViewData> GetWorkers() => _workerProcess.GetWorkersData();
+
+        [HttpGet]
+        [ActionName("GetWorkerForSelect")]
+        public IEnumerable<string> GetWorkersForSelect() => _workerProcess.GetWorkersForSelect();
 
         // GET: api/WorkerViewData/5
         [HttpGet("{id}")]
+        [ActionName("GetWorker")]
         public WorkerViewData GetWorker(int id) => _workerProcess.GetWorkerData(id);
 
         // POST: api/WorkerViewData
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task PostWorker(WorkerViewData worker) => await _workerProcess.AppendWorker(worker);
+        [ActionName("PostWorker")]
+        public async Task PostWorker(WorkerViewData worker) =>
+            await _workerProcess.AppendWorker(worker);
 
         // DELETE: api/WorkerViewData/5
         [HttpDelete("{id}")]
-        public async Task DeleteWorker(int id) => await _workerProcess.SafeRemoveWorker(id);
+        [ActionName("DeleteWorker")]
+        public async Task DeleteWorker(int id) =>
+            await _workerProcess.SafeRemoveWorker(id);
     }
 }

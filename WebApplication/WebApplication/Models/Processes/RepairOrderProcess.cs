@@ -30,7 +30,7 @@ namespace WebApplication.Models.Processes
         }
 
         // получить все заказы
-        public List<RepairOrderViewData> GetRepairOrdersData() =>
+        public List<RepairOrderViewData> GetRepairOrdersDataForView() =>
             _context.RepairOrders
                 .Include(ro => ro.Car)
                 .Include(ro => ro.Client)
@@ -42,10 +42,24 @@ namespace WebApplication.Models.Processes
                     new WorkerViewData(ro.Worker, ro.Worker.Person, ro.Worker.Status, ro.Worker.Specialty),
                     ro.Malfunctions.Select(m => new MalfunctionViewData(m, m.Details.ToList())).ToList())).ToList();
 
+        // получить заявку на неисправность для отображения в форме по id
+        public RepairOrderViewForm GetRepairOrdersDataForForm(int id) =>
+            _context.RepairOrders
+                .Include(ro => ro.Car)
+                .Include(ro => ro.Client)
+                .Include(ro => ro.Worker)
+                .Include(ro => ro.Malfunctions).ThenInclude(ro => ro.Details)
+                .Select(ro => new RepairOrderViewForm(ro.Id,
+                    new ClientViewData(ro.Client, ro.Client.Person, ro.Client.Address),
+                    new CarViewData(ro.Car, ro.Car.Owner, ro.Car.Mark), 
+                    $"{ro.Worker.Person.Surname} {ro.Worker.Person.Name} {ro.Worker.Person.Patronymic}",
+                    ro.Malfunctions.Select(m => new MalfunctionViewForm(new MalfunctionViewData(m, m.Details.ToList()))).ToList()))
+                .First(ro => ro.Id == id);
+
         // получить конкретный заказ.
         public RepairOrderViewData GetRepairOrderData(int id) {
             if (_context.RepairOrders.Any(ro => ro.Id == id))
-                return GetRepairOrdersData().First(ro => ro.Id == id);
+                return GetRepairOrdersDataForView().First(ro => ro.Id == id);
             throw new WebApiException("К сожалению, данные недействительны");
         }
 

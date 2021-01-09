@@ -24,6 +24,11 @@ namespace WebApplication.Models.Processes
         public List<WorkerViewData> GetWorkersData() =>
             _context.Workers.Select(w => new WorkerViewData(w, w.Person, w.Status, w.Specialty)).ToList();
 
+        // получить список работников для выпадающего списка
+        public List<string> GetWorkersForSelect() =>
+            _context.Workers.Include(w => w.Person)
+                .Select(w => $"{w.Person.Surname} {w.Person.Name} {w.Person.Patronymic}").ToList();
+
         // получить определенного клиента
         public WorkerViewData GetWorkerData(int id)
         {

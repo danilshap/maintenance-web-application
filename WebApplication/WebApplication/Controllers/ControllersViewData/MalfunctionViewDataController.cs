@@ -24,10 +24,16 @@ namespace WebApplication.Controllers.ControllersViewData
 
         // GET: api/MalfunctionViewData
         [HttpGet]
+        [ActionName("GetMalfunctions")]
         public IEnumerable<MalfunctionViewData> GetMalfunctions() => _malfunctionProcess.GetMalfunctionsData();
+
+        [HttpGet]
+        [ActionName("GetMalfunctionsTitles")]
+        public IEnumerable<string> GetMalfunctionsTitles() => _malfunctionProcess.GetMalfunctionsDataForForm();
 
         // GET: api/MalfunctionViewData/5
         [HttpGet("{id}")]
+        [HttpGet("GetMalfunction")]
         public MalfunctionViewData GetMalfunction(int id) => _malfunctionProcess.GetMalfunctionData(id);
     }
 }

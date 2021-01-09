@@ -24,6 +24,9 @@ namespace WebApplication.Models.Processes
                 .Select(m => new MalfunctionViewData(m, m.Details.ToList()))
                 .ToList();
 
+        // выбор названий неисправностей для формы
+        public List<string> GetMalfunctionsDataForForm() => _context.Malfunctions.Select(m => m.Title).ToList();
+
         // выбор конкретной неисправности
         public MalfunctionViewData GetMalfunctionData(int id) {
             Malfunction malfunction = _context.Malfunctions
