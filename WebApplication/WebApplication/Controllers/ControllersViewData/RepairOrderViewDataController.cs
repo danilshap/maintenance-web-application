@@ -40,6 +40,11 @@ namespace WebApplication.Controllers.ControllersViewData
         public RepairOrderViewData GetRepairOrder(int id) =>
             _repairOrderProcess.GetRepairOrderData(id);
 
+        [HttpGet("{id}")]
+        [ActionName("RegistrationNewRepairOrderForPersonRequest")]
+        public RepairOrderViewForm RegistrationNewRepairOrderForPersonRequest(int id) =>
+            _repairOrderProcess.GetRepairOrderViewFormWithPersonRequest(id).Result;
+
         // PUT: api/RepairOrderViewData/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

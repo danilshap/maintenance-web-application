@@ -79,8 +79,9 @@
                 <input
                   class="form-check-input"
                   type="checkbox"
-                  formControlName="isClientOwner"
+                  value="{{isClientOwner}}"
                   id="isOwner"
+                  (click)="clientIsOwner()"
                   required
                 />
                 <label class="form-check-label" for="isOwner">
@@ -240,6 +241,31 @@
               </div>
             </div>
           </div>
+        </div>
+        <hr />
+        <h4 class="text-muted">Данные ремонта</h4>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="worker">Мастер:</label>
+              <select
+                name="worker"
+                id="worker"
+                class="form-control"
+                required
+              ></select>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="form-group">
+              <label for="malfunctions">Неисправности:</label>
+              <malfunction-select></malfunction-select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-success mr-1">Оформить</button>
+          <button type="reset" class="btn btn-secondary">Отмена</button>
         </div>
       </form>
     </div>

@@ -8,9 +8,16 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './admin-repair-order-form-page.component.html'
 })
 export class AdminRepairOrderFormPageComponent implements OnInit{
-  isClientOwner: boolean | undefined;
+  isClientOwner: boolean;
 
-  ngOnInit() {
-    this.isClientOwner = true;
+  constructor(){
+    this.isClientOwner = false;
+  }
+
+  ngOnInit(): void {
+  }
+
+  clientIsOwner(): void {
+    this.isClientOwner = !this.isClientOwner;
   }
 }

@@ -112,5 +112,25 @@ namespace WebApplication.Models.Processes
             repairOrder.IsReady = true;
             await _context.SaveChangesAsync();
         }
+
+        // оформление новой заявки вместе с использованием заявки оставленной человеком
+        public async Task<RepairOrderViewForm> GetRepairOrderViewFormWithPersonRequest(int id) {
+            PersonRequest personRequest = _context.PersonRequests
+                .Include(pr => pr.Person)
+                .FirstOrDefault(pr => pr.Id == id);
+            if(personRequest == null) throw new WebApiException("Данной заявки нет. Данные недействительны");
+
+            // создаем переменную в которую мы запихиваем новые данные для оформление заявки на ремонт
+            ClientViewData clientViewData = new ClientViewData(
+                new Client {TelephoneNumber = personRequest.TelephoneNumber},
+                new Person
+                {
+                    Surname = personRequest.Person.Surname, Name = personRequest.Person.Name,
+                    Patronymic = personRequest.Person.Patronymic, Passport = personRequest.Person.Passport
+                }, new Address());
+
+            return await Task.Run(() => new RepairOrderViewForm(-1, clientViewData,
+                new CarViewData(new Car(), new Person(), new Mark()), "", new List<MalfunctionViewForm>()));
+        }
     }
 }

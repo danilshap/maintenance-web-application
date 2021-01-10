@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "~startbootstrap-sb-admin-2/css/sb-admin-2.css"
 
 /*
 .form-control::placeholder {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Maintenance.Models.MaintenanceEntities;
 using WebApplication.Models.ViewData;
 
 namespace WebApplication.Models.ViewForm

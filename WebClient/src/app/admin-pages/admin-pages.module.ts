@@ -26,6 +26,7 @@ import { AdminCarFormPageComponent } from './admin-car-form-page/admin-car-form-
 import { AdminClientFormPageComponent } from './admin-client-form-page/admin-client-form-page.component';
 import { AdminWorkerFormPageComponent } from './admin-worker-form-page/admin-worker-form-page.component';
 import { AdminRepairOrderFormPageComponent } from './admin-reoair-order-form-page/admin-repair-order-form-page.component';
+import { MalfunctionSelectComponent } from './admin-reoair-order-form-page/malfunctions-select/malfunctions-select.component';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import { AdminRepairOrderFormPageComponent } from './admin-reoair-order-form-pag
     AdminCarFormPageComponent,
     AdminClientFormPageComponent,
     AdminWorkerFormPageComponent,
-    AdminRepairOrderFormPageComponent
+    AdminRepairOrderFormPageComponent,
+    MalfunctionSelectComponent
   ],
   providers: [],
 })
