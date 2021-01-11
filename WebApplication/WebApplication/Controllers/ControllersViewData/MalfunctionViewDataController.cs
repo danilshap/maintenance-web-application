@@ -12,7 +12,7 @@ using WebApplication.Models.ViewData;
 
 namespace WebApplication.Controllers.ControllersViewData
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class MalfunctionViewDataController : ControllerBase
     {
@@ -33,7 +33,7 @@ namespace WebApplication.Controllers.ControllersViewData
 
         // GET: api/MalfunctionViewData/5
         [HttpGet("{id}")]
-        [HttpGet("GetMalfunction")]
+        [ActionName("GetMalfunction")]
         public MalfunctionViewData GetMalfunction(int id) => _malfunctionProcess.GetMalfunctionData(id);
     }
 }

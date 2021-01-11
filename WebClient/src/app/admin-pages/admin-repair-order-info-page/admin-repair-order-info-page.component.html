@@ -3,11 +3,11 @@
   <div class="col-md-4">
     <p>
       <b>Дата обращения:</b>
-      {{ repairOrderViewData.dateOfTheApplication.toLocaleDateString() }}
+      {{ showCorrectDate(repairOrderViewData.dateOfTheApplication) }}
     </p>
     <p>
       <b>Примерная дата завершения ремонта:</b>
-      {{ repairOrderViewData.dateOfCompletion.toLocaleDateString() }}
+      {{ showCorrectDate(repairOrderViewData.dateOfCompletion) }}
     </p>
     <p><b>Примерная стоимость ремонта:</b> {{ repairOrderViewData.price }}</p>
     <p><b>Статус ремонта:</b> {{ repairOrderStatus() }}</p>

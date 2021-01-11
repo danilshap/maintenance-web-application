@@ -15,12 +15,12 @@
       </div>
       <div class="col-7">
         <p>
-          <b>Дата рождения:</b> {{ clientViewData.dateOfBorn.toLocaleDateString() }}
+          <b>Дата рождения:</b> {{ showCorrectDate(clientViewData.dateOfBorn) }}
         </p>
         <p><b>Номер телефона:</b> {{ clientViewData.telephoneNumber }}</p>
         <p>
           <b>Адрес проживания:</b> {{ clientViewData.street }}
-          {{ clientViewData.building }} {{ clientViewData.flat }}
+          дом {{ clientViewData.building }} <span *ngIf="clientViewData.flat !== undefined">кв. {{ clientViewData.flat }}</span>
         </p>
       </div>
     </div>

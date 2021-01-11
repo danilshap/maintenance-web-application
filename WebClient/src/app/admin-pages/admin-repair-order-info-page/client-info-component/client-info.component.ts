@@ -8,4 +8,8 @@ import { ClientViewData } from 'src/models/view-data/client-view-data';
 export class ClientInfoComponent{
   @Input()
   clientViewData!: ClientViewData;
+
+  showCorrectDate(date: any): string {
+    return new Date(date).toLocaleDateString();
+  }
 }

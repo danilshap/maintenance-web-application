@@ -24,4 +24,8 @@ export class RepairOrderCardComponent{
   moreInfoByOrder(): void {
     this.router.navigate(['/admin/repair_order', this.repairOrderViewData.id]);
   }
+
+  showCorrectDate(date: any): string {
+    return new Date(date).toLocaleDateString();
+  }
 }
