@@ -1,7 +1,13 @@
 <div class="row">
   <div class="col">
     <h1>Добавление нового авотмобиля</h1>
-    <form class="shadow mt-3 p-3" method="post">
+    <form
+      *ngIf="carForm && carViewData"
+      [formGroup]="carForm"
+      (ngSubmit)="submit()"
+      class="shadow mt-3 p-3"
+      method="post"
+    >
       <div class="row">
         <div class="col-md-6">
           <h5 class="text-muted">Данные автомобиля</h5>
@@ -12,6 +18,7 @@
               name="stateNumber"
               id="stateNumber"
               class="form-control"
+              formControlName="stateNumber"
               required
             />
           </div>
@@ -22,6 +29,7 @@
               name="color"
               id="color"
               class="form-control"
+              formControlName="color"
               required
             />
           </div>
@@ -32,6 +40,7 @@
               name="yearOfIssue"
               id="yearOfIssue"
               class="form-control"
+              formControlName="yearOfIssue"
               required
             />
           </div>
@@ -42,6 +51,7 @@
               name="markTitle"
               id="markTitle"
               class="form-control"
+              formControlName="markTitle"
               required
             />
           </div>
@@ -52,6 +62,7 @@
               name="markModel"
               id="markModel"
               class="form-control"
+              formControlName="markModel"
               required
             />
           </div>
@@ -64,6 +75,7 @@
               name="surnameOwner"
               id="surnameOwner"
               class="form-control"
+              formControlName="surname"
               required
             />
           </div>
@@ -74,6 +86,7 @@
               name="nameOwner"
               id="nameOwner"
               class="form-control"
+              formControlName="name"
               required
             />
           </div>
@@ -84,6 +97,7 @@
               name="patronymicOwner"
               id="patronymicOwner"
               class="form-control"
+              formControlName="patronymic"
               required
             />
           </div>
@@ -94,19 +108,12 @@
               name="passportOwner"
               id="passportOwner"
               class="form-control"
+              formControlName="passport"
               required
             />
           </div>
           <button type="submit" class="btn btn-success mr-1">Добавить</button>
-          <button type="reset" class="btn btn-secondary">Отмена</button>
-        </div>
-        <div class="col-md-6">
-          <div *ngIf="exeption !== ''" class="alert alert-danger">
-            <h4>Ошибка!</h4>
-            <p>
-              {{ exeption }}
-            </p>
-          </div>
+          <button type="reset" class="btn btn-secondary">Очистить</button>
         </div>
       </div>
     </form>

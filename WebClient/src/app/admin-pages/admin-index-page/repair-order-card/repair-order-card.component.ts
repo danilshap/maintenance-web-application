@@ -1,3 +1,4 @@
+import { IDate } from 'src/models/interfaces/IDate';
 import { Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { RepairOrderViewData } from 'src/models/view-data/repair-order-view-data';
@@ -6,12 +7,10 @@ import { RepairOrderViewData } from 'src/models/view-data/repair-order-view-data
   selector: 'repair-order-component',
   templateUrl: './repair-order-card.component.html',
 })
-export class RepairOrderCardComponent{
-  @Input()
-  repairOrderViewData!: RepairOrderViewData;
+export class RepairOrderCardComponent implements IDate{
+  @Input() repairOrderViewData!: RepairOrderViewData;
 
-  constructor(private router: Router){
-  }
+  constructor(private router: Router){}
 
   repairOrderStatus(): string {
     return this.repairOrderViewData.isReady ? 'ремонт завершен' : 'еще ремонтируется...';

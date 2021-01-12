@@ -15,6 +15,6 @@ export class RepairOrderViewData {
     public clientViewData: ClientViewData, // данные о клиенте
     public carViewData: CarViewData, // данные о авто
     public workerViewData: WorkerViewData, // данные о работниках
-    public malfunctionsViewData: MalfunctionViewData[], // данные о неисправностях
+    public malfunctionViewModels: MalfunctionViewData[], // данные о неисправностях
   ) {}
 }

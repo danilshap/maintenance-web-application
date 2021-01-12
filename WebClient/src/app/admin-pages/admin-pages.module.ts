@@ -20,14 +20,14 @@ import { AdminReportsPageComponent } from './admin-reports-page/admin-reports-pa
 import { AdminClientsTableDataPageComponent } from './admin-clients-table-data-page/admin-clients-table-data-page.component';
 import { AdminCarsTableDataPageComponent } from './admin-cars-table-data-page/admin-cars-table-data-page.component';
 import { AdminWorkersTableDataPageComponent } from './admin-workers-table-data-page/admin-workers-table-data-page.component';
-import { ClientsTableRowComponent } from './admin-clients-table-data-page/clients-table-row/clients-table-row.component';
-import { CarsTableRowComponent } from './admin-cars-table-data-page/cars-table-row/cars-table-row.component';
-import { WorkersTableRowComponent } from './admin-workers-table-data-page/workers-table-row/workers-table-row.component';
 import { AdminCarFormPageComponent } from './admin-car-form-page/admin-car-form-page.component';
 import { AdminClientFormPageComponent } from './admin-client-form-page/admin-client-form-page.component';
 import { AdminWorkerFormPageComponent } from './admin-worker-form-page/admin-worker-form-page.component';
 import { AdminRepairOrderFormPageComponent } from './admin-reoair-order-form-page/admin-repair-order-form-page.component';
 import { MalfunctionSelectComponent } from './admin-reoair-order-form-page/malfunctions-select/malfunctions-select.component';
+import { AdminWorkerInfoPageComponent } from './admin-worker-info-page/admin-worker-info-page.component';
+import { AdminClientInfoPageComponent } from './admin-client-info-page/admin-client-info-page.component';
+import { AdminCarInfoPageComponent } from './admin-car-info-page/admin-car-info-page.component';
 
 @NgModule({
   imports: [
@@ -49,14 +49,14 @@ import { MalfunctionSelectComponent } from './admin-reoair-order-form-page/malfu
     PersonRequestCardComponent,
     AdminReportsPageComponent,
     AdminClientsTableDataPageComponent,
-    ClientsTableRowComponent,
     AdminCarsTableDataPageComponent,
-    CarsTableRowComponent,
     AdminWorkersTableDataPageComponent,
-    WorkersTableRowComponent,
     CarInfoComponent,
     ClientInfoComponent,
     WorkerInfoComponent,
+    AdminWorkerInfoPageComponent,
+    AdminClientInfoPageComponent,
+    AdminCarInfoPageComponent,
     AdminCarFormPageComponent,
     AdminClientFormPageComponent,
     AdminWorkerFormPageComponent,

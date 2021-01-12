@@ -46,7 +46,11 @@
           </div>
           <div class="form-group">
             <label for="specialty">Специальность:</label>
-            <select name="specialty" id="specialty" class="form-control"></select>
+            <select
+              name="specialty"
+              id="specialty"
+              class="form-control"
+            ></select>
           </div>
           <div class="form-group">
             <label for="discharge">Разряд:</label>
@@ -69,7 +73,7 @@
             />
           </div>
           <button type="submit" class="btn btn-success mr-1">Добавить</button>
-          <button type="reset" class="btn btn-secondary">Отмена</button>
+          <button type="reset" class="btn btn-secondary">Очистить</button>
         </div>
         <div class="col-md-6">
           <div *ngIf="exeption !== ''" class="alert alert-danger">

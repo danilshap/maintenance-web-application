@@ -1,38 +1,41 @@
 import { RepairOrderViewData } from 'src/models/view-data/repair-order-view-data';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { RepairOrderService } from 'src/models/sevices/repair-order.service';
+import { IDate } from 'src/models/interfaces/IDate';
 
 @Component({
   selector: 'repair-order-info-page',
   templateUrl: './admin-repair-order-info-page.component.html',
 })
-export class RepairOrderInfoPageComponent implements OnInit {
-  id?: number;
-  repairOrderViewData!: RepairOrderViewData;
+export class RepairOrderInfoPageComponent implements OnInit, IDate {
+  repairOrderViewData!: RepairOrderViewData;  // данные для отображения
 
   // констркутор с использованием внедрения зависимостей
-  constructor(private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private http: HttpClient){}
+  constructor(private activatedRoute: ActivatedRoute,
+              private repairOrderService: RepairOrderService){}
 
   // метод который работает при инициализации объекта.
   ngOnInit(): void {
+    // получение данных из роутера
     this.activatedRoute.params.forEach((params: Params) => {
-      this.id = +params['id'];
+      // если данные по id есть, но этого быть не может)
+      // то мы отправляем запрос на получение данных
+      if (params.id !== undefined) {
+        // получение даных для отображения
+        this.repairOrderService.getRepairOrderViewData(params.id).subscribe((data: any) => {
+          this.repairOrderViewData = data as RepairOrderViewData;
+        });
+      }
     });
-
-    this.http.get(`http://localhost:55280/api/RepairOrderViewData/GetRepairOrder/${this.id}`)
-      .subscribe((data: any) => {
-        this.repairOrderViewData = data as RepairOrderViewData;
-        console.log(data);
-      });
   }
 
+  // корректный вывод данных для статуса
   repairOrderStatus(): string {
     return this.repairOrderViewData.isReady ? 'ремонт завершен' : 'еще ремонтируется...';
   }
 
+  // преобразование даты в читаемую
   showCorrectDate(date: any): string {
     return new Date(date).toLocaleDateString();
   }

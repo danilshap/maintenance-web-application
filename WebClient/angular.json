@@ -94,11 +94,12 @@
               "src/assets"
             ],
             "styles": [
-
               "./node_modules/bootstrap/dist/css/bootstrap.css",
-              "src/styles.css"
+              "./src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./src/assets/js/mian.js"
+            ]
           }
         },
         "lint": {

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col">
-    <h1>Информация о клиенте</h1>
-    <div class="shadow mt-3 p-2">
+    <h1>Информация о работнике</h1>
+    <div class="shadow mt-3 p-3">
       <div class="row">
         <div class="col-md-2">
           <p><b>Фамилия:</b></p>
@@ -60,12 +60,18 @@
       </div>
       <div class="row">
         <div class="col-md-2">
-          <p><b>Дом:</b></p>
+          <p><b>Специальность:</b></p>
         </div>
         <div class="col-md-10">
           <p>{{ workerViewData.specialty }}</p>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-warning" (click)="edit()">Редактировать</button>
+        </div>
+      </div>
     </div>
+    <button class="btn btn-secondary mt-3" (click)="goBack()">Назад</button>
   </div>
 </div>

@@ -1,7 +1,9 @@
 <div class="row">
   <div class="col">
     <h1>Клиенты</h1>
-    <button class="btn btn-success" (click)="appendNewWorker()">Добавить нового работника</button>
+    <button class="btn btn-success" (click)="appendNewWorker()">
+      Добавить нового работника
+    </button>
     <div class="shadow p-2 mt-3">
       <table class="table table-bordered table-hover">
         <thead class="thead-dark">
@@ -18,7 +20,32 @@
             <th colspan="2"></th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <tr
+            *ngFor="let workerViewData of workersViewData"
+            class="{{ getColorForTableRow(workerViewData.status) }}"
+          >
+            <td>{{ workerViewData.id }}</td>
+            <td>{{ workerViewData.surname }}</td>
+            <td>{{ workerViewData.name }}</td>
+            <td>{{ workerViewData.patronymic }}</td>
+            <td>{{ workerViewData.passport }}</td>
+            <td>{{ workerViewData.discharge }}</td>
+            <td>{{ workerViewData.workExperience }}</td>
+            <td>{{ workerViewData.status }}</td>
+            <td>{{ workerViewData.specialty }}</td>
+            <td>
+              <button class="btn btn-warning btn-block" (click)="editWorker(workerViewData.id)">
+                <i class="fas fa-pen-square"></i>
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-info btn-block" (click)="infoWorker(workerViewData.id)">
+                <i class="fas fa-info-circle"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

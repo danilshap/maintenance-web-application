@@ -5,7 +5,7 @@
       Добавить нового клиента
     </button>
     <div class="shadow p-2 mt-3">
-      <table class="table table-bordered table-hover">
+      <table class="table table-bordered table-hover" id="clientsTable">
         <thead class="thead-dark">
           <tr>
             <th>Id</th>
@@ -19,7 +19,36 @@
             <th colspan="2"></th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <tr *ngFor="let client of clientsViewData">
+            <td>{{ client.id }}</td>
+            <td>{{ client.surname }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.patronymic }}</td>
+            <td>{{ client.passport }}</td>
+            <td>{{ showCorrectDate(client.dateOfBorn) }}</td>
+            <td>
+              {{ client.street }} дом. {{ client.building }}
+              <span *ngIf="client.flat !== undefined">
+                кв. {{ client.flat }}</span
+              >
+            </td>
+            <td>{{ client.telephoneNumber }}</td>
+            <td>
+              <button
+                class="btn btn-warning btn-block"
+                (click)="editClient(client.id)"
+              >
+                <i class="fas fa-pen-square"></i>
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-info btn-block" (click)="infoClient(client.id)">
+                <i class="fas fa-info-circle"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

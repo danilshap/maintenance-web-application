@@ -15,7 +15,29 @@
             <th colspan="2"></th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <tr *ngFor="let carViewData of carsViewData">
+            <td>{{ carViewData.id }}</td>
+            <td>{{ carViewData.stateNumber }}</td>
+            <td>{{ carViewData.markTitle }} {{ carViewData.markModel }}</td>
+            <td>{{ carViewData.color }}</td>
+            <td>{{ carViewData.yearOfIssue }}</td>
+            <td>
+              {{ carViewData.surname }} {{ carViewData.name }}
+              {{ carViewData.patronymic }}
+            </td>
+            <td>
+              <button class="btn btn-warning btn-block" (click)="editCar(carViewData.id)">
+                <i class="fas fa-pen-square"></i>
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-info btn-block" (click)="infoCar(carViewData.id)">
+                <i class="fas fa-info-circle"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

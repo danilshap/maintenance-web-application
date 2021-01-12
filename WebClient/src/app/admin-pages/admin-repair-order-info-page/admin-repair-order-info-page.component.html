@@ -13,7 +13,7 @@
     <p><b>Статус ремонта:</b> {{ repairOrderStatus() }}</p>
   </div>
   <div class="col-md-8" class="d-flex align-content-start flex-wrap">
-    <div *ngFor="let malfunction of repairOrderViewData.malfunctionsViewData" class="ml-3">
+    <div *ngFor="let malfunction of repairOrderViewData.malfunctionViewModels" class="ml-3">
       <p>{{ malfunction.title }}</p>
       <ul>
         <div *ngFor="let detail of malfunction.details">
