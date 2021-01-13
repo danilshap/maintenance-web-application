@@ -12,6 +12,17 @@
       <div class="row">
         <div class="col-md-6">
           <h5 class="text-muted">Данные автомобиля</h5>
+          <div class="form-group" hidden>
+            <label for="id" hidden>ID</label>
+            <input
+              type="text"
+              name="id"
+              id="id"
+              formControlName="id"
+              class="form-control"
+              hidden
+            />
+          </div>
           <div class="form-group">
             <label for="stateNumber">Гос. номер авто:</label>
             <input
@@ -22,23 +33,15 @@
               formControlName="stateNumber"
               required
               [ngClass]="{
-                'is-invalid':
-                  carForm.controls['stateNumber'].touched &&
-                  carForm.controls['stateNumber'].invalid,
-                'is-valid':
-                  carForm.controls['stateNumber'].touched &&
-                  carForm.controls['stateNumber'].valid
+                'is-invalid': stateNumber.touched && stateNumber.invalid,
+                'is-valid': stateNumber.touched && stateNumber.valid
               }"
             />
-            <div
-              *ngIf="carForm.controls['stateNumber'].invalid"
-              class="invalid-feedback"
-            >
-              <span *ngIf="carForm.controls['stateNumber'].hasError('required')"
+            <div *ngIf="stateNumber.invalid" class="invalid-feedback">
+              <span *ngIf="stateNumber.hasError('required')"
                 >* Укажите государственный номер.</span
               >
-              <span
-                *ngIf="carForm.controls['stateNumber'].hasError('minlength')"
+              <span *ngIf="stateNumber.hasError('minlength')"
                 >* Некорректные данные для гос. номера. Минимум 8
                 символов.</span
               >
@@ -54,26 +57,19 @@
               formControlName="color"
               required
               [ngClass]="{
-                'is-invalid':
-                  carForm.controls['color'].touched &&
-                  carForm.controls['color'].invalid,
-                'is-valid':
-                  carForm.controls['color'].touched &&
-                  carForm.controls['color'].valid
+                'is-invalid': color.touched && color.invalid,
+                'is-valid': color.touched && color.valid
               }"
             />
-            <div
-              *ngIf="carForm.controls['color'].invalid"
-              class="invalid-feedback"
-            >
-              <span *ngIf="carForm.controls['color'].hasError('required')"
+            <div *ngIf="color.invalid" class="invalid-feedback">
+              <span *ngIf="color.hasError('required')"
                 >* Укажите цвет автомобиля.</span
               >
-              <span *ngIf="carForm.controls['color'].hasError('minlength')"
+              <span *ngIf="color.hasError('minlength')"
                 >* Некорректные данные для цвета автомобиля. Минимум 4
                 символов.</span
               >
-              <span *ngIf="carForm.controls['color'].hasError('maxlength')"
+              <span *ngIf="color.hasError('maxlength')"
                 >* Некорректные данные для цвета автомобиля. Максимум 20
                 символов.</span
               >
@@ -89,26 +85,19 @@
               formControlName="yearOfIssue"
               required
               [ngClass]="{
-                'is-invalid':
-                  carForm.controls['yearOfIssue'].touched &&
-                  carForm.controls['yearOfIssue'].invalid,
-                'is-valid':
-                  carForm.controls['yearOfIssue'].touched &&
-                  carForm.controls['yearOfIssue'].valid
+                'is-invalid': yearOfIssue.touched && yearOfIssue.invalid,
+                'is-valid': yearOfIssue.touched && yearOfIssue.valid
               }"
             />
-            <div
-              *ngIf="carForm.controls['yearOfIssue'].invalid"
-              class="invalid-feedback"
-            >
-              <span *ngIf="carForm.controls['yearOfIssue'].hasError('required')"
+            <div *ngIf="yearOfIssue.invalid" class="invalid-feedback">
+              <span *ngIf="yearOfIssue.hasError('required')"
                 >* Укажите год выпуска автомобиля.</span
               >
-              <span *ngIf="carForm.controls['yearOfIssue'].hasError('min')"
+              <span *ngIf="yearOfIssue.hasError('min')"
                 >* Некорректные данные для года выпуска автомобиля. Минимально
                 допустимый год 1950.</span
               >
-              <span *ngIf="carForm.controls['yearOfIssue'].hasError('max')"
+              <span *ngIf="yearOfIssue.hasError('max')"
                 >* Некорректные данные для года выпуска автомобиля.</span
               >
             </div>
@@ -123,26 +112,19 @@
               formControlName="markTitle"
               required
               [ngClass]="{
-                'is-invalid':
-                  carForm.controls['markTitle'].touched &&
-                  carForm.controls['markTitle'].invalid,
-                'is-valid':
-                  carForm.controls['markTitle'].touched &&
-                  carForm.controls['markTitle'].valid
+                'is-invalid': markTitle.touched && markTitle.invalid,
+                'is-valid': markTitle.touched && markTitle.valid
               }"
             />
-            <div
-              *ngIf="carForm.controls['markTitle'].invalid"
-              class="invalid-feedback"
-            >
-              <span *ngIf="carForm.controls['markTitle'].hasError('required')"
+            <div *ngIf="markTitle.invalid" class="invalid-feedback">
+              <span *ngIf="markTitle.hasError('required')"
                 >* Укажите марку автомобиля.</span
               >
-              <span *ngIf="carForm.controls['markTitle'].hasError('minlength')"
+              <span *ngIf="markTitle.hasError('minlength')"
                 >* Некорректные данные о марке автомобиля. Минимум 4
                 символов.</span
               >
-              <span *ngIf="carForm.controls['markTitle'].hasError('maxlength')"
+              <span *ngIf="markTitle.hasError('maxlength')"
                 >* Некорректные данные о марке автомобиля. Максимум 20
                 символов.</span
               >
@@ -158,22 +140,15 @@
               formControlName="markModel"
               required
               [ngClass]="{
-                'is-invalid':
-                  carForm.controls['markModel'].touched &&
-                  carForm.controls['markModel'].invalid,
-                'is-valid':
-                  carForm.controls['markModel'].touched &&
-                  carForm.controls['markModel'].valid
+                'is-invalid': markModel.touched && markModel.invalid,
+                'is-valid': markModel.touched && markModel.valid
               }"
             />
-            <div
-              *ngIf="carForm.controls['markModel'].invalid"
-              class="invalid-feedback"
-            >
-              <span *ngIf="carForm.controls['markModel'].hasError('required')"
+            <div *ngIf="markModel.invalid" class="invalid-feedback">
+              <span *ngIf="markModel.hasError('required')"
                 >* Укажите модель автомобиля.</span
               >
-              <span *ngIf="carForm.controls['markModel'].hasError('maxlength')"
+              <span *ngIf="markModel.hasError('maxlength')"
                 >* Некорректные данные для модели автомобиля. Максимум 20
                 символов.</span
               >
@@ -191,26 +166,19 @@
               formControlName="surname"
               required
               [ngClass]="{
-                'is-invalid':
-                  carForm.controls['surname'].touched &&
-                  carForm.controls['surname'].invalid,
-                'is-valid':
-                  carForm.controls['surname'].touched &&
-                  carForm.controls['surname'].valid
+                'is-invalid': surname.touched && surname.invalid,
+                'is-valid': surname.touched && surname.valid
               }"
             />
-            <div
-              *ngIf="carForm.controls['surname'].invalid"
-              class="invalid-feedback"
-            >
-              <span *ngIf="carForm.controls['surname'].hasError('required')"
+            <div *ngIf="surname.invalid" class="invalid-feedback">
+              <span *ngIf="surname.hasError('required')"
                 >* Укажите фамилию владельца автомобиля.</span
               >
-              <span *ngIf="carForm.controls['surname'].hasError('minlength')"
+              <span *ngIf="surname.hasError('minlength')"
                 >* Некорректные данные фамилии владельца автомобиля. Минимум 4
                 символов.</span
               >
-              <span *ngIf="carForm.controls['surname'].hasError('maxlength')"
+              <span *ngIf="surname.hasError('maxlength')"
                 >* Некорректные данные фамилии владельца автомобиля. Максимум 60
                 символов.</span
               >
@@ -226,26 +194,19 @@
               formControlName="name"
               required
               [ngClass]="{
-                'is-invalid':
-                  carForm.controls['name'].touched &&
-                  carForm.controls['name'].invalid,
-                'is-valid':
-                  carForm.controls['name'].touched &&
-                  carForm.controls['name'].valid
+                'is-invalid': name.touched && name.invalid,
+                'is-valid': name.touched && name.valid
               }"
             />
-            <div
-              *ngIf="carForm.controls['name'].invalid"
-              class="invalid-feedback"
-            >
-              <span *ngIf="carForm.controls['name'].hasError('required')"
+            <div *ngIf="name.invalid" class="invalid-feedback">
+              <span *ngIf="name.hasError('required')"
                 >* Укажите имя владельца автомобиля.</span
               >
-              <span *ngIf="carForm.controls['name'].hasError('minlength')"
+              <span *ngIf="name.hasError('minlength')"
                 >* Некорректные данные имя владельца автомобиля. Минимум 4
                 символов.</span
               >
-              <span *ngIf="carForm.controls['name'].hasError('maxlength')"
+              <span *ngIf="name.hasError('maxlength')"
                 >* Некорректные данные имя владельца автомобиля. Максимум 20
                 символов.</span
               >
@@ -261,26 +222,19 @@
               formControlName="patronymic"
               required
               [ngClass]="{
-                'is-invalid':
-                  carForm.controls['patronymic'].touched &&
-                  carForm.controls['patronymic'].invalid,
-                'is-valid':
-                  carForm.controls['patronymic'].touched &&
-                  carForm.controls['patronymic'].valid
+                'is-invalid': patronymic.touched && patronymic.invalid,
+                'is-valid': patronymic.touched && patronymic.valid
               }"
             />
-            <div
-              *ngIf="carForm.controls['patronymic'].invalid"
-              class="invalid-feedback"
-            >
-              <span *ngIf="carForm.controls['patronymic'].hasError('required')"
+            <div *ngIf="patronymic.invalid" class="invalid-feedback">
+              <span *ngIf="patronymic.hasError('required')"
                 >* Укажите отчество владельца автомобиля.</span
               >
-              <span *ngIf="carForm.controls['patronymic'].hasError('minlength')"
+              <span *ngIf="patronymic.hasError('minlength')"
                 >* Некорректные данные отчество владельца автомобиля. Минимум 4
                 символов.</span
               >
-              <span *ngIf="carForm.controls['patronymic'].hasError('maxlength')"
+              <span *ngIf="patronymic.hasError('maxlength')"
                 >* Некорректные данные отчество владельца автомобиля. Максимум
                 20 символов.</span
               >
@@ -296,22 +250,15 @@
               formControlName="passport"
               required
               [ngClass]="{
-                'is-invalid':
-                  carForm.controls['passport'].touched &&
-                  carForm.controls['passport'].invalid,
-                'is-valid':
-                  carForm.controls['passport'].touched &&
-                  carForm.controls['passport'].valid
+                'is-invalid': passport.touched && passport.invalid,
+                'is-valid': passport.touched && passport.valid
               }"
             />
-            <div
-              *ngIf="carForm.controls['passport'].invalid"
-              class="invalid-feedback"
-            >
-              <span *ngIf="carForm.controls['passport'].hasError('required')"
+            <div *ngIf="passport.invalid" class="invalid-feedback">
+              <span *ngIf="passport.hasError('required')"
                 >* Укажите паспорт владельца автомобиля.</span
               >
-              <span *ngIf="carForm.controls['passport'].hasError('minlength')"
+              <span *ngIf="passport.hasError('minlength')"
                 >* Некорректные данные паспорта владельца автомобиля. Минимум 8
                 символов.</span
               >
@@ -328,5 +275,6 @@
         </div>
       </div>
     </form>
+    <button class="btn btn-primary mt-3" (click)="goBack()">Назад</button>
   </div>
 </div>

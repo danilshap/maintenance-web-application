@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { CarService } from 'src/models/sevices/car.service';
 import { CarViewData } from 'src/models/view-data/car-view-data';
@@ -14,6 +15,7 @@ export class AdminCarFormPageComponent implements OnInit{
 
   constructor(private fb: FormBuilder,
               private carService: CarService,
+              private location: Location,
               private activatedRoute: ActivatedRoute){
   }
 
@@ -26,22 +28,26 @@ export class AdminCarFormPageComponent implements OnInit{
         // получение даных для отображения
         this.carService.getCarViewData(params.id).subscribe((data: any) => {
           this.carViewData = data as CarViewData;
-
-          // создание класса для отображения и изменения формы
-          this.carForm = this.fb.group({
-            stateNumber: [ this.carViewData.stateNumber, [Validators.required, Validators.minLength(8)]],
-            color: [ this.carViewData.color, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
-            // tslint:disable-next-line: max-line-length
-            yearOfIssue: [ this.carViewData.yearOfIssue, [Validators.required, Validators.min(1950), Validators.max(new Date().getFullYear())]],
-            markTitle: [ this.carViewData.markTitle, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
-            markModel: [ this.carViewData.markModel, [Validators.required, Validators.maxLength(20)]],
-            name: [ this.carViewData.name, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
-            surname: [ this.carViewData.surname, [Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
-            patronymic: [ this.carViewData.patronymic, [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-            passport: [ this.carViewData.passport, [Validators.required, Validators.minLength(8)]],
-          });
+          this.buildForm();
         });
       }
+    });
+  }
+
+  buildForm(): void {
+    // создание класса для отображения и изменения формы
+    this.carForm = this.fb.group({
+      id: [this.carViewData.id],
+      stateNumber: [ this.carViewData.stateNumber, [Validators.required, Validators.minLength(8)]],
+      color: [ this.carViewData.color, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
+      // tslint:disable-next-line: max-line-length
+      yearOfIssue: [ this.carViewData.yearOfIssue, [Validators.required, Validators.min(1950), Validators.max(new Date().getFullYear())]],
+      markTitle: [ this.carViewData.markTitle, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
+      markModel: [ this.carViewData.markModel, [Validators.required, Validators.maxLength(20)]],
+      name: [ this.carViewData.name, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
+      surname: [ this.carViewData.surname, [Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
+      patronymic: [ this.carViewData.patronymic, [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+      passport: [ this.carViewData.passport, [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -50,6 +56,18 @@ export class AdminCarFormPageComponent implements OnInit{
     console.log(this.carForm.value);
   }
 
-  get stateNumber(): string { return this.carViewData.stateNumber; }
-  
+  goBack(): void {
+    this.location.back();
+  }
+
+  get stateNumber(): any { return this.carForm.controls.stateNumber; }
+  get color(): any { return this.carForm.controls.color; }
+  get yearOfIssue(): any { return this.carForm.controls.yearOfIssue; }
+  get markTitle(): any { return this.carForm.controls.markTitle; }
+  get markModel(): any { return this.carForm.controls.markModel; }
+  get name(): any { return this.carForm.controls.name; }
+  get surname(): any { return this.carForm.controls.surname; }
+  get patronymic(): any { return this.carForm.controls.patronymic; }
+  get passport(): any { return this.carForm.controls.passport; }
+
 }

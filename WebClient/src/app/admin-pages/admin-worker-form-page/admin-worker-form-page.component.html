@@ -4,6 +4,17 @@
     <form class="shadow mt-3 p-3" method="post">
       <div class="row">
         <div class="col-md-6">
+          <div class="form-group" hidden>
+            <label for="id" hidden>ID</label>
+            <input
+              type="text"
+              name="id"
+              id="id"
+              formControlName="id"
+              class="form-control"
+              hidden
+            />
+          </div>
           <div class="form-group">
             <label for="surname">Фамилия:</label>
             <input
@@ -11,8 +22,18 @@
               name="surname"
               id="surname"
               class="form-control"
+              formControlName="surname"
               required
+              [ngClass]="{
+                'is-invalid': surname.touched && surname.invalid,
+                'is-valid': surname.touched && surname.valid
+              }"
             />
+            <div *ngIf="surname.invalid" class="invalid-feedback">
+              <span *ngIf="surname.hasError('required')"
+                >* Укажите фамилию.</span
+              >
+            </div>
           </div>
           <div class="form-group">
             <label for="name">Имя:</label>
@@ -21,8 +42,16 @@
               id="name"
               name="name"
               class="form-control"
+              formControlName="name"
               required
+              [ngClass]="{
+                'is-invalid': name.touched && name.invalid,
+                'is-valid': name.touched && name.valid
+              }"
             />
+            <div *ngIf="name.invalid" class="invalid-feedback">
+              <span *ngIf="name.hasError('required')">* Укажите имя.</span>
+            </div>
           </div>
           <div class="form-group">
             <label for="patronymic">Отчество:</label>
@@ -31,8 +60,18 @@
               id="patronymic"
               name="patronymic"
               class="form-control"
+              formControlName="patronymic"
               required
+              [ngClass]="{
+                'is-invalid': patronymic.touched && patronymic.invalid,
+                'is-valid': patronymic.touched && patronymic.valid
+              }"
             />
+            <div *ngIf="patronymic.invalid" class="invalid-feedback">
+              <span *ngIf="patronymic.hasError('required')"
+                >* Укажите отчество.</span
+              >
+            </div>
           </div>
           <div class="form-group">
             <label for="passport">Паспорт:</label>
@@ -41,8 +80,18 @@
               id="passport"
               name="passport"
               class="form-control"
+              formControlName="passport"
               required
+              [ngClass]="{
+                'is-invalid': passport.touched && patronymic.invalid,
+                'is-valid': passport.touched && patronymic.valid
+              }"
             />
+            <div *ngIf="passport.invalid" class="invalid-feedback">
+              <span *ngIf="passport.hasError('required')"
+                >* Укажите паспорт.</span
+              >
+            </div>
           </div>
           <div class="form-group">
             <label for="specialty">Специальность:</label>
@@ -50,6 +99,11 @@
               name="specialty"
               id="specialty"
               class="form-control"
+              formControlName="specialty"
+              [ngClass]="{
+                'is-invalid': specialty.touched && specialty.invalid,
+                'is-valid': specialty.touched && specialty.valid
+              }"
             ></select>
           </div>
           <div class="form-group">
@@ -60,7 +114,16 @@
               name="discharge"
               class="form-control"
               required
+              [ngClass]="{
+                'is-invalid': discharge.touched && discharge.invalid,
+                'is-valid': discharge.touched && discharge.valid
+              }"
             />
+            <div *ngIf="passport.invalid" class="invalid-feedback">
+              <span *ngIf="passport.hasError('required')"
+                >* Укажите разряд.</span
+              >
+            </div>
           </div>
           <div class="form-group">
             <label for="workExperience">Опыт работы:</label>
@@ -70,20 +133,28 @@
               class="form-control"
               name="workExperience"
               required
+              [ngClass]="{
+                'is-invalid': workExperience.touched && workExperience.invalid,
+                'is-valid': workExperience.touched && workExperience.valid
+              }"
             />
+            <div *ngIf="workExperience.invalid" class="invalid-feedback">
+              <span *ngIf="workExperience.hasError('required')"
+                >* Укажите опыт работы.</span
+              >
+            </div>
           </div>
-          <button type="submit" class="btn btn-success mr-1">Добавить</button>
+          <button
+            type="submit"
+            [disabled]="workerForm.invalid"
+            class="btn btn-success mr-1"
+          >
+            Добавить
+          </button>
           <button type="reset" class="btn btn-secondary">Очистить</button>
-        </div>
-        <div class="col-md-6">
-          <div *ngIf="exeption !== ''" class="alert alert-danger">
-            <h4>Ошибка!</h4>
-            <p>
-              {{ exeption }}
-            </p>
-          </div>
         </div>
       </div>
     </form>
+    <button class="btn btn-primary mt-3" (click)="goBack()">Назад</button>
   </div>
 </div>
