@@ -12,6 +12,7 @@ import { CarViewData } from 'src/models/view-data/car-view-data';
 export class AdminCarFormPageComponent implements OnInit{
   carViewData!: CarViewData;
   carForm!: FormGroup;
+  title = 'Добавление нового автомобиля';
 
   constructor(private fb: FormBuilder,
               private carService: CarService,
@@ -25,11 +26,15 @@ export class AdminCarFormPageComponent implements OnInit{
       // если данные по id есть, но этого быть не может)
       // то мы отправляем запрос на получение данных
       if (params.id !== undefined) {
+        this.title = 'Изменеие данных транспортного средства';
         // получение даных для отображения
         this.carService.getCarViewData(params.id).subscribe((data: any) => {
           this.carViewData = data as CarViewData;
           this.buildForm();
         });
+      } else {
+        this.createNewCar();
+        this.buildForm();
       }
     });
   }
@@ -58,6 +63,11 @@ export class AdminCarFormPageComponent implements OnInit{
 
   goBack(): void {
     this.location.back();
+  }
+
+  // создание нового автомобиля
+  createNewCar(): void {
+    this.carViewData = new CarViewData(0, '', '', new Date().getFullYear(), '', '', '', '', '', '');
   }
 
   get stateNumber(): any { return this.carForm.controls.stateNumber; }

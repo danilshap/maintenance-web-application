@@ -11,12 +11,12 @@ namespace Maintenance.Models.MaintenanceEntities
 
         // название детали
         [Required]
-        [MaxLength(50)]
+        [MaxLength(200)]
         public string Title { get; set; }
 
         // стоимость детали
         [Required]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         // неисправности в которых может использоваться данная деталь
         public virtual ICollection<Malfunction> Malfunctions { get; set; }

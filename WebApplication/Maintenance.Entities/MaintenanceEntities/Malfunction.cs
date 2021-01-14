@@ -23,8 +23,8 @@ namespace Maintenance.Models.MaintenanceEntities
         public virtual ICollection<Detail> Details { get; set; }
 
         public Malfunction() {
-            RepairOrders = new HashSet<RepairOrder>();
             Details = new HashSet<Detail>();
+            RepairOrders = new HashSet<RepairOrder>();
         }
     }
 }

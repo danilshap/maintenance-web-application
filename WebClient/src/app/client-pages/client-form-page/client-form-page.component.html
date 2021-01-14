@@ -30,7 +30,12 @@
               </div>
             </div>
             <div class="col-md">
-              <form>
+              <form
+                *ngIf="personRequestForm && personRequestViewData"
+                [formGroup]="personRequestForm"
+                class="needs-validation"
+                novalidate
+              >
                 <div class="form-group">
                   <label for="">Имя:</label>
                   <input
@@ -40,7 +45,25 @@
                     class="form-control"
                     name="client_name"
                     id="client_name"
+                    formControlName="name"
+                    required
+                    [ngClass]="{
+                      'is-invalid': name.touched && name.invalid,
+                      'is-valid': name.touched && name.valid
+                    }"
                   />
+                  <div *ngIf="name.invalid" class="invalid-feedback">
+                    <span *ngIf="name.hasError('required')"
+                      >* Укажите ваше имя.</span
+                    >
+                    <span *ngIf="name.hasError('minlength')"
+                      >* Некорректные данные для имени. Минимум 2 символа.</span
+                    >
+                    <span *ngIf="name.hasError('maxlength')"
+                      >* Некорректные данные для имени. Минимум 20
+                      символов.</span
+                    >
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="client_surname">Фамилия:</label>
@@ -51,7 +74,26 @@
                     class="form-control"
                     name="client_surname"
                     id="client_surname"
+                    formControlName="surname"
+                    [ngClass]="{
+                      'is-invalid': surname.touched && surname.invalid,
+                      'is-valid': surname.touched && surname.valid
+                    }"
+                    required
                   />
+                  <div *ngIf="surname.invalid" class="invalid-feedback">
+                    <span *ngIf="surname.hasError('required')"
+                      >* Укажите вашу фаиилию.</span
+                    >
+                    <span *ngIf="surname.hasError('minlength')"
+                      >* Некорректные данные для фамилии. Минимум 2
+                      символа.</span
+                    >
+                    <span *ngIf="surname.hasError('maxlength')"
+                      >* Некорректные данные для фамилии. Минимум 60
+                      символов.</span
+                    >
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="client_patronymic">Отчество:</label>
@@ -62,7 +104,26 @@
                     class="form-control"
                     name="client_patronymic"
                     id="client_patronymic"
+                    formControlName="patronymic"
+                    required
+                    [ngClass]="{
+                      'is-invalid': patronymic.touched && patronymic.invalid,
+                      'is-valid': patronymic.touched && patronymic.valid
+                    }"
                   />
+                  <div *ngIf="patronymic.invalid" class="invalid-feedback">
+                    <span *ngIf="patronymic.hasError('required')"
+                      >* Укажите вашу отчество.</span
+                    >
+                    <span *ngIf="patronymic.hasError('minlength')"
+                      >* Некорректные данные для отчества. Минимум 2
+                      символа.</span
+                    >
+                    <span *ngIf="patronymic.hasError('maxlength')"
+                      >* Некорректные данные для отчества. Минимум 30
+                      символов.</span
+                    >
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="client_passport">Серия и номер паспорта:</label>
@@ -73,7 +134,22 @@
                     class="form-control"
                     required
                     placeholder="Пожалуйста, укажите вашу серию и номер паспорта"
+                    formControlName="passport"
+                    [ngClass]="{
+                      'is-invalid': passport.touched && passport.invalid,
+                      'is-valid': passport.touched && passport.valid
+                    }"
+                    required
                   />
+                  <div *ngIf="passport.invalid" class="invalid-feedback">
+                    <span *ngIf="passport.hasError('required')"
+                      >* Укажите ваш паспорт.</span
+                    >
+                    <span *ngIf="passport.hasError('minlength')"
+                      >* Некорректные данные для паспорта. Минимум 8
+                      символов.</span
+                    >
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="client_telephone">Номер телефона:</label>
@@ -84,7 +160,22 @@
                     class="form-control"
                     name="client_telephone"
                     id="client_telephone"
+                    formControlName="telephone"
+                    [ngClass]="{
+                      'is-invalid': telephone.touched && telephone.invalid,
+                      'is-valid': telephone.touched && telephone.valid
+                    }"
+                    required
                   />
+                  <div *ngIf="telephone.invalid" class="invalid-feedback">
+                    <span *ngIf="telephone.hasError('required')"
+                      >* Укажите ваш номер телефона.</span
+                    >
+                    <span *ngIf="telephone.hasError('minlength')"
+                      >* Некорректные данные для номера телефона. Минимум 10
+                      символов.</span
+                    >
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="client_problem">Опишите вашу проблему:</label>
@@ -95,9 +186,30 @@
                     rows="10"
                     required
                     class="form-control"
+                    formControlName="descriptionOfTheProblem"
+                    [ngClass]="{
+                      'is-invalid':
+                        descriptionOfTheProblem.touched &&
+                        descriptionOfTheProblem.invalid,
+                      'is-valid':
+                        descriptionOfTheProblem.touched &&
+                        descriptionOfTheProblem.valid
+                    }"
                   ></textarea>
+                  <div
+                    *ngIf="descriptionOfTheProblem.invalid"
+                    class="invalid-feedback"
+                  >
+                    <span *ngIf="descriptionOfTheProblem.hasError('required')"
+                      >* Укажите вашу проблему.</span
+                    >
+                    <span *ngIf="descriptionOfTheProblem.hasError('minlength')"
+                      >* Некорректные данные для проблему. Минимум 10
+                      символов.</span
+                    >
+                  </div>
                 </div>
-                <button type="submit" class="btn btn-success mr-1">
+                <button type="submit" [disabled]="personRequestForm.invalid" class="btn btn-success mr-1">
                   Оформить
                 </button>
                 <button type="reset" class="btn btn-secondary m-1">

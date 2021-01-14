@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WorkerService } from 'src/models/sevices/worker.service';
 import { WorkerViewData } from 'src/models/view-data/worker-view-data';
+import { SpecialtyService } from 'src/models/sevices/specialty.service';
 
 @Component({
     selector: 'admin-worker-form-page',
@@ -11,25 +12,24 @@ import { WorkerViewData } from 'src/models/view-data/worker-view-data';
 })
 export class AdminWorkerFormPageComponent implements OnInit{
   workerViewData!: WorkerViewData;
+  specialties!: string[];
   workerForm!: FormGroup;
+  title = 'Добавление нового работника';
 
   constructor(private fb: FormBuilder,
               private workerService: WorkerService,
+              private specialtyService: SpecialtyService,
               private location: Location,
               private activatedRoute: ActivatedRoute){}
 
   ngOnInit(): void {
     // получение данных из роутера
     this.activatedRoute.params.forEach((params: Params) => {
-      // если данные по id есть, но этого быть не может)
-      // то мы отправляем запрос на получение данных
-      if (params.id !== undefined) {
-        // получение даных для отображения
-        this.workerService.getWorkerViewData(params.id).subscribe((data: any) => {
-          this.workerViewData = data as WorkerViewData;
-          this.buildForm();
-        });
-      }
+      this.specialtyService.getSpecialties().subscribe((data: any) => {
+        this.specialties = data as string[];
+      });
+      this.createNewWorker();
+      this.buildForm();
     });
   }
 
@@ -54,8 +54,15 @@ export class AdminWorkerFormPageComponent implements OnInit{
     this.location.back();
   }
 
+  // создание нового работника
+  createNewWorker(): void {
+    this.workerViewData = new WorkerViewData(
+      0, '', '', '', '', '', 1, '', ''
+    );
+  }
+
   get surname(): any { return this.workerForm.controls.surname; }
-  get name(): any { return this.workerForm.controls.surname; }
+  get name(): any { return this.workerForm.controls.name; }
   get patronymic(): any { return this.workerForm.controls.patronymic; }
   get passport(): any { return this.workerForm.controls.passport; }
   get discharge(): any { return this.workerForm.controls.discharge; }

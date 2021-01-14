@@ -42,7 +42,6 @@ import { AdminCarInfoPageComponent } from './admin-car-info-page/admin-car-info-
           {path: 'client_info/:id', component: AdminClientInfoPageComponent},
           // ----------------------------------------------------------------
           {path: 'worker_form', component: AdminWorkerFormPageComponent},
-          {path: 'worker_form/:id', component: AdminWorkerFormPageComponent},
           {path: 'worker_info/:id', component: AdminWorkerInfoPageComponent},
           // ----------------------------------------------------------------
           {path: 'repair_order_form', component: AdminRepairOrderFormPageComponent},

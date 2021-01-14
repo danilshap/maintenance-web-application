@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ClientService } from 'src/models/sevices/client.service';
 import { CarService } from 'src/models/sevices/car.service';
 import { WorkerService } from 'src/models/sevices/worker.service';
+import { SpecialtyService } from 'src/models/sevices/specialty.service';
+import { PersonRequestService } from 'src/models/sevices/person-request.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,14 @@ import { WorkerService } from 'src/models/sevices/worker.service';
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [RepairOrderService, ClientService, CarService, WorkerService],
+  providers: [
+    RepairOrderService,
+    ClientService,
+    CarService,
+    WorkerService,
+    SpecialtyService,
+    PersonRequestService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

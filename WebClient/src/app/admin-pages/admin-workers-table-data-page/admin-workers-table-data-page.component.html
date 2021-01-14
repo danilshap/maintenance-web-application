@@ -35,12 +35,18 @@
             <td>{{ workerViewData.status }}</td>
             <td>{{ workerViewData.specialty }}</td>
             <td>
-              <button class="btn btn-warning btn-block" (click)="editWorker(workerViewData.id)">
-                <i class="fas fa-pen-square"></i>
+              <button
+                class="btn btn-danger btn-block"
+                (click)="removeWorker(workerViewData.id)"
+              >
+                <i class="fas fa-trash"></i>
               </button>
             </td>
             <td>
-              <button class="btn btn-info btn-block" (click)="infoWorker(workerViewData.id)">
+              <button
+                class="btn btn-info btn-block"
+                (click)="infoWorker(workerViewData.id)"
+              >
                 <i class="fas fa-info-circle"></i>
               </button>
             </td>

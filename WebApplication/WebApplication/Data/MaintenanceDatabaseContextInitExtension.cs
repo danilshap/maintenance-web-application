@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Maintenance.Models;
 using Maintenance.Models.MaintenanceEntities;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,9 @@ namespace WebApplication.Data
     public static class MaintenanceDatabaseContextInitExtension {
         // расширяющий метод для генерации данных
         public static void Seed(this MaintenanceDatabaseContext context) {
+            
             // создание персон - 11 человек
-            Person[] persons =
-            {
+            Person[] persons = {
                 new Person
                 {
                     Name = "Евгений",
@@ -93,7 +94,7 @@ namespace WebApplication.Data
                 },
             };
             context.Persons.AddRange(persons);
-
+            
             // создание адресов - 10 адресов
             Address[] addresses =
             {
@@ -229,7 +230,7 @@ namespace WebApplication.Data
             };
             foreach (var client in clients)
                 context.Clients.Add(client);
-
+            
             // созддание марок автомобилей - 10
             Mark[] marks = {
                 new Mark{
@@ -406,26 +407,42 @@ namespace WebApplication.Data
             };
             foreach (var worker in workers)
                 context.Workers.Add(worker);
-
+            
+            var details = new List<Detail> {
+                new Detail { Title = "Комплект сальников и прокладок", Price = 7000d },
+                new Detail { Title = "Комплект фрикционов", Price = 6500d },
+                new Detail { Title = "Комплект стальных дисков", Price = 5500d },
+                new Detail { Title = "Комплект поршней", Price = 9500d },
+                new Detail { Title = "Втулки", Price = 300d },
+                new Detail { Title = "Соленоиды, гидроблок", Price = 3000d },
+                new Detail { Title = "Корпус дифференциала", Price = 20000d },
+                new Detail { Title = "Прокладки отдельно", Price = 400d },
+                new Detail { Title = "Фильтры", Price = 900d },
+                new Detail {Title = "Регулировка колес", Price = 5000d },
+                new Detail {Title = "Полная программа ремонта ГБЦ", Price = 6000d }
+            };
+            foreach (var detail in details)
+                context.Details.Add(detail);
+            
             // создание неисправностей - 3
             Malfunction[] malfunctions = {
                 new Malfunction {
                     Title = "Ремонт АКПП",
-                    TimeToFix = 48
+                    TimeToFix = 48,
                 },
                 new Malfunction
                 {
                     Title = "Развал/Схождение",
-                    TimeToFix = 1
+                    TimeToFix = 1,
                 },
                 new Malfunction {
                     Title = "Ремонт ГБЦ",
-                    TimeToFix = 4
+                    TimeToFix = 4,
                 },
             };
             foreach (var malfunction in malfunctions)
                 context.Malfunctions.Add(malfunction);
-
+            
             // создание заявок - 1
             RepairOrder[] repairOrders = {
                 new RepairOrder {
@@ -433,19 +450,58 @@ namespace WebApplication.Data
                     Worker = workers[0],
                     Car = cars[0],
                     IsReady = false,
-                    Malfunctions = new List<Malfunction>{malfunctions[0]},
+                    Malfunctions = new List<Malfunction>{ malfunctions[0], malfunctions[1] },
                     DateOfTheApplication = DateTime.Now,
                 },
             };
             foreach (var order in repairOrders)
                 context.RepairOrders.Add(order);
+
             var statuses = new List<PersonRequestStatus> {
                 new PersonRequestStatus {Title = "Необходимо перезвонить!"},
                 new PersonRequestStatus {Title = "Заявка оформлена"},
                 new PersonRequestStatus {Title = "Отмена оформления заявки на ремонт"}
             };
-            context.PersonRequestStatuses.AddRange(statuses);
+            foreach (var status in statuses)
+                context.PersonRequestStatuses.Add(status);
 
+            var personsRequests = new List<PersonRequest> {
+                new PersonRequest
+                {
+                    Person = persons[0],
+                    PersonRequestStatus = statuses[0],
+                    TelephoneNumber = "+380710000000",
+                    DescriptionOfTheProblem = "Стучит руль"
+                },
+                new PersonRequest
+                {
+                    Person = persons[1],
+                    PersonRequestStatus = statuses[0],
+                    TelephoneNumber = "+380710000001",
+                    DescriptionOfTheProblem = "Мигает лампочка \"Проверьте двигатель\""
+                },
+                new PersonRequest
+                {
+                    Person = persons[2],
+                    PersonRequestStatus = statuses[0],
+                    TelephoneNumber = "+380710000002",
+                    DescriptionOfTheProblem = "Необходимо заменить тормозные колодки"
+                },
+            };
+            foreach (var personRequest in personsRequests)
+                context.PersonRequests.Add(personRequest);
+
+            var users = new List<User> {
+                new User
+                {
+                    UserName = "admin",
+                    Password = "admin",
+                    SurnameNp ="Admin Admin"
+                }
+            };
+            foreach (var user in users)
+                context.Users.Add(user);
+            
             context.SaveChanges();
         }
     }

@@ -22,8 +22,8 @@ export class AdminWorkersTableDataPageComponent implements OnInit{
     this.router.navigate(['admin/worker_form']);
   }
 
-  editWorker(id: number): void{
-    this.router.navigate(['admin/worker_form', id]);
+  removeWorker(id: number): void{
+
   }
 
   infoWorker(id: number): void{

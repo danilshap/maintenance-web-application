@@ -11,7 +11,7 @@ namespace WebApplication.Models.ViewForm
     public class MalfunctionViewForm {
         public int Id { get; set; } // id неисправности
         public string Title { get; set; }   // название неисправности
-        public decimal Price { get; set; }  // стоимость неисправности
+        public double Price { get; set; }  // стоимость неисправности
 
         public MalfunctionViewForm(MalfunctionViewData malfunction) {
             this.Id = malfunction.Id;

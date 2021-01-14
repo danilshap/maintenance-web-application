@@ -10,64 +10,52 @@ using WebApplication.Data;
 
 namespace WebApplication.Controllers.ControllersModel
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class SpecialtiesController : ControllerBase
     {
         private readonly MaintenanceDatabaseContext _context;
 
-        public SpecialtiesController(MaintenanceDatabaseContext context)
-        {
+        public SpecialtiesController(MaintenanceDatabaseContext context) {
             _context = context;
         }
 
         // GET: api/Specialties
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Specialty>>> GetSpecialties()
-        {
+        [ActionName("GetSpecialties")]
+        public async Task<ActionResult<IEnumerable<Specialty>>> GetSpecialties() {
             return await _context.Specialties.ToListAsync();
+        }
+
+        [HttpGet]
+        [ActionName("GetSpecialtiesStr")]
+        public async Task<IEnumerable<string>> GetSpecialtiesStr() {
+            return await _context.Specialties.Select(s => s.Title).ToListAsync();
         }
 
         // GET: api/Specialties/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Specialty>> GetSpecialty(int id)
-        {
+        [ActionName("GetSpecialty")]
+        public async Task<ActionResult<Specialty>> GetSpecialty(int id) {
             var specialty = await _context.Specialties.FindAsync(id);
-
-            if (specialty == null)
-            {
-                return NotFound();
-            }
-
+            if (specialty == null) return NotFound();
             return specialty;
         }
 
         // PUT: api/Specialties/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSpecialty(int id, Specialty specialty)
-        {
-            if (id != specialty.Id)
-            {
-                return BadRequest();
-            }
+        [ActionName("PutSpecialty")]
+        public async Task<IActionResult> PutSpecialty(int id, Specialty specialty) {
+            if (id != specialty.Id) return BadRequest();
 
             _context.Entry(specialty).State = EntityState.Modified;
 
-            try
-            {
+            try {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SpecialtyExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+            } catch (DbUpdateConcurrencyException) {
+                if (!SpecialtyExists(id)) return NotFound();
+                throw;
             }
 
             return NoContent();
@@ -76,8 +64,8 @@ namespace WebApplication.Controllers.ControllersModel
         // POST: api/Specialties
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Specialty>> PostSpecialty(Specialty specialty)
-        {
+        [ActionName("PostSpecialty")]
+        public async Task<ActionResult<Specialty>> PostSpecialty(Specialty specialty) {
             _context.Specialties.Add(specialty);
             await _context.SaveChangesAsync();
 
@@ -86,23 +74,16 @@ namespace WebApplication.Controllers.ControllersModel
 
         // DELETE: api/Specialties/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSpecialty(int id)
-        {
+        [ActionName("DeleteSpecialty")]
+        public async Task<IActionResult> DeleteSpecialty(int id) {
             var specialty = await _context.Specialties.FindAsync(id);
-            if (specialty == null)
-            {
-                return NotFound();
-            }
-
+            if (specialty == null) return NotFound();
             _context.Specialties.Remove(specialty);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
 
-        private bool SpecialtyExists(int id)
-        {
-            return _context.Specialties.Any(e => e.Id == id);
-        }
+        private bool SpecialtyExists(int id) => _context.Specialties.Any(e => e.Id == id);
+        
     }
 }

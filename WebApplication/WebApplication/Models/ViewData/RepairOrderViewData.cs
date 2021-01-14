@@ -36,7 +36,7 @@ namespace WebApplication.Models.ViewData
         }
 
         // стоимость ремонта
-        public decimal Price { get; private set; }
+        public double Price { get; private set; }
 
         // дата завершения ремонта
         public DateTime DateOfCompletion { get; private set; }

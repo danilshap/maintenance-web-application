@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col">
-    <h1>Добавление нового авотмобиля</h1>
+    <h1>{{title}}</h1>
     <form
       *ngIf="carForm && carViewData"
       [formGroup]="carForm"
@@ -12,17 +12,6 @@
       <div class="row">
         <div class="col-md-6">
           <h5 class="text-muted">Данные автомобиля</h5>
-          <div class="form-group" hidden>
-            <label for="id" hidden>ID</label>
-            <input
-              type="text"
-              name="id"
-              id="id"
-              formControlName="id"
-              class="form-control"
-              hidden
-            />
-          </div>
           <div class="form-group">
             <label for="stateNumber">Гос. номер авто:</label>
             <input
@@ -32,6 +21,7 @@
               class="form-control"
               formControlName="stateNumber"
               required
+              [attr.disabled]="carViewData.id > 0 ? 'disabled': null"
               [ngClass]="{
                 'is-invalid': stateNumber.touched && stateNumber.invalid,
                 'is-valid': stateNumber.touched && stateNumber.valid
@@ -84,6 +74,7 @@
               class="form-control"
               formControlName="yearOfIssue"
               required
+              [attr.disabled]="carViewData.id > 0 ? 'disabled': null"
               [ngClass]="{
                 'is-invalid': yearOfIssue.touched && yearOfIssue.invalid,
                 'is-valid': yearOfIssue.touched && yearOfIssue.valid
@@ -111,6 +102,7 @@
               class="form-control"
               formControlName="markTitle"
               required
+              [attr.disabled]="carViewData.id > 0 ? 'disabled': null"
               [ngClass]="{
                 'is-invalid': markTitle.touched && markTitle.invalid,
                 'is-valid': markTitle.touched && markTitle.valid
@@ -138,6 +130,7 @@
               id="markModel"
               class="form-control"
               formControlName="markModel"
+              [attr.disabled]="carViewData.id > 0 ? 'disabled': null"
               required
               [ngClass]="{
                 'is-invalid': markModel.touched && markModel.invalid,
