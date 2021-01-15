@@ -20,7 +20,6 @@ namespace WebApplication.Controllers.ControllersViewData
 
         public CarViewDataController(MaintenanceDatabaseContext context) {
             _carProcess = new CarProcess(context);
-            context.Seed();
         }
 
         // GET: api/CarViewData

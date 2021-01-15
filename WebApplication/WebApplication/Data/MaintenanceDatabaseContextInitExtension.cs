@@ -429,15 +429,18 @@ namespace WebApplication.Data
                 new Malfunction {
                     Title = "Ремонт АКПП",
                     TimeToFix = 48,
+                    Details = new List<Detail>{ details[0], details[1], details[2], details[3], details[4], details[5], details[6], details[7], details[8] }
                 },
                 new Malfunction
                 {
                     Title = "Развал/Схождение",
                     TimeToFix = 1,
+                    Details = new List<Detail>{ details[9] }
                 },
                 new Malfunction {
                     Title = "Ремонт ГБЦ",
                     TimeToFix = 4,
+                    Details = new List<Detail>{ details[10] }
                 },
             };
             foreach (var malfunction in malfunctions)

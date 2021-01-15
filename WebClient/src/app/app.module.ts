@@ -13,6 +13,7 @@ import { CarService } from 'src/models/sevices/car.service';
 import { WorkerService } from 'src/models/sevices/worker.service';
 import { SpecialtyService } from 'src/models/sevices/specialty.service';
 import { PersonRequestService } from 'src/models/sevices/person-request.service';
+import { MalfunctionService } from 'src/models/sevices/malfunction.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PersonRequestService } from 'src/models/sevices/person-request.service'
     CarService,
     WorkerService,
     SpecialtyService,
-    PersonRequestService
+    PersonRequestService,
+    MalfunctionService,
   ],
   bootstrap: [AppComponent]
 })

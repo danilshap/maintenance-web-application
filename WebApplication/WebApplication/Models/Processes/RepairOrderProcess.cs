@@ -35,7 +35,7 @@ namespace WebApplication.Models.Processes
                 .Include(ro => ro.Car)
                 .Include(ro => ro.Client)
                 .Include(ro => ro.Worker)
-                .Include(ro => ro.Malfunctions).ThenInclude(ro => ro.Details)
+                .Include(ro => ro.Malfunctions)
                 .Select(ro => new RepairOrderViewData(ro,
                     new ClientViewData(ro.Client, ro.Client.Person, ro.Client.Address),
                     new CarViewData(ro.Car, ro.Car.Owner, ro.Car.Mark),

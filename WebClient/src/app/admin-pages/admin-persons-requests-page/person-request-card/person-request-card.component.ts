@@ -20,4 +20,8 @@ export class PersonRequestCardComponent{
     // TODO:: построить запрос на сервер для удаления заявки
     this.hidden = false;
   }
+
+  confirmRequest(){
+    this.router.navigate(['admin/repair_order_form', this.request.id]);
+  }
 }

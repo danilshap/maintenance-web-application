@@ -10,5 +10,6 @@ export class PersonRequestViewData{
     public telephone: string, // телефон персоны
     public descriptionOfTheProblem: string, // описание проблемы
     public status: string // статус обращения
-  ){}
+  ){
+  }
 }

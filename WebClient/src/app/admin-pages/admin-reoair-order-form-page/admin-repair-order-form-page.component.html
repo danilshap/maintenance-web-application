@@ -3,7 +3,7 @@
     <div class="shadow p-3">
       <h1>Оформление новой заявки</h1>
       <hr />
-      <form>
+      <form [formGroup]="repairOrderForm" *ngIf="repairOrderForm">
         <h4 class="text-muted">Данные клиента</h4>
         <div class="row">
           <div class="col-md-6">
@@ -15,6 +15,7 @@
                 id="client_surname"
                 class="form-control"
                 name="client_surname"
+                formControlName="surname"
                 required
               />
             </div>
@@ -25,6 +26,7 @@
                 id="client_name"
                 class="form-control"
                 name="client_name"
+                formControlName="name"
                 required
               />
             </div>
@@ -35,6 +37,7 @@
                 id="client_patronymic"
                 class="form-control"
                 name="client_patronymic"
+                formControlName="patronymic"
                 required
               />
             </div>
@@ -47,6 +50,7 @@
                     id="client_passport"
                     class="form-control"
                     name="client_passport"
+                    formControlName="passport"
                     required
                   />
                 </div>
@@ -59,6 +63,7 @@
                     id="client_dateOfBorn"
                     class="form-control"
                     name="client_dateOfBorn"
+                    formControlName="dateOfBorn"
                     required
                   />
                 </div>
@@ -71,6 +76,7 @@
                 id="client_telephoneNumber"
                 class="form-control"
                 name="client_telephoneNumber"
+                formControlName="telephoneNumber"
                 required
               />
             </div>
@@ -82,6 +88,7 @@
                   value="{{ isClientOwner }}"
                   id="isOwner"
                   (click)="clientIsOwner()"
+                  formControlName="isClientOwner"
                   required
                 />
                 <label class="form-check-label" for="isOwner">
@@ -99,6 +106,7 @@
                 id="client_street"
                 class="form-control"
                 name="client_street"
+                formControlName="street"
                 required
               />
             </div>
@@ -109,6 +117,7 @@
                 id="client_building"
                 class="form-control"
                 name="client_building"
+                formControlName="building"
                 required
               />
             </div>
@@ -119,6 +128,7 @@
                 id="client_flat"
                 class="form-control"
                 name="client_flat"
+                formControlName="flat"
               />
             </div>
           </div>
@@ -140,6 +150,7 @@
                 id="stateNumber"
                 class="form-control"
                 name="stateNumber"
+                formControlName="stateNumber"
                 required
               />
             </div>
@@ -150,6 +161,7 @@
                 id="model"
                 class="form-control"
                 name="model"
+                formControlName="markTitle"
                 required
               />
             </div>
@@ -160,6 +172,7 @@
                 id="mark"
                 class="form-control"
                 name="mark"
+                formControlName="markModel"
                 required
               />
             </div>
@@ -172,6 +185,7 @@
                     id="yearOfIssue"
                     class="form-control"
                     name="yearOfIssue"
+                    formControlName="yearOfIssue"
                     required
                   />
                 </div>
@@ -184,6 +198,7 @@
                     id="color"
                     class="form-control"
                     name="color"
+                    formControlName="color"
                     required
                   />
                 </div>
@@ -205,6 +220,7 @@
                     id="owner_surname"
                     class="form-control"
                     name="owner_surname"
+                    formControlName="surnameOwner"
                     required
                   />
                 </div>
@@ -215,6 +231,7 @@
                     id="owner_name"
                     class="form-control"
                     name="owner_name"
+                    formControlName="nameOwner"
                     required
                   />
                 </div>
@@ -225,6 +242,7 @@
                     id="owner-patronymic"
                     class="form-control"
                     name="owner-patronymic"
+                    formControlName="patronymicOwner"
                     required
                   />
                 </div>
@@ -235,6 +253,7 @@
                     id="owner_passport"
                     class="form-control"
                     name="owner_passport"
+                    formControlName="passportOwner"
                     required
                   />
                 </div>

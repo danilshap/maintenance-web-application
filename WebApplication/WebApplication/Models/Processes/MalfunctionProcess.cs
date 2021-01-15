@@ -20,7 +20,6 @@ namespace WebApplication.Models.Processes
         // выбор всех неисправностей
         public List<MalfunctionViewData> GetMalfunctionsData() =>
             _context.Malfunctions
-                .Include(m => m.Details)
                 .Select(m => new MalfunctionViewData(m, m.Details.ToList()))
                 .ToList();
 
