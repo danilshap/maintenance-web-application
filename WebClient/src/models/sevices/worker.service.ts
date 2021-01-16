@@ -16,6 +16,10 @@ export class WorkerService{
     return this.http.get<WorkerViewData>(`http://localhost:55280/api/WorkerViewData/GetWorker/${id}`);
   }
 
+  getWorkersString(): any {
+    return this.http.get<string[]>('http://localhost:55280/api/WorkerViewData/GetWorkerForSelect');
+  }
+
   // добавление нового работника
   postWorkerViewData(workerViewData: WorkerViewData){}
 

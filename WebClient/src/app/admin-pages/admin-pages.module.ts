@@ -24,7 +24,6 @@ import { AdminCarFormPageComponent } from './admin-car-form-page/admin-car-form-
 import { AdminClientFormPageComponent } from './admin-client-form-page/admin-client-form-page.component';
 import { AdminWorkerFormPageComponent } from './admin-worker-form-page/admin-worker-form-page.component';
 import { AdminRepairOrderFormPageComponent } from './admin-reoair-order-form-page/admin-repair-order-form-page.component';
-import { MalfunctionSelectComponent } from './admin-reoair-order-form-page/malfunctions-select/malfunctions-select.component';
 import { AdminWorkerInfoPageComponent } from './admin-worker-info-page/admin-worker-info-page.component';
 import { AdminClientInfoPageComponent } from './admin-client-info-page/admin-client-info-page.component';
 import { AdminCarInfoPageComponent } from './admin-car-info-page/admin-car-info-page.component';
@@ -60,8 +59,7 @@ import { AdminCarInfoPageComponent } from './admin-car-info-page/admin-car-info-
     AdminCarFormPageComponent,
     AdminClientFormPageComponent,
     AdminWorkerFormPageComponent,
-    AdminRepairOrderFormPageComponent,
-    MalfunctionSelectComponent
+    AdminRepairOrderFormPageComponent
   ],
   providers: [],
 })

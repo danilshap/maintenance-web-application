@@ -1,3 +1,4 @@
+import { MalfunctionViewData } from './../../../models/view-data/malfunction-view-data';
 import { PersonRequestService } from './../../../models/sevices/person-request.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
@@ -21,9 +22,10 @@ import { RepairOrderViewForm } from 'src/models/view-form/repair-order-view-form
 export class AdminRepairOrderFormPageComponent implements OnInit{
   repairOrderViewForm!: RepairOrderViewForm;  // данные для отображения
   workersString!: string[]; // список рабоников
-  malfunctionViewData!: RepairOrderViewData[]; // список неисправностей
+  malfunctionViewData!: MalfunctionViewData[]; // список неисправностей
   isClientOwner!: boolean; // проверка явлется ли клиент влядельцем авто
   repairOrderForm!: FormGroup; // строим форму
+  summ: number = 0;
 
   constructor(private repairRequestService: RepairOrderService,
               private personRequestService: PersonRequestService,
@@ -54,6 +56,14 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
         this.buildForm();
       }
     });
+
+    this.workerService.getWorkersString().subscribe((data: any[]) => {
+      this.workersString = data as string[];
+    });
+
+    this.malfunctionService.getMalfunctionsViewData().subscribe((data: any[]) => {
+      this.malfunctionViewData = data;
+    })
 
     this.isClientOwner = false;
   }
@@ -107,7 +117,7 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
       telephoneNumber: [this.repairOrderViewForm.clientViewData.telephoneNumber, [Validators.required]],
       street: [this.repairOrderViewForm.clientViewData.street, [Validators.required]],
       building: [this.repairOrderViewForm.clientViewData.building, [Validators.required]],
-      flat: [this.repairOrderViewForm.clientViewData.flat, [Validators.required]],
+      flat: [this.repairOrderViewForm.clientViewData.flat],
       stateNumber: [this.repairOrderViewForm.carViewData.stateNumber, [Validators.required]],
       color: [this.repairOrderViewForm.carViewData.color, [Validators.required]],
       yearOfIssue: [this.repairOrderViewForm.carViewData.yearOfIssue, [Validators.required]],
@@ -140,19 +150,41 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
     this.isClientOwner = !this.isClientOwner;
   }
 
+  onChange(id: number): void {
+    this.malfunctionViewData.forEach((elem) => {
+      if(elem.id === id) {
+        elem.isSelected = !elem.isSelected;
+      }
+    });
+
+    this.summ = 0;
+    this.malfunctionViewData.filter((elem) => elem.isSelected).forEach((elem) => {
+      this.summ += elem.price;
+    });
+  }
+
+  onSubmit(): void {
+    console.log(this.malfunctionViewData);
+  }
+
+  selectedMalfunctions(): boolean {
+    return this.malfunctionViewData.filter((elem) => elem.isSelected).length > 0;
+  }
+
   get surname(): any { return this.repairOrderForm.controls.surname; }
   get name(): any { return this.repairOrderForm.controls.name; }
   get patronymic(): any { return this.repairOrderForm.controls.patronymic; }
   get passport(): any { return this.repairOrderForm.controls.passport; }
-  get date(): any { return this.repairOrderForm.controls.date; }
+  get dateOfBorn(): any { return this.repairOrderForm.controls.dateOfBorn; }
   get telephoneNumber(): any { return this.repairOrderForm.controls.telephoneNumber; }
   get street(): any { return this.repairOrderForm.controls.street; }
   get building(): any { return this.repairOrderForm.controls.building; }
   get flat(): any { return this.repairOrderForm.controls.flat; }
-  get stateNumber(): any { return this.repairOrderForm.controls.color; }
+  get stateNumber(): any { return this.repairOrderForm.controls.stateNumber; }
   get yearOfIssue(): any { return this.repairOrderForm.controls.yearOfIssue; }
   get markTitle(): any { return this.repairOrderForm.controls.markTitle; }
   get markModel(): any { return this.repairOrderForm.controls.markModel; }
+  get color(): any { return this.repairOrderForm.controls.color; }
   get surnameOwner(): any { return this.repairOrderForm.controls.surnameOwner; }
   get nameOwner(): any { return this.repairOrderForm.controls.nameOwner; }
   get patronymicOwner(): any { return this.repairOrderForm.controls.patronymicOwner; }

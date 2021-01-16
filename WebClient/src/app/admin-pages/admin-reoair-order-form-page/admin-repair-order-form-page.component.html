@@ -3,7 +3,12 @@
     <div class="shadow p-3">
       <h1>Оформление новой заявки</h1>
       <hr />
-      <form [formGroup]="repairOrderForm" *ngIf="repairOrderForm">
+      <form
+        [formGroup]="repairOrderForm"
+        class="needs-validation"
+        novalidate
+        *ngIf="repairOrderForm && malfunctionViewData"
+      >
         <h4 class="text-muted">Данные клиента</h4>
         <div class="row">
           <div class="col-md-6">
@@ -17,7 +22,16 @@
                 name="client_surname"
                 formControlName="surname"
                 required
+                [ngClass]="{
+                  'is-invalid': surname.touched && surname.invalid,
+                  'is-valid': surname.touched && surname.valid
+                }"
               />
+              <div *ngIf="surname.invalid" class="invalid-feedback">
+                <span *ngIf="surname.hasError('required')"
+                  >* Укажите фамилию клиента.</span
+                >
+              </div>
             </div>
             <div class="form-group">
               <label for="client_name">Имя:</label>
@@ -28,7 +42,16 @@
                 name="client_name"
                 formControlName="name"
                 required
+                [ngClass]="{
+                  'is-invalid': name.touched && name.invalid,
+                  'is-valid': name.touched && name.valid
+                }"
               />
+              <div *ngIf="name.invalid" class="invalid-feedback">
+                <span *ngIf="name.hasError('required')"
+                  >* Укажите имя клиента.</span
+                >
+              </div>
             </div>
             <div class="form-group">
               <label for="client_patronymic">Отчество:</label>
@@ -39,7 +62,16 @@
                 name="client_patronymic"
                 formControlName="patronymic"
                 required
+                [ngClass]="{
+                  'is-invalid': patronymic.touched && patronymic.invalid,
+                  'is-valid': patronymic.touched && patronymic.valid
+                }"
               />
+              <div *ngIf="patronymic.invalid" class="invalid-feedback">
+                <span *ngIf="patronymic.hasError('required')"
+                  >* Укажите отчество клиента.</span
+                >
+              </div>
             </div>
             <div class="form-row">
               <div class="col-md-6">
@@ -52,7 +84,16 @@
                     name="client_passport"
                     formControlName="passport"
                     required
+                    [ngClass]="{
+                      'is-invalid': passport.touched && passport.invalid,
+                      'is-valid': passport.touched && passport.valid
+                    }"
                   />
+                  <div *ngIf="passport.invalid" class="invalid-feedback">
+                    <span *ngIf="passport.hasError('required')"
+                      >* Укажите паспорт клиента.</span
+                    >
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -65,7 +106,16 @@
                     name="client_dateOfBorn"
                     formControlName="dateOfBorn"
                     required
+                    [ngClass]="{
+                      'is-invalid': dateOfBorn.touched && dateOfBorn.invalid,
+                      'is-valid': dateOfBorn.touched && dateOfBorn.valid
+                    }"
                   />
+                  <div *ngIf="dateOfBorn.invalid" class="invalid-feedback">
+                    <span *ngIf="dateOfBorn.hasError('required')"
+                      >* Укажите дату рождения клиента.</span
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -78,7 +128,17 @@
                 name="client_telephoneNumber"
                 formControlName="telephoneNumber"
                 required
+                [ngClass]="{
+                  'is-invalid':
+                    telephoneNumber.touched && telephoneNumber.invalid,
+                  'is-valid': telephoneNumber.touched && telephoneNumber.valid
+                }"
               />
+              <div *ngIf="dateOfBorn.invalid" class="invalid-feedback">
+                <span *ngIf="dateOfBorn.hasError('required')"
+                  >* Укажите дату рождения клиента.</span
+                >
+              </div>
             </div>
             <div class="form-group">
               <div class="form-check">
@@ -108,7 +168,16 @@
                 name="client_street"
                 formControlName="street"
                 required
+                [ngClass]="{
+                  'is-invalid': street.touched && street.invalid,
+                  'is-valid': street.touched && street.valid
+                }"
               />
+              <div *ngIf="street.invalid" class="invalid-feedback">
+                <span *ngIf="street.hasError('required')"
+                  >* Укажите улицу проживания клиента.</span
+                >
+              </div>
             </div>
             <div class="form-group">
               <label for="client_building">Дом:</label>
@@ -119,7 +188,16 @@
                 name="client_building"
                 formControlName="building"
                 required
+                [ngClass]="{
+                  'is-invalid': building.touched && building.invalid,
+                  'is-valid': building.touched && building.valid
+                }"
               />
+              <div *ngIf="building.invalid" class="invalid-feedback">
+                <span *ngIf="building.hasError('required')"
+                  >* Укажите дом проживания клиента.</span
+                >
+              </div>
             </div>
             <div class="form-group">
               <label for="client_flat">Квартира:</label>
@@ -152,7 +230,16 @@
                 name="stateNumber"
                 formControlName="stateNumber"
                 required
+                [ngClass]="{
+                  'is-invalid': stateNumber.touched && stateNumber.invalid,
+                  'is-valid': stateNumber.touched && stateNumber.valid
+                }"
               />
+              <div *ngIf="stateNumber.invalid" class="invalid-feedback">
+                <span *ngIf="stateNumber.hasError('required')"
+                  >* Укажите гос. номер автомобиля.</span
+                >
+              </div>
             </div>
             <div class="form-group">
               <label for="model">Модель:</label>
@@ -163,7 +250,16 @@
                 name="model"
                 formControlName="markTitle"
                 required
+                [ngClass]="{
+                  'is-invalid': markTitle.touched && markTitle.invalid,
+                  'is-valid': markTitle.touched && markTitle.valid
+                }"
               />
+              <div *ngIf="markTitle.invalid" class="invalid-feedback">
+                <span *ngIf="markTitle.hasError('required')"
+                  >* Укажите марку автомобиля.</span
+                >
+              </div>
             </div>
             <div class="form-group">
               <label for="mark">Марка:</label>
@@ -174,7 +270,16 @@
                 name="mark"
                 formControlName="markModel"
                 required
+                [ngClass]="{
+                  'is-invalid': markModel.touched && markModel.invalid,
+                  'is-valid': markModel.touched && markModel.valid
+                }"
               />
+              <div *ngIf="markModel.invalid" class="invalid-feedback">
+                <span *ngIf="markModel.hasError('required')"
+                  >* Укажите модель автомобиля.</span
+                >
+              </div>
             </div>
             <div class="row">
               <div class="col-md-6">
@@ -187,7 +292,16 @@
                     name="yearOfIssue"
                     formControlName="yearOfIssue"
                     required
+                    [ngClass]="{
+                      'is-invalid': yearOfIssue.touched && yearOfIssue.invalid,
+                      'is-valid': yearOfIssue.touched && yearOfIssue.valid
+                    }"
                   />
+                  <div *ngIf="yearOfIssue.invalid" class="invalid-feedback">
+                    <span *ngIf="yearOfIssue.hasError('required')"
+                      >* Укажите год выпуска автомобиля.</span
+                    >
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -200,7 +314,16 @@
                     name="color"
                     formControlName="color"
                     required
+                    [ngClass]="{
+                      'is-invalid': color.touched && color.invalid,
+                      'is-valid': color.touched && color.valid
+                    }"
                   />
+                  <div *ngIf="color.invalid" class="invalid-feedback">
+                    <span *ngIf="color.hasError('required')"
+                      >* Укажите цвет автомобиля.</span
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -222,7 +345,17 @@
                     name="owner_surname"
                     formControlName="surnameOwner"
                     required
+                    [ngClass]="{
+                      'is-invalid':
+                        surnameOwner.touched && surnameOwner.invalid,
+                      'is-valid': surnameOwner.touched && surnameOwner.valid
+                    }"
                   />
+                  <div *ngIf="surnameOwner.invalid" class="invalid-feedback">
+                    <span *ngIf="surnameOwner.hasError('required')"
+                      >* Укажите фамилию владельца автомобиля.</span
+                    >
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="owner_name">Имя:</label>
@@ -233,7 +366,16 @@
                     name="owner_name"
                     formControlName="nameOwner"
                     required
+                    [ngClass]="{
+                      'is-invalid': nameOwner.touched && nameOwner.invalid,
+                      'is-valid': nameOwner.touched && nameOwner.valid
+                    }"
                   />
+                  <div *ngIf="nameOwner.invalid" class="invalid-feedback">
+                    <span *ngIf="nameOwner.hasError('required')"
+                      >* Укажите имя владельца автомобиля.</span
+                    >
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="owner-patronymic">Отчество:</label>
@@ -244,7 +386,18 @@
                     name="owner-patronymic"
                     formControlName="patronymicOwner"
                     required
+                    [ngClass]="{
+                      'is-invalid':
+                        patronymicOwner.touched && patronymicOwner.invalid,
+                      'is-valid':
+                        patronymicOwner.touched && patronymicOwner.valid
+                    }"
                   />
+                  <div *ngIf="patronymicOwner.invalid" class="invalid-feedback">
+                    <span *ngIf="patronymicOwner.hasError('required')"
+                      >* Укажите отчество владельца автомобиля.</span
+                    >
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="owner_passport">Паспорт:</label>
@@ -255,7 +408,17 @@
                     name="owner_passport"
                     formControlName="passportOwner"
                     required
+                    [ngClass]="{
+                      'is-invalid':
+                        passportOwner.touched && passportOwner.invalid,
+                      'is-valid': passportOwner.touched && passportOwner.valid
+                    }"
                   />
+                  <div *ngIf="passportOwner.invalid" class="invalid-feedback">
+                    <span *ngIf="passportOwner.hasError('required')"
+                      >* Укажите паспорт владельца автомобиля.</span
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -264,26 +427,80 @@
         <hr />
         <h4 class="text-muted">Данные ремонта</h4>
         <div class="row">
-          <div class="col-md-4">
+          <div class="col">
             <div class="form-group">
               <label for="worker">Мастер:</label>
               <select
                 name="worker"
                 id="worker"
                 class="form-control"
+                formControlName="worker"
+                [ngClass]="{
+                  'is-invalid': worker.touched && worker.invalid,
+                  'is-valid': worker.touched && worker.valid
+                }"
                 required
-              ></select>
+              >
+                <option
+                  *ngFor="let worker of workersString"
+                  value="worker"
+                  [ngValue]="worker"
+                >
+                  {{ worker }}
+                </option>
+              </select>
+              <div *ngIf="worker.invalid" class="invalid-feedback">
+                <span *ngIf="worker.hasError('required')"
+                  >* Укажите работника автомобиля.</span
+                >
+              </div>
             </div>
           </div>
-          <div class="col-md-8">
+        </div>
+        <div class="row">
+          <div class="col">
             <div class="form-group">
-              <label for="malfunctions">Неисправности:</label>
-              <malfunction-select></malfunction-select>
+              <label for="malfunctions">Неисправности (обязательно укажите):</label>
+              <table class="table table-bordered" style="max-height: 200pt">
+                <thead class="thead-dark">
+                  <tr>
+                    <th></th>
+                    <th>Название</th>
+                    <th>Стоимость</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let malfunction of malfunctionViewData">
+                    <td>
+                      <input
+                        type="checkbox"
+                        value="{{ malfunction.id }}"
+                        (change)="onChange(malfunction.id)"
+                      />
+                    </td>
+                    <td>{{ malfunction.title }}</td>
+                    <td>{{ malfunction.price }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div *ngIf="!selectedMalfunctions()">
+                <span class="text-danger">* Укажите неисправности автомобиля.</span>
+              </div>
+              <p>
+                Примерная стоимость: <span>{{ summ }}</span>
+              </p>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-success mr-1">Оформить</button>
+          <button
+            type="submit"
+            (click)="onSubmit()"
+            [disabled]="repairOrderForm.invalid && !selectedMalfunctions()"
+            class="btn btn-success mr-1"
+          >
+            Оформить
+          </button>
           <button type="reset" class="btn btn-secondary">Очистить</button>
         </div>
       </form>
