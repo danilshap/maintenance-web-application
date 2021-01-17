@@ -1,5 +1,120 @@
 <div class="row">
   <div class="col">
     <h1>Отчет работы сервеса за месяц</h1>
+    <div class="card shadow mt-3" *ngIf="reportsViewData">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8">
+            <h4>Данные о неисправностях</h4>
+            <div *ngIf="isMalfunctionsData()" class="alert alert-warning">
+              <b>Внимание!</b><br />
+              <p>
+                Данные о неиспраностях отсутсвуют. Возможно все автомобили
+                находятся еще в ремонте
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h4>Данные статистики</h4>
+            <div class="row">
+              <div class="col">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div
+                          class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                        >
+                          Количество устраненных неисправностей за месяц
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ reportsViewData.countOfMalfunctions }} шт.
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-tools fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div
+                          class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                        >
+                          Примерная выручка за месяц
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ reportsViewData.priceOfMalfunctions }} руб.
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-ruble-sign fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <p>
+          Перечень отремонтированных за прошедший месяц и находящихся в ремонте
+          автомобилей, время ремонта каждого автомобиля, список его
+          неисправностей, сведения о работниках, осуществлявших ремонт.
+        </p>
+        <div class="row mt-3">
+          <div class="col">
+            <table class="table table-bordered">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Автомобиль</th>
+                  <th>Работник</th>
+                  <th>Неисправность</th>
+                  <th>Примерная стоимость ремонта</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cars of reportsViewData.carsInServicesViewData">
+                  <td>
+                    {{ cars.carViewData.markTitle }}
+                    {{ cars.carViewData.markModel }} [{{
+                      cars.carViewData.stateNumber
+                    }}]
+                  </td>
+                  <td>
+                    {{ cars.workerViewData.surname }}
+                    {{ cars.workerViewData.name }}
+                    {{ cars.workerViewData.patronymic }} ({{
+                      cars.workerViewData.specialty
+                    }})
+                  </td>
+                  <td>
+                    <ul>
+                      <li *ngFor="let malfunction of cars.malfunctionsViewData">
+                        <b
+                          >{{ malfunction.title }} ({{
+                            malfunction.price
+                          }}
+                          руб.)</b
+                        >
+                      </li>
+                    </ul>
+                  </td>
+                  <td>{{ cars.repairCost }} руб.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

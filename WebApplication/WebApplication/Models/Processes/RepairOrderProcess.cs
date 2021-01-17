@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Maintenance.Models.MaintenanceEntities;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
 using WebApplication.Models.Utils;
@@ -36,6 +37,7 @@ namespace WebApplication.Models.Processes
                 .Include(ro => ro.Client)
                 .Include(ro => ro.Worker)
                 .Include(ro => ro.Malfunctions)
+                .OrderBy(ro => !ro.IsReady)
                 .Select(ro => new RepairOrderViewData(ro,
                     new ClientViewData(ro.Client, ro.Client.Person, ro.Client.Address),
                     new CarViewData(ro.Car, ro.Car.Owner, ro.Car.Mark),
@@ -110,6 +112,11 @@ namespace WebApplication.Models.Processes
             RepairOrder repairOrder = _context.RepairOrders.FirstOrDefault(ro => ro.Id == id);
             if(repairOrder == null) throw new WebApiException("Заявка на ремонт отсутствует. Данные недействительны");
             repairOrder.IsReady = true;
+
+            var worker = _context.Workers.FirstOrDefault(w => w.Id == repairOrder.WorkerId);
+            if (worker == null) throw new WebApiException("Проблемы с данными о работнике.");
+            worker.Status = _context.WorkerStatuses.First(wo => wo.Status == "На работе. Свободен");
+
             await _context.SaveChangesAsync();
         }
 

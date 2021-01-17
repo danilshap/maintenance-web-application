@@ -27,6 +27,7 @@ namespace WebApplication.Models.Processes
         // получить список работников для выпадающего списка
         public List<string> GetWorkersForSelect() =>
             _context.Workers.Include(w => w.Person)
+                .Where(w => w.Status.Status == "На работе. Свободен")
                 .Select(w => $"{w.Person.Surname} {w.Person.Name} {w.Person.Patronymic}").ToList();
 
         // получить определенного клиента

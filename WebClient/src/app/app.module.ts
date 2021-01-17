@@ -1,3 +1,4 @@
+import { ReportsService } from './../models/sevices/reports.service';
 import { RepairOrderService } from './../models/sevices/repair-order.service';
 import { AdminPagesModule } from './admin-pages/admin-pages.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,6 +15,7 @@ import { WorkerService } from 'src/models/sevices/worker.service';
 import { SpecialtyService } from 'src/models/sevices/specialty.service';
 import { PersonRequestService } from 'src/models/sevices/person-request.service';
 import { MalfunctionService } from 'src/models/sevices/malfunction.service';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { MalfunctionService } from 'src/models/sevices/malfunction.service';
     ClientPagesModule,
     AdminPagesModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [
     RepairOrderService,
@@ -35,6 +38,7 @@ import { MalfunctionService } from 'src/models/sevices/malfunction.service';
     SpecialtyService,
     PersonRequestService,
     MalfunctionService,
+    ReportsService
   ],
   bootstrap: [AppComponent]
 })
