@@ -34,6 +34,7 @@
                 *ngIf="personRequestForm && personRequestViewData"
                 [formGroup]="personRequestForm"
                 class="needs-validation"
+                (ngSubmit)="submit()"
                 novalidate
               >
                 <div class="form-group">
@@ -209,7 +210,11 @@
                     >
                   </div>
                 </div>
-                <button type="submit" [disabled]="personRequestForm.invalid" class="btn btn-success mr-1">
+                <button
+                  type="submit"
+                  [disabled]="personRequestForm.invalid"
+                  class="btn btn-success mr-1"
+                >
                   Оформить
                 </button>
                 <button type="reset" class="btn btn-secondary m-1">

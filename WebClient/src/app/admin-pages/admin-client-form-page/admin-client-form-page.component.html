@@ -5,6 +5,7 @@
       class="shadow mt-3 p-3"
       *ngIf="clientForm && clientViewData"
       [formGroup]="clientForm"
+      (ngSubmit)="submit()"
     >
       <div class="row">
         <div class="col-md-6">

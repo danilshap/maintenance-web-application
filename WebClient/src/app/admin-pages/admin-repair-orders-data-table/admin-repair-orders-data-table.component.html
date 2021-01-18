@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col">
+    <h1>Заявки на ремонт</h1>
+    <div class="shadow mt-3 p-3">
+      <button class="btn btn-success" (click)="appendNewRepeirOrder()">
+        Оформить новую заявку
+      </button>
+      <table class="table table-bordered mt-3">
+        <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Клиент</th>
+            <th>Работник</th>
+            <th>Автомобиль</th>
+            <th>Неисправности</th>
+            <th>Примерная стоимость ремонта</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of repairOrders"
+            class="{{ getClassByStatus(item.isReady) }}"
+          >
+            <td>{{ item.id }}</td>
+            <td>
+              {{ item.clientViewData.surname }} {{ item.clientViewData.name }}
+              {{ item.clientViewData.patronymic }} ({{
+                item.clientViewData.passport
+              }})
+            </td>
+            <td>
+              {{ item.workerViewData.surname }} {{ item.workerViewData.name }}
+              {{ item.workerViewData.patronymic }} ({{
+                item.workerViewData.specialty
+              }})
+            </td>
+            <td>
+              {{ item.carViewData.markTitle }}
+              {{ item.carViewData.markModel }} ({{
+                item.carViewData.stateNumber
+              }})
+            </td>
+            <td>
+              <ul>
+                <li *ngFor="let malfunction of item.malfunctionViewModels">
+                  <b>{{ malfunction.title }} ({{ malfunction.price }} руб.)</b>
+                </li>
+              </ul>
+            </td>
+            <td>{{ item.price }} руб.</td>
+            <td>
+              <button
+                class="btn btn-primary btn-block"
+                [disabled]="item.isReady"
+                (click)="changeStatus(item.id)"
+              >
+                <i class="fas fa-check"></i>
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn btn-info btn-block"
+                (click)="moreInfoByOrder(item.id)"
+              >
+                <i class="fas fa-info-circle"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

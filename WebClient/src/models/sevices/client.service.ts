@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ClientViewData } from "../view-data/client-view-data";
 
@@ -17,7 +17,11 @@ export class ClientService{
   }
 
   // добавление нового клиента
-  postClientViewData(clientViewData: ClientViewData){}
+  postClientViewData(clientViewData: ClientViewData): any {
+    return this.http.post('http://localhost:55280/api/ClientViewData',
+    clientViewData,
+    {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
+  }
 
   // изменение клиента
   putClientViewData(id: number, clientViewData: ClientViewData){}

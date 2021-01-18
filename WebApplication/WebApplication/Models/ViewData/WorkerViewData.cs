@@ -22,6 +22,7 @@ namespace WebApplication.Models.ViewData
         // специальность работника
         public string Specialty { get; set; }
 
+        public WorkerViewData(){}
         public WorkerViewData(Worker worker, Person person, WorkerStatus status, Specialty specialty)
         {
             Id = worker.Id;

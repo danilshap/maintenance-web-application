@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { WorkerViewData } from "../view-data/worker-view-data";
 
@@ -21,7 +21,9 @@ export class WorkerService{
   }
 
   // добавление нового работника
-  postWorkerViewData(workerViewData: WorkerViewData){}
+  postWorkerViewData(workerViewData: WorkerViewData): any{
+    return this.http.post('http://localhost:55280/api/WorkerViewData/PostWorker', workerViewData, {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
+  }
 
   // удаление работника
   deleteWorkerViewData(id: number){}

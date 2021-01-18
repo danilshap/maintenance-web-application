@@ -57,7 +57,28 @@ export class AdminWorkerFormPageComponent implements OnInit{
   // создание нового работника
   createNewWorker(): void {
     this.workerViewData = new WorkerViewData(
-      0, '', '', '', '', '', 1, '', ''
+      0, '', '', '', '', '', 1, 'На работе. Свободен', ''
+    );
+  }
+
+  submit(): void{
+    this.workerViewData = new WorkerViewData(
+      this.workerViewData.id,
+      this.surname.value,
+      this.name.value,
+      this.patronymic.value,
+      this.passport.value,
+      this.discharge.value,
+      this.workExperience.value,
+      this.status.value,
+      this.specialty.value
+    );
+
+    this.workerService.postWorkerViewData(this.workerViewData).subscribe(
+      (data: any) => {
+        this.location.back();
+      },
+      (error: any) => { alert(error.message);}
     );
   }
 

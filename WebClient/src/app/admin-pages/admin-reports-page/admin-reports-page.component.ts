@@ -15,6 +15,7 @@ export class AdminReportsPageComponent implements OnInit {
   ngOnInit(): void {
     this.reportsService.getReports().subscribe((data: any) => {
       this.reportsViewData = data as ReportsViewData;
+      console.log(data);
     });
   }
 

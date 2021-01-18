@@ -58,7 +58,26 @@ export class AdminCarFormPageComponent implements OnInit{
 
   // отправка данных о форме
   submit(): void{
-    console.log(this.carForm.value);
+    this.carViewData = new CarViewData(
+      this.carViewData.id,
+      this.stateNumber.value,
+      this.color.value,
+      this.yearOfIssue.value,
+      this.markTitle.value,
+      this.markModel.value,
+      this.surname.value,
+      this.name.value,
+      this.patronymic.value,
+      this.passport.value
+    );
+
+    this.carService.postCarViewData(this.carViewData).subscribe(
+      (data: any) => {
+        this.location.back();
+      },
+      (error: any) => { alert(error.message);}
+    );
+
   }
 
   goBack(): void {

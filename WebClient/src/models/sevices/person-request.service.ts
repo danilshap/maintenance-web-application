@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { PersonRequestViewData } from "../view-data/person-request-view-data";
 @Injectable()
@@ -13,5 +13,9 @@ export class PersonRequestService{
     return this.http.get<PersonRequestViewData>(`http://localhost:55280/api/PersonRequestViewData/${id}`);
   }
 
-  postPersonRequest(): any {}
+  postPersonRequest(personRequest: PersonRequestViewData): any {
+    return this.http.post('http://localhost:55280/api/PersonRequestViewData',
+    personRequest,
+    {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
+  }
 }

@@ -54,6 +54,29 @@ export class AdminClientFormPageComponent implements OnInit{
     });
   }
 
+  submit(): void{
+    this.clientViewData = new ClientViewData(
+      this.clientViewData.id,
+      this.surname.value,
+      this.name.value,
+      this.patronymic.value,
+      this.passport.value,
+      this.dateOfBorn.value,
+      this.telephoneNumber.value,
+      this.street.value,
+      this.building.value,
+      this.flat.value
+    );
+
+    this.clientService.postClientViewData(this.clientViewData).subscribe(
+      (data: any) => {
+        this.location.back();
+      },
+      (error: any) => { alert(error.message);}
+    );
+
+  }
+
   // вернуться назад
   goBack(): void {
     this.location.back();

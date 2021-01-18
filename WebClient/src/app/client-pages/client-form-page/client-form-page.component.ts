@@ -1,5 +1,6 @@
 import { PersonRequestService } from './../../../models/sevices/person-request.service';
 import { Component, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PersonRequestViewData } from "src/models/view-data/person-request-view-data";
 
@@ -12,6 +13,7 @@ export class ClientFormPageComponent implements OnInit {
   personRequestForm!: FormGroup;
 
   constructor(private fb: FormBuilder,
+              private location: Location,
               private personRequestService: PersonRequestService){}
 
   ngOnInit(): void {
@@ -35,7 +37,27 @@ export class ClientFormPageComponent implements OnInit {
   // создание нового запроса персоны
   createNewPersonRequest(): void {
     this.personRequestViewData = new PersonRequestViewData(
-      0, '', '', '', '', '', '', ''
+      0, '', '', '', '', '', '', 'Необходимо перезвонить!'
+    );
+  }
+
+  submit(): void{
+    this.personRequestViewData = new PersonRequestViewData(
+      this.personRequestViewData.id,
+      this.name.value,
+      this.surname.value,
+      this.patronymic.value,
+      this.passport.value,
+      this.telephone.value,
+      this.descriptionOfTheProblem.value,
+      this.personRequestViewData.status
+    );
+
+    this.personRequestService.postPersonRequest(this.personRequestViewData).subscribe(
+      (data: any) => {
+          alert('Заявка успешно оформлена');
+      },
+      (error: any) => { alert(error.message);}
     );
   }
 

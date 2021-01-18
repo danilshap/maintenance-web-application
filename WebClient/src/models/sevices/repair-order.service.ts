@@ -12,7 +12,7 @@ export class RepairOrderService{
   }
 
   // полуение конкретной заявки на ремонт
-  getRepairOrderViewData(id: number){
+  getRepairOrderViewData(id: number): any {
     return this.http.get(`http://localhost:55280/api/RepairOrderViewData/GetRepairOrder/${id}`);
   }
 
@@ -23,5 +23,8 @@ export class RepairOrderService{
   postRepairOrder(repairOrder: any){}
 
   // изменение статуса заявки на ремонт
-  putRepairOrder(id: number){}
+  // PutRepairOrder
+  putRepairOrder(id: number){
+    return this.http.put(`http://localhost:55280/api/RepairOrderViewData/PutRepairOrder/${id}`, undefined, undefined);
+  }
 }

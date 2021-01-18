@@ -42,7 +42,11 @@ namespace WebApplication
                     Configuration.GetConnectionString("DefaultConnection")
                 ));
 
-            services.AddCors();
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder => {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,9 +65,10 @@ namespace WebApplication
             app.UseRouting();
             app.UseAuthorization();
 
-            app.UseCors(options => {
-                options.AllowAnyOrigin().AllowAnyMethod();
-            });
+            // Use HTTPS Redirection Middleware to redirect HTTP requests to HTTPS.
+            app.UseHttpsRedirection();
+
+            app.UseCors("MyPolicy");
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();

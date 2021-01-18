@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CarViewData } from "../view-data/car-view-data";
 
@@ -17,7 +17,11 @@ export class CarService{
   }
 
   // добавление нового клиента
-  postCarViewData(carViewData: CarViewData){}
+  postCarViewData(carViewData: CarViewData): any{
+    return this.http.post('http://localhost:55280/api/CarViewData',
+     carViewData,
+      {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
+  }
 
   // изменение клиента
   putCarViewData(id: number, carViewData: CarViewData){}

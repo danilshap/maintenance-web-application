@@ -24,6 +24,10 @@ namespace WebApplication.Models.ViewData
         // паспорт владельца
         public string Passport { get; set; }
 
+        public CarViewData()
+        {
+        }
+
         public CarViewData(Car car, Person person, Mark mark) {
             Id = car.Id;
             StateNumber = car.StateNumber;
