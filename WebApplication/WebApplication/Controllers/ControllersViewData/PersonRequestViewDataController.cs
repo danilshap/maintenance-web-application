@@ -30,7 +30,7 @@ namespace WebApplication.Controllers.ControllersViewData
         public PersonRequestViewData GetPersonRequest(int id) => _personRequestProcess.PersonRequestViewData(id);
 
         [HttpPut("{id}")]
-        public async Task PostPersonRequest(int id, string status) =>
+        public async Task PutPersonRequest(int id, string status) =>
             await _personRequestProcess.ChangePersonRequest(id, status);
 
         // POST: api/PersonRequestViewData

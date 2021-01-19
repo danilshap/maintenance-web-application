@@ -25,6 +25,8 @@ export class WorkerService{
     return this.http.post('http://localhost:55280/api/WorkerViewData/PostWorker', workerViewData, {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
   }
 
-  // удаление работника
-  deleteWorkerViewData(id: number){}
+  // удаление работника DeleteWorker
+  deleteWorkerViewData(id: number): any {
+    return this.http.delete(`http://localhost:55280/api/WorkerViewData/DeleteWorker/${id}`);
+  }
 }

@@ -37,6 +37,7 @@
             <td>
               <button
                 class="btn btn-danger btn-block"
+                [disabled]="canRemove(workerViewData.status)"
                 (click)="removeWorker(workerViewData.id)"
               >
                 <i class="fas fa-trash"></i>

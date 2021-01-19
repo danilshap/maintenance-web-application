@@ -25,10 +25,7 @@ namespace WebApplication.Models.ViewData
         // статус
         public string Status { get; set; }
 
-        public PersonRequestViewData()
-        {
-        }
-
+        public PersonRequestViewData() { }
         public PersonRequestViewData(PersonRequest personRequest, Person person, PersonRequestStatus personRequestStatus) {
             Id = personRequest.Id;
             Name = person.Name;

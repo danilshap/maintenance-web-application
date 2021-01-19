@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { PersonRequestService } from 'src/models/sevices/person-request.service';
 import { PersonRequestViewData } from "src/models/view-data/person-request-view-data";
 
 @Component({
@@ -7,21 +9,24 @@ import { PersonRequestViewData } from "src/models/view-data/person-request-view-
   templateUrl: './person-request-card.component.html',
 })
 export class PersonRequestCardComponent{
-  // статус вывода карточки
-  hidden: boolean = true;
+  hidden: boolean = true; // статус вывода карточки
+  @Input() request!: PersonRequestViewData; // данные о заявке
 
-  // данные о заявке
-  @Input()
-  request!: PersonRequestViewData;
-
-  constructor(private router: Router){}
+  constructor(private router: Router,
+              private personRequestService: PersonRequestService)
+              {}
 
   removeRequest(): void {
-    // TODO:: построить запрос на сервер для удаления заявки
-    this.hidden = false;
+    this.personRequestService.putPersonRequest(this.request.id, 'Отмена оформления заявки на ремонт').subscribe(
+      (data: any) => { this.hidden = false; },
+      (error: any) => {
+        let errorMessage = error.message.split('$$$');
+        alert(errorMessage[0]);
+      }
+    );
   }
 
-  confirmRequest(){
+  confirmRequest(): void {
     this.router.navigate(['admin/repair_order_form', this.request.id]);
   }
 }

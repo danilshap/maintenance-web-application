@@ -20,7 +20,9 @@ export class RepairOrderService{
   getRepairOrderWithPersonRequest(id: number){}
 
   // добавление новой заявки на ремонт
-  postRepairOrder(repairOrder: any){}
+  postRepairOrder(repairOrder: any){
+    
+  }
 
   // изменение статуса заявки на ремонт
   // PutRepairOrder

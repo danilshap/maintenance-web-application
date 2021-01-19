@@ -26,6 +26,7 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
   isClientOwner!: boolean; // проверка явлется ли клиент влядельцем авто
   repairOrderForm!: FormGroup; // строим форму
   summ: number = 0;
+  persinRequestId!: number;
 
   constructor(private repairRequestService: RepairOrderService,
               private personRequestService: PersonRequestService,
@@ -42,6 +43,7 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
       // если данные по id есть, но этого быть не может)
       // то мы отправляем запрос на получение данных
       if (params.id !== undefined) {
+        this.persinRequestId = params.id;
         // получение даных для отображения
         this.personRequestService.getPersonRequest(params.id).subscribe((data: any) => {
           // строрим данные с заявкой персоны
@@ -164,7 +166,9 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
   }
 
   onSubmit(): void {
-    console.log(this.malfunctionViewData);
+    if (this.persinRequestId !== undefined) {
+      this.personRequestService.putPersonRequest(this.persinRequestId, 'Заявка оформлена').subscribe((data: any) => alert('good'));
+    }
   }
 
   selectedMalfunctions(): boolean {

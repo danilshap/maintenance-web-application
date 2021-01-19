@@ -23,7 +23,17 @@ export class AdminWorkersTableDataPageComponent implements OnInit{
   }
 
   removeWorker(id: number): void{
+    this.workerService.deleteWorkerViewData(id).subscribe(
+      (data: any) => {
+        console.log('Удаление работника успешно прошло!');
+      },
+      (error: any) => {
+        console.log('Удаление работника не удалось.' + error.message);
+      });
+  }
 
+  canRemove(ststus: string): boolean {
+    return status !== 'Работает в данный момент';
   }
 
   infoWorker(id: number): void{

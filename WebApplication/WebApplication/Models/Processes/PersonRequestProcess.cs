@@ -25,6 +25,7 @@ namespace WebApplication.Models.Processes
             _context.PersonRequests
                 .Include(pr => pr.Person)
                 .Include(pr => pr.PersonRequestStatus)
+                .Where(pr => pr.PersonRequestStatus.Title == "Необходимо перезвонить!")
                 .Select(pr => new PersonRequestViewData(pr, pr.Person, pr.PersonRequestStatus)).ToList();
 
         // получение конкретного обращение в сервисный центр
