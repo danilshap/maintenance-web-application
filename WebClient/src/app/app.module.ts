@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReportsService } from './../models/sevices/reports.service';
 import { RepairOrderService } from './../models/sevices/repair-order.service';
 import { AdminPagesModule } from './admin-pages/admin-pages.module';
@@ -16,19 +17,28 @@ import { SpecialtyService } from 'src/models/sevices/specialty.service';
 import { PersonRequestService } from 'src/models/sevices/person-request.service';
 import { MalfunctionService } from 'src/models/sevices/malfunction.service';
 import { ChartsModule } from 'ng2-charts';
+import { UserService } from 'src/models/sevices/user.service';
+import { AuthService } from 'src/models/sevices/auth.service';
+import { AuthGuard } from 'src/models/sevices/auth-guard.service';
+import { CommonModule } from '@angular/common';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ClientPagesModule,
     AdminPagesModule,
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
   ],
   providers: [
     RepairOrderService,
@@ -38,7 +48,10 @@ import { ChartsModule } from 'ng2-charts';
     SpecialtyService,
     PersonRequestService,
     MalfunctionService,
-    ReportsService
+    ReportsService,
+    UserService,
+    AuthService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,11 @@
 <div class="text-center mt-5">
-  <form class="form-signin">
+  <form
+    class="form-signin needs-validation"
+    *ngIf="userFormGroup"
+    [formGroup]="userFormGroup"
+    novalidate
+    (ngSubmit)="login()"
+  >
     <img
       class="mb-4"
       src="../../assets/image/logo.png"
@@ -16,18 +22,18 @@
       placeholder="Имя пользователя"
       required=""
       autofocus=""
+      formControlName="nickname"
     />
     <label for="inputPassword" class="sr-only">Пароль:</label>
     <input
       type="password"
       id="inputPassword"
       class="form-control"
-      placeholder="Password"
+      placeholder="Пароль"
       required=""
+      formControlName="password"
     />
-    <button class="btn btn-lg btn-primary btn-block" type="submit">
-      Вход
-    </button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Вход</button>
     <p class="mt-5 mb-3 text-muted">© 2020</p>
   </form>
 </div>

@@ -20,7 +20,7 @@ export class CarService{
   postCarViewData(carViewData: CarViewData): any{
     return this.http.post('http://localhost:55280/api/CarViewData',
      carViewData,
-      {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
+    {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
   }
 
   // изменение клиента

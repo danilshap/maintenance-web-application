@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '../material/material.module';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
 import { AdminIndexPageComponent } from './admin-index-page/admin-index-page.component';
@@ -35,7 +34,6 @@ import { AdminRepairOrdersDataTableComponent } from './admin-repair-orders-data-
     BrowserModule,
     AdminPagesRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

@@ -20,12 +20,13 @@ import { AdminWorkerInfoPageComponent } from './admin-worker-info-page/admin-wor
 import { AdminClientInfoPageComponent } from './admin-client-info-page/admin-client-info-page.component';
 import { AdminCarInfoPageComponent } from './admin-car-info-page/admin-car-info-page.component';
 import { AdminRepairOrdersDataTableComponent } from './admin-repair-orders-data-table/admin-repair-orders-data-table.component';
+import { AuthGuard } from 'src/models/sevices/auth-guard.service';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
-        path: 'admin', component: AdminHomePageComponent,
+        path: 'admin', component: AdminHomePageComponent, canActivate: [AuthGuard],
         children: [
           {path: '', redirectTo: '/index', pathMatch: 'full'},
           {path: 'index', component: AdminIndexPageComponent},

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '../material/material.module';
 
 import { ClientAboutPageComponent } from './client-about-page/client-about-page.component';
 import { ClientFormPageComponent } from './client-form-page/client-form-page.component';
@@ -18,7 +17,6 @@ import { ClientTaskPageComponent } from './client-task-page/client-task-page.com
     BrowserModule,
     ClientPagesRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule,
     FormsModule,
     ReactiveFormsModule
   ],
