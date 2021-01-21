@@ -16,11 +16,7 @@ export class AuthService{
     this.user.userName = user.userName;
     this.user.password = user.password;
 
-    return this.userService.canLoginUser(user).subscribe((data: any) => {
-      this.isLoginIn = data as boolean;
-
-      this.redirectTo = this.isLoginIn ? '/admin/index' : this.redirectTo;
-    });
+    return this.userService.canLoginUser(user);
   }
 
   logout(): void {

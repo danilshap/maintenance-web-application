@@ -426,6 +426,16 @@
         </div>
         <hr />
         <h4 class="text-muted">Данные ремонта</h4>
+        <div class="row" *ngIf="personProblem !== undefined">
+          <div class="col">
+            <div class="alert alert-info">
+              <b>Информация! </b>
+              <span
+                >Проблема клиента: <b>{{ personProblem }}</b></span
+              >
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col">
             <div class="form-group">
@@ -460,7 +470,9 @@
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label for="malfunctions">Неисправности (обязательно укажите):</label>
+              <label for="malfunctions"
+                >Неисправности (обязательно укажите):</label
+              >
               <table class="table table-bordered" style="max-height: 200pt">
                 <thead class="thead-dark">
                   <tr>
@@ -484,7 +496,9 @@
                 </tbody>
               </table>
               <div *ngIf="!selectedMalfunctions()">
-                <span class="text-danger">* Укажите неисправности автомобиля.</span>
+                <span class="text-danger"
+                  >* Укажите неисправности автомобиля.</span
+                >
               </div>
               <p>
                 Примерная стоимость: <span>{{ summ }}</span>
@@ -501,7 +515,6 @@
           >
             Оформить
           </button>
-          <button type="reset" class="btn btn-secondary">Очистить</button>
         </div>
       </form>
     </div>

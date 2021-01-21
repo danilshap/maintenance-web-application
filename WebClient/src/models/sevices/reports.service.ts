@@ -7,6 +7,14 @@ export class ReportsService{
   constructor(private http: HttpClient) {}
 
   getReports(): any {
-    return this.http.get<ReportsViewData>('http://localhost:55280/api/ReportsViewData');
+    return this.http.get<ReportsViewData>('http://localhost:55280/api/ReportsViewData/Get');
+  }
+
+  getFreeWorkers(): any {
+    return this.http.get<number>('http://localhost:55280/api/ReportsViewData/GetCountOfFreeWorker');
+  }
+
+  getCarsInService(): any {
+    return this.http.get<number>('http://localhost:55280/api/ReportsViewData/GetCountOfCarsInService');
   }
 }

@@ -33,9 +33,14 @@ export class LoginPageComponent implements OnInit{
     this.user.userName = this.nickname.value;
     this.user.password = this.password.value;
 
-    this.authService.login(this.user);
-    this.router.navigate([this.authService.redirectTo]);
-    this.setMessage();
+    this.authService.login(this.user).subscribe((data: any) => {
+      this.authService.isLoginIn = data as boolean;
+
+      this.authService.redirectTo = this.authService.isLoginIn ? '/admin/index' : this.authService.redirectTo;
+      this.router.navigate([this.authService.redirectTo]);
+
+      this.setMessage();
+    });
   }
 
   // выход из аккаунта

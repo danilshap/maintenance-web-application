@@ -33,7 +33,7 @@ export class AdminWorkersTableDataPageComponent implements OnInit{
   }
 
   canRemove(ststus: string): boolean {
-    return status !== 'Работает в данный момент';
+    return ststus === 'Работает в данный момент' || ststus === 'Уволен';
   }
 
   infoWorker(id: number): void{
@@ -42,6 +42,6 @@ export class AdminWorkersTableDataPageComponent implements OnInit{
 
   // получить цвет строки для конкретного работника
   getColorForTableRow(status: string): string{
-    return status === 'уволен' ? 'table-danger' : status === 'На работе. Свободен' ? 'table-success' : 'table-warning';
+    return status === 'Уволен' ? 'table-danger' : status === 'На работе. Свободен' ? 'table-success' : 'table-warning';
   }
 }

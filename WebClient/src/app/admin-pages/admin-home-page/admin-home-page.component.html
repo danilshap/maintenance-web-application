@@ -62,7 +62,9 @@
           <a class="collapse-item text-wrap bg-warning" href=""
             >Статусы обращений в сервисный центр</a
           >
-          <a class="collapse-item text-wrap" routerLink="repair_order_table">Заявки на ремонт</a>
+          <a class="collapse-item text-wrap" routerLink="repair_order_table"
+            >Заявки на ремонт</a
+          >
           <a class="collapse-item text-wrap bg-warning" href=""
             >Специальности работников</a
           >
@@ -115,7 +117,7 @@
             >
               <i class="fas fa-envelope fa-fw"></i>
               <!-- Counter - Messages -->
-              <span class="badge badge-danger badge-counter"></span>
+              <span class="badge badge-danger badge-counter">{{personRequests.length}}</span>
             </a>
             <!-- Dropdown - Messages -->
             <div
@@ -125,8 +127,18 @@
               <h6 class="dropdown-header bg-primary">
                 Новые обращения от пользователей
               </h6>
-
+              <button *ngFor="let request of personRequests" class="dropdown-item d-flex align-items-center" (click)="toRepairOrdeer(request.id)">
+                <div class="font-weight-bold">
+                  <div class="text-truncate">
+                    {{request.descriptionOfTheProblem}}
+                  </div>
+                  <div class="small text-gray-500">
+                    {{request.surname}} {{request.name}} {{request.patronymic}} <b>тел: {{request.telephone}}</b>
+                  </div>
+                </div>
+              </button>
               <a
+                *ngIf="personRequests.length > 3"
                 class="dropdown-item text-center small text-gray-500"
                 routerLink="requests"
                 >Больше обращений</a
@@ -147,9 +159,9 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                >Username</span
-              >
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
+                user.userName
+              }}</span>
               <i class="fas fa-user-tie"></i>
             </a>
             <!-- Dropdown - User Information -->

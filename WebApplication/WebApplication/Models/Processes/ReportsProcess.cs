@@ -26,5 +26,18 @@ namespace WebApplication.Models.Processes
                 new WorkerViewData(ro.Worker, ro.Worker.Person, ro.Worker.Status, ro.Worker.Specialty),
                 ro.Malfunctions.Select(m => new MalfunctionViewData(m, m.Details.ToList())).ToList()))
             .ToList());
+
+        // получение количества свободных работников
+        public int GetFreeWorkers() => _context.Workers
+            .Include(w => w.Status)
+            .Count(w => w.Status.Status == "На работе. Свободен");
+
+        // получение количества автомобилей в сервисе
+        public int GetCarsOnService() => _context.RepairOrders
+            .Include(ro => ro.Car)
+            .Where(ro => ro.IsReady == false)
+            .Select(ro => ro.CarId)
+            .Distinct()
+            .Count();
     }
 }

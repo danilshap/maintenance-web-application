@@ -11,7 +11,7 @@ using WebApplication.Models.ViewData;
 
 namespace WebApplication.Controllers.ControllersViewData
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ReportsViewDataController : ControllerBase {
 
@@ -23,8 +23,15 @@ namespace WebApplication.Controllers.ControllersViewData
 
         // GET: api/<ReportsViewDataController>
         [HttpGet]
-        public ReportsViewData Get() {
-            return _reportsProcess.GetReport();
-        }
+        [ActionName("Get")]
+        public ReportsViewData Get() => _reportsProcess.GetReport();
+
+        [HttpGet]
+        [ActionName("GetCountOfFreeWorker")]
+        public int GetCountOfFreeWorker() => _reportsProcess.GetFreeWorkers();
+
+        [HttpGet]
+        [ActionName("GetCountOfCarsInService")]
+        public int GetCountOfCarsInService() => _reportsProcess.GetCarsOnService();
     }
 }

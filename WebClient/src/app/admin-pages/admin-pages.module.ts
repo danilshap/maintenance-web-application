@@ -1,3 +1,4 @@
+import { AuthService } from './../../models/sevices/auth.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -61,6 +62,8 @@ import { AdminRepairOrdersDataTableComponent } from './admin-repair-orders-data-
     AdminRepairOrderFormPageComponent,
     AdminRepairOrdersDataTableComponent
   ],
-  providers: [],
+  providers: [
+    AuthService,
+  ],
 })
 export class AdminPagesModule {}

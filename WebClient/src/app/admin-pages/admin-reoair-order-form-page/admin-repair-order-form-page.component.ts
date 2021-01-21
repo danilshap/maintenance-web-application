@@ -27,6 +27,7 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
   repairOrderForm!: FormGroup; // строим форму
   summ: number = 0;
   persinRequestId!: number;
+  personProblem?: string;
 
   constructor(private repairRequestService: RepairOrderService,
               private personRequestService: PersonRequestService,
@@ -72,6 +73,8 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
 
   // создание переменной для отображения с использованием данных
   createRepairOrder(personRequestViewData: PersonRequestViewData): void {
+    this.personProblem = personRequestViewData.descriptionOfTheProblem;
+
     // добавление данных по клиенту
     let clientData = new ClientViewData(
       0,
