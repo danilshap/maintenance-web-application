@@ -9,7 +9,7 @@ namespace WebApplication.Models.ViewData
 {
     public class ReportsViewData {
         // устраненные неисправности за месяц
-        public Dictionary<MalfunctionViewData, int> MalfunctionsViewData { get; private set; } = new Dictionary<MalfunctionViewData, int>();
+        public List<GroupMalfunctionViewData> MalfunctionsViewData { get; private set; }
 
         // количество неисправностей
         public int CountOfMalfunctions { get; private set; }
@@ -27,6 +27,14 @@ namespace WebApplication.Models.ViewData
 
             CountOfMalfunctions = CarsInServicesViewData
                 .Sum(c => c.CountOfMalfunctions);
+
+            var templ = new List<MalfunctionViewData>();
+            carsInServicesViewData.ForEach(c => templ.AddRange(c.MalfunctionsViewData));
+            MalfunctionsViewData = templ.GroupBy(t => t.Title).Select(t => new GroupMalfunctionViewData
+            {
+                Title = t.Key,
+                Count = t.Count()
+            }).ToList();
         }
     }
 }

@@ -37,9 +37,10 @@ export class LoginPageComponent implements OnInit{
       this.authService.isLoginIn = data as boolean;
 
       this.authService.redirectTo = this.authService.isLoginIn ? '/admin/index' : this.authService.redirectTo;
-      this.router.navigate([this.authService.redirectTo]);
 
-      this.setMessage();
+      localStorage.setItem('canLogin', `${this.authService.isLoginIn}`);
+
+      this.router.navigate([this.authService.redirectTo]);
     });
   }
 

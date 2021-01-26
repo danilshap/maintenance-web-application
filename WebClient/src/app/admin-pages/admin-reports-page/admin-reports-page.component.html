@@ -6,12 +6,28 @@
         <div class="row">
           <div class="col-md-8">
             <h4>Данные о неисправностях</h4>
-            <div *ngIf="isMalfunctionsData()" class="alert alert-warning">
+            <div *ngIf="reportsViewData && isMalfunctionsData()" class="alert alert-warning">
               <b>Внимание!</b><br />
               <p>
                 Данные о неиспраностях отсутсвуют. Возможно все автомобили
                 находятся еще в ремонте
               </p>
+            </div>
+            <div class="reportsViewData && !isMalfunctionsData()">
+              <table class="table table-sm table-hover">
+                <thead class="table-info">
+                  <tr>
+                    <th>Неисправность</th>
+                    <th>Кол-во</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let malfunction of reportsViewData.malfunctionsViewData">
+                    <td>{{malfunction.title}}</td>
+                    <td>{{malfunction.count}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <div class="col-md-4">
@@ -72,7 +88,7 @@
         </p>
         <div class="row mt-3">
           <div class="col">
-            <table class="table table-bordered">
+            <table class="table table-sm table-bordered">
               <thead class="thead-dark">
                 <tr>
                   <th>Автомобиль</th>

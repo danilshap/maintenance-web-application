@@ -37,8 +37,7 @@ namespace WebApplication.Controllers.ControllersViewData
         // GET: api/RepairOrderViewData/5
         [HttpGet("{id}")]
         [ActionName("GetRepairOrder")]
-        public RepairOrderViewData GetRepairOrder(int id) =>
-            _repairOrderProcess.GetRepairOrderData(id);
+        public RepairOrderViewData GetRepairOrder(int id) => _repairOrderProcess.GetRepairOrderData(id);
 
         [HttpGet("{id}")]
         [ActionName("RegistrationNewRepairOrderForPersonRequest")]

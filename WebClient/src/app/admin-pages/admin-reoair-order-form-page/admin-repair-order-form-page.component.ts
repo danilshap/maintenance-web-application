@@ -9,11 +9,11 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { WorkerService } from 'src/models/sevices/worker.service';
 import { RepairOrderService } from 'src/models/sevices/repair-order.service';
 import { MalfunctionService } from 'src/models/sevices/malfunction.service';
-import { RepairOrderViewData } from 'src/models/view-data/repair-order-view-data';
 import { PersonRequestViewData } from 'src/models/view-data/person-request-view-data';
 import { ClientViewData } from 'src/models/view-data/client-view-data';
 import { CarViewData } from 'src/models/view-data/car-view-data';
 import { RepairOrderViewForm } from 'src/models/view-form/repair-order-view-form';
+import { MalfanctionViewForm } from 'src/models/view-form/malfunctions-view-form';
 
 @Component({
   selector: 'admimn-repair-order-form-page',
@@ -26,14 +26,13 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
   isClientOwner!: boolean; // проверка явлется ли клиент влядельцем авто
   repairOrderForm!: FormGroup; // строим форму
   summ: number = 0;
-  persinRequestId!: number;
+  personRequestId!: number;
   personProblem?: string;
 
-  constructor(private repairRequestService: RepairOrderService,
+  constructor(private repairOrderService: RepairOrderService,
               private personRequestService: PersonRequestService,
               private workerService: WorkerService,
               private malfunctionService: MalfunctionService,
-              private location: Location,
               private activatedRoute: ActivatedRoute,
               private fb: FormBuilder){
   }
@@ -44,7 +43,7 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
       // если данные по id есть, но этого быть не может)
       // то мы отправляем запрос на получение данных
       if (params.id !== undefined) {
-        this.persinRequestId = params.id;
+        this.personRequestId = params.id;
         // получение даных для отображения
         this.personRequestService.getPersonRequest(params.id).subscribe((data: any) => {
           // строрим данные с заявкой персоны
@@ -95,7 +94,6 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
         0, '', '', new Date().getFullYear(), '', '', '', '', '', ''
       ), '', []
     );
-
   }
 
   // создание новой заявки
@@ -169,9 +167,47 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
   }
 
   onSubmit(): void {
-    if (this.persinRequestId !== undefined) {
-      this.personRequestService.putPersonRequest(this.persinRequestId, 'Заявка оформлена').subscribe((data: any) => alert('good'));
-    }
+    this.repairOrderViewForm = new RepairOrderViewForm(
+      0,
+      this.createClientDataForSubmit(),
+      this.createCarDataForSubmit(),
+      this.worker.value,
+      this.malfunctionViewData.filter(m => m.isSelected).map(m => new MalfanctionViewForm(m.id, m.title, m.price))
+    );
+
+    this.repairOrderService.postRepairOrder(this.repairOrderViewForm).subscribe(
+      () => {
+        if (this.personRequestId !== undefined) {
+          this.personRequestService.putPersonRequest(this.personRequestId, 'Заявка оформлена').subscribe(() => this.toIndex());
+        } else this.toIndex();
+      },
+      (error: any) => alert(error.message)
+    );
+  }
+
+  // создание данных о клиенте для отправки запроса
+  createClientDataForSubmit(): ClientViewData{
+    return new ClientViewData(0, this.surname.value, this.name.value, this.patronymic.value, this.passport.value,
+                              this.dateOfBorn.value, this.telephoneNumber.value, this.street.value, this.building.value, this.flat.value);
+  }
+
+  // создание данных о автомобиля для отпарвки запроса
+  createCarDataForSubmit() : CarViewData {
+    return new CarViewData(0,
+      this.stateNumber.value,
+      this.color.value,
+      this.yearOfIssue.value,
+      this.markTitle.value,
+      this.markModel.value,
+      this.isClientOwner ? this.surname.value: this.surnameOwner.value,
+      this.isClientOwner ? this.name.value: this.nameOwner.value,
+      this.isClientOwner ? this.patronymic.value: this.patronymicOwner.value,
+      this.isClientOwner ? this.passport.value: this.passportOwner.value,
+      )
+  }
+
+  toIndex(): void {
+    window.location.href = "http://localhost:4200/admin/index";
   }
 
   selectedMalfunctions(): boolean {

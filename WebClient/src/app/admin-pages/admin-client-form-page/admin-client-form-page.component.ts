@@ -29,6 +29,7 @@ export class AdminClientFormPageComponent implements OnInit{
         // получение даных для отображения
         this.clientService.getClientViewData(params.id).subscribe((data: any) => {
           this.clientViewData = data as ClientViewData;
+          this.clientViewData.id = params.id;
           this.buildForm();
         });
       } else {
@@ -38,6 +39,7 @@ export class AdminClientFormPageComponent implements OnInit{
     });
   }
 
+  // построение формы
   buildForm(): void {
     // создание класса для отображения и изменения формы
     this.clientForm = this.fb.group({
@@ -54,6 +56,7 @@ export class AdminClientFormPageComponent implements OnInit{
     });
   }
 
+  // отправка формы
   submit(): void{
     this.clientViewData = new ClientViewData(
       this.clientViewData.id,
@@ -68,13 +71,20 @@ export class AdminClientFormPageComponent implements OnInit{
       this.flat.value
     );
 
-    this.clientService.postClientViewData(this.clientViewData).subscribe(
-      (data: any) => {
-        this.location.back();
-      },
-      (error: any) => { alert(error.message);}
-    );
+    // отоправка формы в зависимости от параметров
+    this.submitId().subscribe((data: any) => {this.goBack();}, this.errorSubmit );
+  }
 
+  // отоправка формы в зависимости от параметров
+  submitId(): any {
+    return this.clientViewData.id <= 0 ?
+           this.clientService.postClientViewData(this.clientViewData) :
+           this.clientService.putClientViewData(this.clientViewData.id, this.clientViewData);
+  }
+
+  // обработка ошибки
+  errorSubmit(error: any): void {
+    alert(error.message);
   }
 
   // вернуться назад
@@ -89,6 +99,7 @@ export class AdminClientFormPageComponent implements OnInit{
     );
   }
 
+  // геттеры для удобного обращения
   get surname(): any { return this.clientForm.controls.surname; }
   get name(): any { return this.clientForm.controls.name; }
   get patronymic(): any { return this.clientForm.controls.patronymic; }

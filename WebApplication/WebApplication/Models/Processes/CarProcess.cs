@@ -89,9 +89,8 @@ namespace WebApplication.Models.Processes
         // изменение данных клиента
         public async Task ChangeCar(CarViewData carViewData) {
             // получаем клиента для изменения
-            Car car = _context.Cars.First(c => c.Id == carViewData.Id);
-
-            if (car == null) throw new WebApiException("Автомобиль не был найден");
+            Car car = _context.Cars.FirstOrDefault(c => c.Id == carViewData.Id);
+            if (car == null) throw new WebApiException($"Автомобиль не был найден.");
 
             // создание человека
             Person person = new Person {
@@ -114,7 +113,10 @@ namespace WebApplication.Models.Processes
 
             car.Color = carViewData.Color;
             car.StateNumber = carViewData.StateNumber;
-            car.OwnerId = _context.Persons.First(p => p.Passport == person.Passport).Id;
+
+            var owner = _context.Persons.FirstOrDefault(p => p.Passport == person.Passport);
+            if(owner == null) throw new WebApiException("Владелец авто не был найден.");
+            car.OwnerId = owner.Id;
             await _context.SaveChangesAsync();
         }
 

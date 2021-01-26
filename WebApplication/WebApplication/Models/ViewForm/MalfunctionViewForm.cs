@@ -13,6 +13,7 @@ namespace WebApplication.Models.ViewForm
         public string Title { get; set; }   // название неисправности
         public double Price { get; set; }  // стоимость неисправности
 
+        public MalfunctionViewForm() { }
         public MalfunctionViewForm(MalfunctionViewData malfunction) {
             this.Id = malfunction.Id;
             this.Title = malfunction.Title;

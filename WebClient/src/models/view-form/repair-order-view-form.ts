@@ -1,4 +1,4 @@
-import { MalfunctionViewData } from './../view-data/malfunction-view-data';
+import { MalfanctionViewForm } from './malfunctions-view-form';
 import { CarViewData } from "../view-data/car-view-data";
 import { ClientViewData } from "../view-data/client-view-data";
 
@@ -8,7 +8,7 @@ export class RepairOrderViewForm{
     public clientViewData: ClientViewData,
     public carViewData: CarViewData,
     public worker: string,
-    public malfunctionViewModels: MalfunctionViewData[]
+    public malfunctionViewModels: MalfanctionViewForm[]
   )
   {}
 }

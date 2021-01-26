@@ -14,6 +14,7 @@ namespace WebApplication.Models.ViewData
         // список деталей для ремонта
         public List<Detail> Details { get; set; }
 
+        public MalfunctionViewData(){}
         public MalfunctionViewData(Malfunction malfunction, List<Detail> details)
         {
             Id = malfunction.Id;

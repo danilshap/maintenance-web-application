@@ -1,3 +1,4 @@
+import { RepairOrderViewForm } from 'src/models/view-form/repair-order-view-form';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { RepairOrderViewData } from "../view-data/repair-order-view-data";
@@ -16,12 +17,10 @@ export class RepairOrderService{
     return this.http.get(`http://localhost:55280/api/RepairOrderViewData/GetRepairOrder/${id}`);
   }
 
-  // получение объекта для оформления заявки на ремнт с заявкой персоны
-  getRepairOrderWithPersonRequest(id: number){}
-
   // добавление новой заявки на ремонт
-  postRepairOrder(repairOrder: any){
-    
+  // PostRepairOrder
+  postRepairOrder(repairOrder: RepairOrderViewForm): any {
+    return this.http.post('http://localhost:55280/api/RepairOrderViewData/PostRepairOrder', repairOrder);
   }
 
   // изменение статуса заявки на ремонт

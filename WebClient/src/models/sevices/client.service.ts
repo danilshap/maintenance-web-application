@@ -24,5 +24,9 @@ export class ClientService{
   }
 
   // изменение клиента
-  putClientViewData(id: number, clientViewData: ClientViewData){}
+  putClientViewData(id: number, clientViewData: ClientViewData){
+    return this.http.put(`http://localhost:55280/api/ClientViewData/${id}`,
+    clientViewData,
+    {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
+  }
 }

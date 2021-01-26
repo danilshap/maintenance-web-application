@@ -262,7 +262,7 @@
             [disabled]="carForm.invalid"
             class="btn btn-success mr-1"
           >
-            Добавить
+            {{carViewData.id <= 0 ? 'Добавить': 'Изменить'}}
           </button>
         </div>
       </div>

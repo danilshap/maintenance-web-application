@@ -24,8 +24,7 @@ export class CarService{
   }
 
   // изменение клиента
-  putCarViewData(id: number, carViewData: CarViewData){}
-
-  // получение количества машин в ремонте
-  getCountOfCars(){}
+  putCarViewData(id: number, carViewData: CarViewData){
+    return this.http.put(`http://localhost:55280/api/CarViewData/${id}`, carViewData, {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
+  }
 }

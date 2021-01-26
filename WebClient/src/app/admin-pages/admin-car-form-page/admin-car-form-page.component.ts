@@ -39,6 +39,7 @@ export class AdminCarFormPageComponent implements OnInit{
     });
   }
 
+  // построение формы для обработки
   buildForm(): void {
     // создание класса для отображения и изменения формы
     this.carForm = this.fb.group({
@@ -71,17 +72,25 @@ export class AdminCarFormPageComponent implements OnInit{
       this.passport.value
     );
 
-    this.carService.postCarViewData(this.carViewData).subscribe(
-      (data: any) => {
-        this.location.back();
-      },
-      (error: any) => { alert(error.message);}
-    );
-
+    // обработка отправки в зависимости от типа данных
+    this.submitId().subscribe((data: any) => this.goBack(), this.errorSubmit );
   }
 
+  // возвращяем отправку формы в зависимости от результата
+  submitId(): any {
+    return this.carViewData.id <= 0 ?
+            this.carService.postCarViewData(this.carViewData) :
+            this.carService.putCarViewData(this.carViewData.id, this.carViewData);
+  }
+
+  // вернуться назад
   goBack(): void {
     this.location.back();
+  }
+
+  // обработка ошибки
+  errorSubmit(error: any): void {
+    alert(error.message);
   }
 
   // создание нового автомобиля
@@ -89,6 +98,7 @@ export class AdminCarFormPageComponent implements OnInit{
     this.carViewData = new CarViewData(0, '', '', new Date().getFullYear(), '', '', '', '', '', '');
   }
 
+  // геттеры для более удобной работы
   get stateNumber(): any { return this.carForm.controls.stateNumber; }
   get color(): any { return this.carForm.controls.color; }
   get yearOfIssue(): any { return this.carForm.controls.yearOfIssue; }

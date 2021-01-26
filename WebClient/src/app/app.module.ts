@@ -16,7 +16,6 @@ import { WorkerService } from 'src/models/sevices/worker.service';
 import { SpecialtyService } from 'src/models/sevices/specialty.service';
 import { PersonRequestService } from 'src/models/sevices/person-request.service';
 import { MalfunctionService } from 'src/models/sevices/malfunction.service';
-import { ChartsModule } from 'ng2-charts';
 import { UserService } from 'src/models/sevices/user.service';
 import { AuthService } from 'src/models/sevices/auth.service';
 import { AuthGuard } from 'src/models/sevices/auth-guard.service';
@@ -37,8 +36,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
     CommonModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    ChartsModule,
+    HttpClientModule
   ],
   providers: [
     RepairOrderService,

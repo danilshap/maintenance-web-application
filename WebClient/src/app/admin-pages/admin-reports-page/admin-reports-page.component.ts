@@ -20,6 +20,6 @@ export class AdminReportsPageComponent implements OnInit {
   }
 
   isMalfunctionsData(): boolean {
-    return this.reportsViewData.malfunctionViewData === undefined || this.reportsViewData.malfunctionViewData.length !== 0;
+    return this.reportsViewData.malfunctionsViewData === undefined || this.reportsViewData.malfunctionsViewData.length === 0;
   }
 }

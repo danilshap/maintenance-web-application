@@ -37,7 +37,7 @@ namespace WebApplication.Models.Processes
                 .Include(ro => ro.Client)
                 .Include(ro => ro.Worker)
                 .Include(ro => ro.Malfunctions)
-                .OrderBy(ro => !ro.IsReady)
+                .OrderBy(ro => ro.IsReady)
                 .Select(ro => new RepairOrderViewData(ro,
                     new ClientViewData(ro.Client, ro.Client.Person, ro.Client.Address),
                     new CarViewData(ro.Car, ro.Car.Owner, ro.Car.Mark),
@@ -67,11 +67,18 @@ namespace WebApplication.Models.Processes
 
         // добавление нового заказа
         public async Task AppendRepairOrder(RepairOrderViewForm repairOrderViewForm) {
+            if(_context.Cars.FirstOrDefault(c => c.StateNumber == repairOrderViewForm.CarViewData.StateNumber && (
+                    c.Mark.Model != repairOrderViewForm.CarViewData.MarkModel || c.Mark.Title != repairOrderViewForm.CarViewData.MarkModel
+                )) != null)
+                throw new WebApiException("Авто с таким гос. номер уже существует. Проверьте корректность данных");
+
             // поиск авто. если не нашли то добавляем его
             if (!_carProcess.IsSetCat(repairOrderViewForm.CarViewData.StateNumber).Result)
                 await _carProcess.AppendCar(repairOrderViewForm.CarViewData);
+
             // после добавления находим это авто
-            Car car = _context.Cars.FirstOrDefault(c => c.StateNumber == repairOrderViewForm.CarViewData.StateNumber);
+            Car car = _context.Cars.FirstOrDefault(c =>
+                c.StateNumber == repairOrderViewForm.CarViewData.StateNumber);
             // после поиска второй раз убеждаемся что мы все нашли и что все хорошо
             if(car == null) throw new WebApiException("Данного авто не существует. Данные недействительны");
 
@@ -104,6 +111,9 @@ namespace WebApplication.Models.Processes
 
             // добавляем и сохраняем изменения
             _context.RepairOrders.Add(repairOrder);
+
+            worker.StatusId = _context.WorkerStatuses.First(ws => ws.Status == "Работает в данный момент").Id;
+
             await _context.SaveChangesAsync();
         }
 

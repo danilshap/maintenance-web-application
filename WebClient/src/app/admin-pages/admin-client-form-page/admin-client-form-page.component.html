@@ -191,7 +191,7 @@
             [disabled]="clientForm.invalid"
             class="btn btn-success mr-1"
           >
-            Добавить
+            {{ clientViewData.id <= 0 ? 'Добавить': 'Изменить' }}
           </button>
         </div>
       </div>

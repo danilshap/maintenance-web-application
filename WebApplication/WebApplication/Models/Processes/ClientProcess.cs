@@ -93,7 +93,6 @@ namespace WebApplication.Models.Processes
         public async Task ChangeClient(ClientViewData clientViewData) {
             // получаем клиента для изменения
             Client client = _context.Clients.First(c => c.Id == clientViewData.Id);
-
             if(client == null) throw new WebApiException("Клиента не был найден");
 
             // создание человека
@@ -116,9 +115,14 @@ namespace WebApplication.Models.Processes
             // менять адрес или добавлять его
             // с одной стороны адрес может измениться только потому что у клиента изменилось место жительство
             // с другой стороны может быть была какая-то опечатка. Поэтому я поставлю добавление, так будет правильнее на мой взгляд
-            await AppendAddress(address);
+            if(!_context.Addresses.Any(a => a.Street == address.Street && a.Building == address.Building && a.Flat == address.Flat))
+                await AppendAddress(address);
 
             client.TelephoneNumber = clientViewData.TelephoneNumber;
+
+            var id = _context.Addresses.FirstOrDefault(a => a.Street == address.Street && a.Building == address.Building && a.Flat == address.Flat)?.Id;
+            if (id != null) client.AddressId = (int)id;
+
             await _context.SaveChangesAsync();
         }
 

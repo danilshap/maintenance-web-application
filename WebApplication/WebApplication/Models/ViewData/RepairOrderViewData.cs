@@ -21,6 +21,7 @@ namespace WebApplication.Models.ViewData
         // список неиспраностей
         public List<MalfunctionViewData> MalfunctionViewModels { get; set; }
 
+        public RepairOrderViewData() { }
         public RepairOrderViewData(RepairOrder order, ClientViewData clientViewData, CarViewData carViewData,
             WorkerViewData workerViewData, List<MalfunctionViewData> malfunctionViewModels) {
             Id = order.Id;
