@@ -3,11 +3,15 @@
     <div class="shadow p-3">
       <h1>Оформление новой заявки</h1>
       <hr />
+      <div *ngIf="workersString.length <= 0" class="alert alert-warning">
+        <h5>Внимание!</h5>
+        <p>В данный момент оформление новой заявки невозможно поскольку нет свободных мастеров</p>
+      </div>
       <form
         [formGroup]="repairOrderForm"
         class="needs-validation"
         novalidate
-        *ngIf="repairOrderForm && malfunctionViewData"
+        *ngIf="repairOrderForm && malfunctionViewData && workersString.length > 0"
       >
         <h4 class="text-muted">Данные клиента</h4>
         <div class="row">

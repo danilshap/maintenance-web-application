@@ -61,6 +61,8 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
 
     this.workerService.getWorkersString().subscribe((data: any[]) => {
       this.workersString = data as string[];
+      if(this.workersString.length <= 0)
+        this.repairOrderForm.disable();
     });
 
     this.malfunctionService.getMalfunctionsViewData().subscribe((data: any[]) => {

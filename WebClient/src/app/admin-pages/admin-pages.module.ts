@@ -23,11 +23,17 @@ import { AdminWorkersTableDataPageComponent } from './admin-workers-table-data-p
 import { AdminCarFormPageComponent } from './admin-car-form-page/admin-car-form-page.component';
 import { AdminClientFormPageComponent } from './admin-client-form-page/admin-client-form-page.component';
 import { AdminWorkerFormPageComponent } from './admin-worker-form-page/admin-worker-form-page.component';
-import { AdminRepairOrderFormPageComponent } from './admin-reoair-order-form-page/admin-repair-order-form-page.component';
+import { AdminRepairOrderFormPageComponent } from './admin-repair-order-form-page/admin-repair-order-form-page.component';
 import { AdminWorkerInfoPageComponent } from './admin-worker-info-page/admin-worker-info-page.component';
 import { AdminClientInfoPageComponent } from './admin-client-info-page/admin-client-info-page.component';
 import { AdminCarInfoPageComponent } from './admin-car-info-page/admin-car-info-page.component';
 import { AdminRepairOrdersDataTableComponent } from './admin-repair-orders-data-table/admin-repair-orders-data-table.component';
+import { AdminAddressTablePageComponent } from './admin-address-table-page/admin-address-table-page.component';
+import { AdminDetailsTablePageComponent } from './admin-details-table-page/admin-details-table-page.component';
+import { AdminMalfunctionTablePageComponent } from './admin-malfunction-table-page/admin-malfunction-table-page.component';
+import { AdminModelsTablePageComponent } from './admin-models-table-page/admin-models-table-page.component';
+import { AdminPersonRequestsTablePageComponent } from './admin-person-requests-table-page/admin-person-requests-table-page.component';
+import { AdminPersonsTablePageComponent } from './admin-persons-table-page/admin-persons-table-page.component';
 
 @NgModule({
   imports: [
@@ -60,7 +66,13 @@ import { AdminRepairOrdersDataTableComponent } from './admin-repair-orders-data-
     AdminClientFormPageComponent,
     AdminWorkerFormPageComponent,
     AdminRepairOrderFormPageComponent,
-    AdminRepairOrdersDataTableComponent
+    AdminRepairOrdersDataTableComponent,
+    AdminAddressTablePageComponent,
+    AdminDetailsTablePageComponent,
+    AdminMalfunctionTablePageComponent,
+    AdminModelsTablePageComponent,
+    AdminPersonRequestsTablePageComponent,
+    AdminPersonsTablePageComponent,
   ],
   providers: [
     AuthService,

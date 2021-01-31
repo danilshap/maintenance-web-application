@@ -40,12 +40,22 @@
     </div>
   </div>
 </div>
+<div class="row" *ngIf="haveFreeWorkers()">
+  <div class="col">
+    <div class="alert alert-warning">
+      <h5>Внимание!</h5>
+      <p>В данный момент нневозможно оформить новую заявку на ремонт поскольку все работники заняты</p>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col">
     <div>
       <h3>
         Заявки на ремонт
-        <button class="btn btn-success" (click)="appendNewRepeirOrder()">
+        <button class="btn btn-success"
+          [disabled]="haveFreeWorkers()"
+          (click)="appendNewRepeirOrder()">
           <i class="fas fa-plus"></i>
         </button>
       </h3>

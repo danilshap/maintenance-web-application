@@ -39,5 +39,10 @@ export class AdminIndexPageComponent implements OnInit {
   appendNewRepeirOrder(): void {
     this.router.navigate(['admin/repair_order_form']);
   }
+
+  // есть ли свободные работники для оформления новой заявки
+  haveFreeWorkers(): Boolean {
+    return this.repairOrdersViewData.filter(ro => ro.isReady === false).length > 2;
+  }
 }
 

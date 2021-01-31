@@ -12,15 +12,21 @@ import { AdminWorkersTableDataPageComponent } from './admin-workers-table-data-p
 import { AdminCarFormPageComponent } from './admin-car-form-page/admin-car-form-page.component';
 import { AdminClientFormPageComponent } from './admin-client-form-page/admin-client-form-page.component';
 import { AdminWorkerFormPageComponent } from './admin-worker-form-page/admin-worker-form-page.component';
-import { AdminRepairOrderFormPageComponent } from './admin-reoair-order-form-page/admin-repair-order-form-page.component';
-import { CarInfoComponent } from './admin-repair-order-info-page/car-info-component/car-info.component';
-import { ClientInfoComponent } from './admin-repair-order-info-page/client-info-component/client-info.component';
-import { WorkerInfoComponent } from './admin-repair-order-info-page/worker-info-component/worker-info.component';
+import { AdminRepairOrderFormPageComponent } from './admin-repair-order-form-page/admin-repair-order-form-page.component';
 import { AdminWorkerInfoPageComponent } from './admin-worker-info-page/admin-worker-info-page.component';
 import { AdminClientInfoPageComponent } from './admin-client-info-page/admin-client-info-page.component';
 import { AdminCarInfoPageComponent } from './admin-car-info-page/admin-car-info-page.component';
 import { AdminRepairOrdersDataTableComponent } from './admin-repair-orders-data-table/admin-repair-orders-data-table.component';
 import { AuthGuard } from 'src/models/sevices/auth-guard.service';
+import { AdminAddressTablePageComponent } from './admin-address-table-page/admin-address-table-page.component';
+import { AdminDetailsTablePageComponent } from './admin-details-table-page/admin-details-table-page.component';
+import { AdminMalfunctionTablePageComponent } from './admin-malfunction-table-page/admin-malfunction-table-page.component';
+import { AdminModelsTablePageComponent } from './admin-models-table-page/admin-models-table-page.component';
+import { AdminPersonRequestsTablePageComponent } from './admin-person-requests-table-page/admin-person-requests-table-page.component';
+import { AdminPersonsTablePageComponent } from './admin-persons-table-page/admin-persons-table-page.component';
+import { AdminSpecialtiesTablePageComponent } from './admin-specialties-table-page/admin-specialties-table-page.component';
+import { AdminPersonRequestStatusesTablePageComponent } from './admin-person-request-statuses-table-page/admin-person-request-statuses-table-page.component';
+import { AdminWorkerStatusesTablePageComponent } from './admin-worker-statuses-table-page/admin-worker-statuses-table-page.component';
 
 @NgModule({
   imports: [
@@ -50,6 +56,16 @@ import { AuthGuard } from 'src/models/sevices/auth-guard.service';
           {path: 'repair_order_form/:id', component: AdminRepairOrderFormPageComponent},
           {path: 'repair_order/:id', component: RepairOrderInfoPageComponent},
           {path: 'repair_order_table', component: AdminRepairOrdersDataTableComponent},
+          // ------------------------------------------------------------------
+          {path: 'addresses_table', component: AdminAddressTablePageComponent},
+          {path: 'details_table', component: AdminDetailsTablePageComponent},
+          {path: 'malfunction_table', component: AdminMalfunctionTablePageComponent},
+          {path: 'models_table', component: AdminModelsTablePageComponent},
+          {path: 'person_requests_table', component: AdminPersonRequestsTablePageComponent},
+          {path: 'persons_table', component: AdminPersonsTablePageComponent},
+          {path: 'specialties_table', component: AdminSpecialtiesTablePageComponent},
+          {path: 'person_request_statuses_table', component: AdminPersonRequestStatusesTablePageComponent},
+          {path: 'worker_statuses_table', component: AdminWorkerStatusesTablePageComponent},
         ]
       }
     ])
