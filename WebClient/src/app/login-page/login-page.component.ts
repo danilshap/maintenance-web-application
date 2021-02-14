@@ -38,7 +38,8 @@ export class LoginPageComponent implements OnInit{
 
       this.authService.redirectTo = this.authService.isLoginIn ? '/admin/index' : this.authService.redirectTo;
 
-      localStorage.setItem('canLogin', `${this.authService.isLoginIn}`);
+      // tslint:disable-next-line:new-parens
+      localStorage.setItem('login', JSON.stringify({'time': new Date().getTime(), 'status': this.authService.isLoginIn, 'user': this.user.userName}));
 
       this.router.navigate([this.authService.redirectTo]);
     });

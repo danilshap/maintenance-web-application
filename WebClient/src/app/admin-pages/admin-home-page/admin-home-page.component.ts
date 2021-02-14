@@ -7,7 +7,7 @@ import { PersonRequestService } from 'src/models/sevices/person-request.service'
 
 @Component({
   selector: 'admin-home-page',
-  templateUrl: './admin-home-page.component.html',
+  templateUrl: './admin-home-page.component.html'
 })
 export class AdminHomePageComponent implements OnInit {
   user!: User;

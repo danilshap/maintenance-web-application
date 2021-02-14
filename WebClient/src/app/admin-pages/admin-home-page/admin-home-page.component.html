@@ -53,13 +53,17 @@
           <a class="collapse-item" routerLink="cars_table">Машины</a>
           <a class="collapse-item" routerLink="clients_table">Клиенты</a>
           <a class="collapse-item" routerLink="details_table">Детали</a>
-          <a class="collapse-item" routerLink="malfunction_table">Неисправности</a>
+          <a class="collapse-item" routerLink="malfunction_table"
+            >Неисправности</a
+          >
           <a class="collapse-item" routerLink="models_table">Модели авто</a>
           <a class="collapse-item" routerLink="persons_table">Персоны</a>
           <a class="collapse-item text-wrap" routerLink="person_requests_table"
             >Обращения в сервисный центр</a
           >
-          <a class="collapse-item text-wrap" routerLink="person_request_statuses_table"
+          <a
+            class="collapse-item text-wrap"
+            routerLink="person_request_statuses_table"
             >Статусы обращений в сервисный центр</a
           >
           <a class="collapse-item text-wrap" routerLink="repair_order_table"
@@ -69,7 +73,9 @@
             >Специальности работников</a
           >
           <a class="collapse-item" routerLink="workers_table">Работники</a>
-          <a class="collapse-item" routerLink="specialties_table">Статусы работников</a>
+          <a class="collapse-item" routerLink="specialties_table"
+            >Статусы работников</a
+          >
         </div>
       </div>
     </li>
@@ -117,7 +123,9 @@
             >
               <i class="fas fa-envelope fa-fw"></i>
               <!-- Counter - Messages -->
-              <span class="badge badge-danger badge-counter">{{personRequests.length}}</span>
+              <span class="badge badge-danger badge-counter">{{
+                personRequests.length
+              }}</span>
             </a>
             <!-- Dropdown - Messages -->
             <div
@@ -127,13 +135,18 @@
               <h6 class="dropdown-header bg-primary">
                 Новые обращения от пользователей
               </h6>
-              <button *ngFor="let request of personRequests" class="dropdown-item d-flex align-items-center" (click)="toRepairOrdeer(request.id)">
+              <button
+                *ngFor="let request of personRequests"
+                class="dropdown-item d-flex align-items-center"
+                (click)="toRepairOrdeer(request.id)"
+              >
                 <div class="font-weight-bold">
                   <div class="text-truncate">
-                    {{request.descriptionOfTheProblem}}
+                    {{ request.descriptionOfTheProblem }}
                   </div>
                   <div class="small text-gray-500">
-                    {{request.surname}} {{request.name}} {{request.patronymic}} <b>тел: {{request.telephone}}</b>
+                    {{ request.surname }} {{ request.name }}
+                    {{ request.patronymic }} <b>тел: {{ request.telephone }}</b>
                   </div>
                 </div>
               </button>
@@ -236,3 +249,8 @@
     </div>
   </div>
 </div>
+<script>
+  $(function () {
+    $("#sidebarToggle").click();
+  });
+</script>

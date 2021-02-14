@@ -1,5 +1,6 @@
 <div
-  class="card p-4 mt-2 mb-2 mr-2"
+  class="card p-4 mt-2 mb-2 mr-2 shadow"
+  style="height: 340pt; overflow: auto"
   [class.border-success]="repairOrderViewData.isReady"
 >
   <h4 class="text-primary">
@@ -19,7 +20,8 @@
         {{ showCorrectDate(repairOrderViewData.dateOfCompletion) }}
       </p>
       <p>
-        <b>Примерная стоимость ремонта:</b> ~{{ repairOrderViewData.price }} руб.
+        <b>Примерная стоимость ремонта:</b> ~{{ repairOrderViewData.price }}
+        руб.
       </p>
       <p><b>Статус:</b> {{ repairOrderStatus() }}</p>
       <p>

@@ -8,6 +8,7 @@ import { ReportsService } from 'src/models/sevices/reports.service';
 @Component({
   selector: 'admin-index-page',
   templateUrl: './admin-index-page.component.html',
+  styleUrls: ['./admin-index-page.component.css'],
 })
 export class AdminIndexPageComponent implements OnInit {
   // данные о заявках на ремонт

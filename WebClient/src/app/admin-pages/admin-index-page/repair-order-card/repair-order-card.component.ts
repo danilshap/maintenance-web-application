@@ -6,7 +6,7 @@ import { RepairOrderService } from 'src/models/sevices/repair-order.service';
 
 @Component({
   selector: 'repair-order-component',
-  templateUrl: './repair-order-card.component.html',
+  templateUrl: './repair-order-card.component.html'
 })
 export class RepairOrderCardComponent implements IDate{
   @Input() repairOrderViewData!: RepairOrderViewData;

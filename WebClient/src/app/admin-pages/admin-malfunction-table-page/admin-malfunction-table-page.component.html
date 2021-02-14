@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col">
+    <h1>Неисправности</h1>
+    <div class="shadow p-2 mt-3" style="overflow: auto;">
+      <table class="table table-bordered table-hover" id="clientsTable" *ngIf="malfunctions">
+        <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Стоимость</th>
+            <th>Детали</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let malfunction of malfunctions">
+            <td>{{ malfunction.id }}</td>
+            <td>{{ malfunction.title }}</td>
+            <td>{{ malfunction.price }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let detail of malfunction.details">
+                  {{detail.title}} ({{detail.price}} руб.)
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

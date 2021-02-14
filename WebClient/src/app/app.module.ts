@@ -21,6 +21,10 @@ import { AuthService } from 'src/models/sevices/auth.service';
 import { AuthGuard } from 'src/models/sevices/auth-guard.service';
 import { CommonModule } from '@angular/common';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { AddressesService } from 'src/models/sevices/adresses.service';
+import { DetailsService } from 'src/models/sevices/details.service';
+import { MarksService } from 'src/models/sevices/marks.service';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
     CommonModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxEchartsModule,
   ],
   providers: [
     RepairOrderService,
@@ -50,6 +55,9 @@ import { LoginPageComponent } from './login-page/login-page.component';
     UserService,
     AuthService,
     AuthGuard,
+    DetailsService,
+    AddressesService,
+    MarksService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,11 @@
 <div class="row">
-  <div class="col">
+  <div class="col" *ngIf="!requests">
+    <div class="alert alert-warning">
+      <p><b> Внимание! </b></p>
+      <p>В данный момент нет активных заявок.</p>
+    </div>
+  </div>
+  <div class="col" *ngIf="requests">
     <h1>Активные заявки</h1>
     <div class="d-flex align-content-start flex-wrap">
       <div *ngFor="let request of requests" class="w-50 h-100">

@@ -49,5 +49,5 @@ $(function(){
     }, 1000, 'easeInOutExpo');
     e.preventDefault();
   });
-});
+  });
 })

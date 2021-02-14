@@ -1,0 +1,17 @@
+.repair-order-card {
+  position: relative;
+  width: 25%;
+  height: 100%;
+}
+
+@media only screen and (max-width: 1050px) {
+  .repair-order-card {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .repair-order-card {
+    width: 100%;
+  }
+}

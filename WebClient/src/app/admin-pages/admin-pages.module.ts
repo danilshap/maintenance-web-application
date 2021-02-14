@@ -31,9 +31,11 @@ import { AdminRepairOrdersDataTableComponent } from './admin-repair-orders-data-
 import { AdminAddressTablePageComponent } from './admin-address-table-page/admin-address-table-page.component';
 import { AdminDetailsTablePageComponent } from './admin-details-table-page/admin-details-table-page.component';
 import { AdminMalfunctionTablePageComponent } from './admin-malfunction-table-page/admin-malfunction-table-page.component';
-import { AdminModelsTablePageComponent } from './admin-models-table-page/admin-models-table-page.component';
+import { AdminMarksTablePageComponent } from './admin-marks-table-page/admin-marks-table-page.component';
 import { AdminPersonRequestsTablePageComponent } from './admin-person-requests-table-page/admin-person-requests-table-page.component';
 import { AdminPersonsTablePageComponent } from './admin-persons-table-page/admin-persons-table-page.component';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 @NgModule({
   imports: [
@@ -44,6 +46,8 @@ import { AdminPersonsTablePageComponent } from './admin-persons-table-page/admin
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxEchartsModule,
+    NgxEchartsModule.forRoot({ echarts })
   ],
   declarations: [
     AdminIndexPageComponent,
@@ -70,7 +74,7 @@ import { AdminPersonsTablePageComponent } from './admin-persons-table-page/admin
     AdminAddressTablePageComponent,
     AdminDetailsTablePageComponent,
     AdminMalfunctionTablePageComponent,
-    AdminModelsTablePageComponent,
+    AdminMarksTablePageComponent,
     AdminPersonRequestsTablePageComponent,
     AdminPersonsTablePageComponent,
   ],

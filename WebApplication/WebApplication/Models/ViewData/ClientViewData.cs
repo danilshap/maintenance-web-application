@@ -23,7 +23,7 @@ namespace WebApplication.Models.ViewData
         // дом проживания
         public string Building { get; set; }
         // квартира проживания
-        public int Flat { get; set; }
+        public int? Flat { get; set; }
 
         public ClientViewData() {}
         public ClientViewData(Client client, Person person, Address address)

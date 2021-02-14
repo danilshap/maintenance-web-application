@@ -21,7 +21,7 @@ import { AuthGuard } from 'src/models/sevices/auth-guard.service';
 import { AdminAddressTablePageComponent } from './admin-address-table-page/admin-address-table-page.component';
 import { AdminDetailsTablePageComponent } from './admin-details-table-page/admin-details-table-page.component';
 import { AdminMalfunctionTablePageComponent } from './admin-malfunction-table-page/admin-malfunction-table-page.component';
-import { AdminModelsTablePageComponent } from './admin-models-table-page/admin-models-table-page.component';
+import { AdminMarksTablePageComponent } from './admin-marks-table-page/admin-marks-table-page.component';
 import { AdminPersonRequestsTablePageComponent } from './admin-person-requests-table-page/admin-person-requests-table-page.component';
 import { AdminPersonsTablePageComponent } from './admin-persons-table-page/admin-persons-table-page.component';
 import { AdminSpecialtiesTablePageComponent } from './admin-specialties-table-page/admin-specialties-table-page.component';
@@ -60,7 +60,7 @@ import { AdminWorkerStatusesTablePageComponent } from './admin-worker-statuses-t
           {path: 'addresses_table', component: AdminAddressTablePageComponent},
           {path: 'details_table', component: AdminDetailsTablePageComponent},
           {path: 'malfunction_table', component: AdminMalfunctionTablePageComponent},
-          {path: 'models_table', component: AdminModelsTablePageComponent},
+          {path: 'models_table', component: AdminMarksTablePageComponent},
           {path: 'person_requests_table', component: AdminPersonRequestsTablePageComponent},
           {path: 'persons_table', component: AdminPersonsTablePageComponent},
           {path: 'specialties_table', component: AdminSpecialtiesTablePageComponent},
