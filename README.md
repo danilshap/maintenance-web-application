@@ -24,6 +24,7 @@ Database:
 First of all you must creat database.
 You must create **two** migration for create and use database.
 You create the first migration as usual:
+
 ```` add-migration init ````
 
 ```` update-database ````
