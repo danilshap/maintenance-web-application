@@ -8,7 +8,7 @@ using WebApplication.Models.ViewData;
 
 namespace WebApplication.Controllers.ControllersViewData
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ClientViewDataController : ControllerBase
     {
@@ -19,8 +19,12 @@ namespace WebApplication.Controllers.ControllersViewData
         }
 
         // GET: api/ClientViewData
+        [HttpGet("{page}")]
+        public IEnumerable<ClientViewData> GetClients(int page) => _process.GetClientsData(page);
+
         [HttpGet]
-        public IEnumerable<ClientViewData> GetClients() => _process.GetClientsData();
+        [ActionName("GetInfoTable")]
+        public object GetInfoTable() => _process.GetClientsTableInfo();
 
         // GET: api/ClientViewData/5
         [HttpGet("{id}")]

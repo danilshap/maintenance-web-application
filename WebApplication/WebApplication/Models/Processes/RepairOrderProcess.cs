@@ -31,8 +31,12 @@ namespace WebApplication.Models.Processes
         }
 
         // получить все заказы
-        public List<RepairOrderViewData> GetRepairOrdersDataForView() =>
-            _context.RepairOrders
+        public List<RepairOrderViewData> GetRepairOrdersDataForView(int page = 1) {
+            // если вдруг у нас номер таблицы будет равен нулю то мы кидаем исключение
+            if (page == 0) throw new Exception("Недопустимая страница данных.");
+
+            // получение базовой коллекции данных
+            var templateList = _context.RepairOrders
                 .Include(ro => ro.Car)
                 .Include(ro => ro.Client)
                 .Include(ro => ro.Worker)
@@ -43,6 +47,9 @@ namespace WebApplication.Models.Processes
                     new CarViewData(ro.Car, ro.Car.Owner, ro.Car.Mark),
                     new WorkerViewData(ro.Worker, ro.Worker.Person, ro.Worker.Status, ro.Worker.Specialty),
                     ro.Malfunctions.Select(m => new MalfunctionViewData(m, m.Details.ToList())).ToList())).ToList();
+
+            return Utils.Utils.GetPageCollection(templateList, page);
+        }
 
         // получить заявку на неисправность для отображения в форме по id
         public RepairOrderViewForm GetRepairOrdersDataForForm(int id) =>
@@ -148,6 +155,15 @@ namespace WebApplication.Models.Processes
 
             return await Task.Run(() => new RepairOrderViewForm(-1, clientViewData,
                 new CarViewData(new Car(), new Person(), new Mark()), "", new List<MalfunctionViewForm>()));
+        }
+
+        // получение данных о таблицах клиентских запросов
+        public object GetRepairOrdersInfo() {
+            int carsCount = _context.RepairOrders.Count();
+            return new {
+                count = carsCount,
+                maxPages = carsCount % 10
+            };
         }
     }
 }

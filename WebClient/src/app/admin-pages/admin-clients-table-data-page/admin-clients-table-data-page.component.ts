@@ -10,6 +10,9 @@ import { ClientViewData } from 'src/models/view-data/client-view-data';
 })
 export class AdminClientsTableDataPageComponent implements OnInit, IDate{
   clientsViewData!: ClientViewData[]; // клианты
+  currentPage = 1;
+  maxPages = 10;
+  maxCount = 10;
 
   constructor(private router: Router, private clientService: ClientService){}
 
@@ -38,5 +41,25 @@ export class AdminClientsTableDataPageComponent implements OnInit, IDate{
   // показать нормальную дату
   showCorrectDate(date: any): string {
     return new Date(date).toLocaleDateString();
+  }
+
+  changePage(page: number): void {
+    this.clientService.getClientsViewData().subscribe((data: any[]) => {
+      this.clientsViewData = data as ClientViewData[];
+
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-outline-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-secondary');
+      this.currentPage = page;
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+    });
+  }
+
+  createRange(range: number): any[] {
+    const items = [];
+    for (let i = 1; i <= range; i++) {
+       items.push(i);
+    }
+    return items;
   }
 }

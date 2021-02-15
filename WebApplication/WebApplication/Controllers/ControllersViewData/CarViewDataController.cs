@@ -12,7 +12,7 @@ using WebApplication.Models.ViewData;
 
 namespace WebApplication.Controllers.ControllersViewData
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CarViewDataController : ControllerBase
     {
@@ -23,8 +23,12 @@ namespace WebApplication.Controllers.ControllersViewData
         }
 
         // GET: api/CarViewData
+        [HttpGet("{page}")]
+        public IEnumerable<CarViewData> GetCars(int page) => _carProcess.GetCarsData(page);
+
         [HttpGet]
-        public IEnumerable<CarViewData> GetCars() => _carProcess.GetCarsData();
+        [ActionName("InfoTable")]
+        public object GetInfoTable() => _carProcess.GetCarsTableInfo();
 
         // GET: api/CarViewData/5
         [HttpGet("{id}")]

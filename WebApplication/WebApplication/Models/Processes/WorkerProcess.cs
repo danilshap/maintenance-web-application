@@ -21,8 +21,17 @@ namespace WebApplication.Models.Processes
         }
 
         // получить всех клиентов
-        public List<WorkerViewData> GetWorkersData() =>
-            _context.Workers.Select(w => new WorkerViewData(w, w.Person, w.Status, w.Specialty)).ToList();
+        public List<WorkerViewData> GetWorkersData(int page = 1) {
+            // если вдруг у нас номер таблицы будет равен нулю то мы кидаем исключение
+            if (page == 0) throw new Exception("Недопустимая страница данных.");
+
+            // получение базовой коллекции данных
+            var templateList = _context.Workers
+                .Select(w => new WorkerViewData(w, w.Person, w.Status, w.Specialty))
+                .ToList();
+
+            return Utils.Utils.GetPageCollection(templateList, page);
+        }
 
         // получить список работников для выпадающего списка
         public List<string> GetWorkersForSelect() =>
@@ -99,5 +108,14 @@ namespace WebApplication.Models.Processes
         // проверка на существование работника для обработки при добавлении новой заявки на ремонт
         public async Task<bool> isSetWorker(string passport) =>
             await _context.Workers.Include(w => w.Person).AnyAsync(w => w.Person.Passport == passport);
+
+        // получение данных о таблицах клиентских запросов
+        public object GetWorkersInfo() {
+            int carsCount = _context.Workers.Count();
+            return new {
+                count = carsCount,
+                maxPages = carsCount % 10
+            };
+        }
     }
 }

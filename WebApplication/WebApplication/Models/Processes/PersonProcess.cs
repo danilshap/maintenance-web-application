@@ -22,8 +22,7 @@ namespace WebApplication.Models.Processes
         }
 
         // изменение персоны
-        public async Task ChangePerson(Person person)
-        {
+        public async Task ChangePerson(Person person) {
             var templPerson = _context.Persons.FirstOrDefault(p => p.Passport == person.Passport);
 
             if (templPerson == null) throw new WebApiException("Человека не было найдено");

@@ -9,12 +9,24 @@ import { CarViewData } from 'src/models/view-data/car-view-data';
 })
 export class AdminCarsTableDataPageComponent implements OnInit{
   carsViewData!: CarViewData[];
+  currentPage!: number;
+  maxPages!: number;
+  maxCount!: number;
 
   constructor(private router: Router, private carService: CarService){}
 
   ngOnInit(): void {
-    this.carService.getCarsViewData().subscribe((data: any[]) => {
+    this.currentPage = 1;
+    this.carService.getCarsViewData(this.currentPage).subscribe((data: any[]) => {
       this.carsViewData = data as CarViewData[];
+
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+
+      this.carService.getCarsTableInfo().subscribe((info: any) => {
+        this.maxPages = info.maxPages;
+        this.maxCount = info.count;
+      });
     });
   }
 
@@ -28,5 +40,25 @@ export class AdminCarsTableDataPageComponent implements OnInit{
 
   infoCar(id: number): void{
     this.router.navigate(['admin/car_info', id]);
+  }
+
+  changePage(page: number): void {
+    this.carService.getCarsViewData(page).subscribe((data: any[]) => {
+      this.carsViewData = data as CarViewData[];
+
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-outline-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-secondary');
+      this.currentPage = page;
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+    });
+  }
+
+  createRange(range: number): any[] {
+    const items = [];
+    for (let i = 1; i <= range; i++) {
+       items.push(i);
+    }
+    return items;
   }
 }

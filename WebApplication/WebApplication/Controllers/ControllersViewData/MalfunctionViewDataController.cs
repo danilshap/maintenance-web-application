@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Maintenance.Models.MaintenanceEntities;
+using SQLitePCL;
 using WebApplication.Data;
 using WebApplication.Models.Processes;
 using WebApplication.Models.ViewData;
@@ -23,13 +24,14 @@ namespace WebApplication.Controllers.ControllersViewData
         }
 
         // GET: api/MalfunctionViewData
-        [HttpGet]
+        [HttpGet("{page}")]
         [ActionName("GetMalfunctions")]
-        public IEnumerable<MalfunctionViewData> GetMalfunctions() => _malfunctionProcess.GetMalfunctionsData();
+        public IEnumerable<MalfunctionViewData> GetMalfunctions(int page) =>
+            _malfunctionProcess.GetMalfunctionsData(page);
 
         [HttpGet]
-        [ActionName("GetMalfunctionsTitles")]
-        public IEnumerable<string> GetMalfunctionsTitles() => _malfunctionProcess.GetMalfunctionsDataForForm();
+        [ActionName("InfoTable")]
+        public object GetInfoTable() => _malfunctionProcess.GetMalfunctionsTableInfo();
 
         // GET: api/MalfunctionViewData/5
         [HttpGet("{id}")]

@@ -27,12 +27,19 @@ namespace WebApplication.Models.Processes
         }
 
         // получить всех клиентов
-        public List<ClientViewData> GetClientsData() =>
-            _context.Clients
+        public List<ClientViewData> GetClientsData(int page = 1) {
+            // если вдруг у нас номер таблицы будет равен нулю то мы кидаем исключение
+            if (page == 0) throw new Exception("Недопустимая страница данных.");
+
+            // получение базовой коллекции данных
+            var templateList = _context.Clients
                 .Include(c => c.Address)
                 .Include(c => c.Person)
                 .Select(c => new ClientViewData(c, c.Person, c.Address))
                 .ToList();
+
+            return Utils.Utils.GetPageCollection(templateList, page);
+        }
 
         // получить определенного клиента
         public ClientViewData GetClientData(int id) {
@@ -129,5 +136,14 @@ namespace WebApplication.Models.Processes
         // поиск клиента для обработки в заявке на ремонт
         public async Task<bool> IsSetClient(string passport) =>
             await _context.Clients.Include(c => c.Person).AnyAsync(c => c.Person.Passport == passport);
+
+        // получение данных о таблицах клиентах
+        public object GetClientsTableInfo() {
+            int carsCount = _context.Clients.Count();
+            return new {
+                count = carsCount,
+                maxPages = carsCount % 10
+            };
+        }
     }
 }

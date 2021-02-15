@@ -24,36 +24,33 @@ namespace WebApplication.Controllers.ControllersViewData
         }
 
         // GET: api/RepairOrderViewData
+        [HttpGet("{page}")]
+        public IEnumerable<RepairOrderViewData> GetRepairOrderForView(int page) =>
+            _repairOrderProcess.GetRepairOrdersDataForView(page);
+
         [HttpGet]
-        [ActionName("GetRepairOrderForView")]
-        public IEnumerable<RepairOrderViewData> GetRepairOrderForView() =>
-            _repairOrderProcess.GetRepairOrdersDataForView();
+        [ActionName("InfoTable")]
+        public object GetInfoTable() => _repairOrderProcess.GetRepairOrdersInfo();
 
         [HttpGet("{id}")]
-
-        [ActionName("GetRepairOrderForForm")]
         public RepairOrderViewForm GetRepairOrderForForm(int id) => _repairOrderProcess.GetRepairOrdersDataForForm(id);
 
         // GET: api/RepairOrderViewData/5
         [HttpGet("{id}")]
-        [ActionName("GetRepairOrder")]
         public RepairOrderViewData GetRepairOrder(int id) => _repairOrderProcess.GetRepairOrderData(id);
 
         [HttpGet("{id}")]
-        [ActionName("RegistrationNewRepairOrderForPersonRequest")]
         public RepairOrderViewForm RegistrationNewRepairOrderForPersonRequest(int id) =>
             _repairOrderProcess.GetRepairOrderViewFormWithPersonRequest(id).Result;
 
         // PUT: api/RepairOrderViewData/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [ActionName("PutRepairOrder")]
         public async Task PutRepairOrder(int id) => await _repairOrderProcess.ChangeRepairOrderStatus(id);
 
         // POST: api/RepairOrderViewData
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [ActionName("PostRepairOrder")]
         public async Task PostRepairOrder(RepairOrderViewForm repairOrder) =>
             await _repairOrderProcess.AppendRepairOrder(repairOrder);
     }

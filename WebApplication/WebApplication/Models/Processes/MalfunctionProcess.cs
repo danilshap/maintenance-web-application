@@ -18,13 +18,17 @@ namespace WebApplication.Models.Processes
         }
 
         // выбор всех неисправностей
-        public List<MalfunctionViewData> GetMalfunctionsData() =>
-            _context.Malfunctions
+        public List<MalfunctionViewData> GetMalfunctionsData(int page = 1) {
+            // если вдруг у нас номер таблицы будет равен нулю то мы кидаем исключение
+            if (page == 0) throw new Exception("Недопустимая страница данных.");
+
+            // получение базовой коллекции данных
+            var templateList = _context.Malfunctions
                 .Select(m => new MalfunctionViewData(m, m.Details.ToList()))
                 .ToList();
 
-        // выбор названий неисправностей для формы
-        public List<string> GetMalfunctionsDataForForm() => _context.Malfunctions.Select(m => m.Title).ToList();
+            return Utils.Utils.GetPageCollection(templateList, page);
+        }
 
         // выбор конкретной неисправности
         public MalfunctionViewData GetMalfunctionData(int id) {
@@ -66,5 +70,14 @@ namespace WebApplication.Models.Processes
 
         // проверка на существование неисправности для обработки для заявки на ремонт
         public async Task<bool> IsSetMalfunction(string title) => await _context.Malfunctions.AnyAsync(m => m.Title == title);
+
+        // получение данных о таблицах автомобилях
+        public object GetMalfunctionsTableInfo() {
+            int carsCount = _context.Malfunctions.Count();
+            return new {
+                count = carsCount,
+                maxPages = carsCount % 10
+            };
+        }
     }
 }

@@ -25,11 +25,18 @@ namespace WebApplication.Models.Processes
         }
 
         // получить всех клиентов
-        public List<CarViewData> GetCarsData() =>
-            _context.Cars
+        public List<CarViewData> GetCarsData(int page = 1) {
+            // если вдруг у нас номер таблицы будет равен нулю то мы кидаем исключение
+            if (page == 0) throw new Exception("Недопустимая страница данных.");
+
+            // получение базовой коллекции данных
+            var templateList = _context.Cars
                 .Include(c => c.Mark)
                 .Include(c => c.Owner)
                 .Select(c => new CarViewData(c, c.Owner, c.Mark)).ToList();
+
+            return Utils.Utils.GetPageCollection(templateList, page);
+        }
 
         // получить определенного клиента
         public CarViewData GetCarData(int id) {
@@ -122,5 +129,14 @@ namespace WebApplication.Models.Processes
 
         // проверка на существование авто для работы с заявкой на ремонт
         public async Task<bool> IsSetCat(string stateNumber) => await _context.Cars.AnyAsync(c => c.StateNumber == stateNumber);
+
+        // получение данных о таблицах автомобилях
+        public object GetCarsTableInfo() {
+            int carsCount = _context.Cars.Count();
+            return new {
+                count = carsCount,
+                maxPages = (carsCount / 10) + (carsCount % 10 > 1 ? 1: 0)
+            };
+        }
     }
 }
