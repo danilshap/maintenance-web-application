@@ -7,83 +7,48 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Maintenance.Models.MaintenanceEntities;
 using WebApplication.Data;
+using WebApplication.Models.Utils;
 
 namespace WebApplication.Controllers.ControllersModel
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class SpecialtiesController : ControllerBase
-    {
+    public class SpecialtiesController : ControllerBase {
         private readonly MaintenanceDatabaseContext _context;
-
         public SpecialtiesController(MaintenanceDatabaseContext context) {
             _context = context;
         }
 
-        // GET: api/Specialties
-        [HttpGet]
-        [ActionName("GetSpecialties")]
-        public async Task<ActionResult<IEnumerable<Specialty>>> GetSpecialties() {
-            return await _context.Specialties.ToListAsync();
+        // получение данных о специальностях
+        [HttpGet("{page}")]
+        public async Task<ActionResult<IEnumerable<Specialty>>> GetSpecialties(int page) {
+            // если номер страницы будет нулевой то мы возвращаем null
+            if (page == 0) return null;
+
+            // получение диапазона данных в зависимости от страницы и количества данных
+            var range = Utils.GetDataRange(page, _context.Specialties.Count());
+
+            // получаем коллекцию
+            return await _context.Specialties.Skip(range.from).Take(range.to).ToListAsync();
         }
 
+        // получение строковых представлений специальностей для добавления нового работника
         [HttpGet]
-        [ActionName("GetSpecialtiesStr")]
         public async Task<IEnumerable<string>> GetSpecialtiesStr() {
             return await _context.Specialties.Select(s => s.Title).ToListAsync();
         }
 
-        // GET: api/Specialties/5
+        // получение специальности по id
         [HttpGet("{id}")]
-        [ActionName("GetSpecialty")]
         public async Task<ActionResult<Specialty>> GetSpecialty(int id) {
             var specialty = await _context.Specialties.FindAsync(id);
             if (specialty == null) return NotFound();
             return specialty;
         }
 
-        // PUT: api/Specialties/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        [ActionName("PutSpecialty")]
-        public async Task<IActionResult> PutSpecialty(int id, Specialty specialty) {
-            if (id != specialty.Id) return BadRequest();
-
-            _context.Entry(specialty).State = EntityState.Modified;
-
-            try {
-                await _context.SaveChangesAsync();
-            } catch (DbUpdateConcurrencyException) {
-                if (!SpecialtyExists(id)) return NotFound();
-                throw;
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Specialties
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        [ActionName("PostSpecialty")]
-        public async Task<ActionResult<Specialty>> PostSpecialty(Specialty specialty) {
-            _context.Specialties.Add(specialty);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetSpecialty", new { id = specialty.Id }, specialty);
-        }
-
-        // DELETE: api/Specialties/5
-        [HttpDelete("{id}")]
-        [ActionName("DeleteSpecialty")]
-        public async Task<IActionResult> DeleteSpecialty(int id) {
-            var specialty = await _context.Specialties.FindAsync(id);
-            if (specialty == null) return NotFound();
-            _context.Specialties.Remove(specialty);
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        private bool SpecialtyExists(int id) => _context.Specialties.Any(e => e.Id == id);
-        
+        // получение данных о таблицах специальностей
+        [HttpGet]
+        public async Task<ActionResult<object>> GetTableInfo() =>
+            await Task.Run(() => Utils.GetInfoPage(_context.Specialties.Count()));
     }
 }

@@ -21,12 +21,12 @@ namespace WebApplication.Models.Processes
         }
 
         // получение всех запросов клиентов
-        public List<PersonRequestViewData> PersonRequestsViewData() =>
+        public IEnumerable<PersonRequestViewData> PersonRequestsViewData() =>
             _context.PersonRequests
                 .Include(pr => pr.Person)
                 .Include(pr => pr.PersonRequestStatus)
                 .Where(pr => pr.PersonRequestStatus.Title == "Необходимо перезвонить!")
-                .Select(pr => new PersonRequestViewData(pr, pr.Person, pr.PersonRequestStatus)).ToList();
+                .Select(pr => new PersonRequestViewData(pr, pr.Person, pr.PersonRequestStatus));
 
         // получение конкретного обращение в сервисный центр
         public PersonRequestViewData PersonRequestViewData(int id) {

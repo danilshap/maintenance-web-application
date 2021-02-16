@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Maintenance.Models.MaintenanceEntities;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
 using WebApplication.Models.Utils;
@@ -18,16 +19,17 @@ namespace WebApplication.Models.Processes
         }
 
         // выбор всех неисправностей
-        public List<MalfunctionViewData> GetMalfunctionsData(int page = 1) {
+        public IEnumerable<MalfunctionViewData> GetMalfunctionsData(int page = 1) {
             // если вдруг у нас номер таблицы будет равен нулю то мы кидаем исключение
             if (page == 0) throw new Exception("Недопустимая страница данных.");
 
             // получение базовой коллекции данных
             var templateList = _context.Malfunctions
-                .Select(m => new MalfunctionViewData(m, m.Details.ToList()))
-                .ToList();
+                .Select(m => new MalfunctionViewData(m, m.Details.ToList()));
 
-            return Utils.Utils.GetPageCollection(templateList, page);
+            var range = Utils.Utils.GetDataRange(page, templateList.Count());
+
+            return templateList.Skip(range.from).Take(range.to);
         }
 
         // выбор конкретной неисправности

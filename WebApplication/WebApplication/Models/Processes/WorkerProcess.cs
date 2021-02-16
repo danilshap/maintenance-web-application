@@ -21,16 +21,17 @@ namespace WebApplication.Models.Processes
         }
 
         // получить всех клиентов
-        public List<WorkerViewData> GetWorkersData(int page = 1) {
+        public IEnumerable<WorkerViewData> GetWorkersData(int page = 1) {
             // если вдруг у нас номер таблицы будет равен нулю то мы кидаем исключение
             if (page == 0) throw new Exception("Недопустимая страница данных.");
 
             // получение базовой коллекции данных
             var templateList = _context.Workers
-                .Select(w => new WorkerViewData(w, w.Person, w.Status, w.Specialty))
-                .ToList();
+                .Select(w => new WorkerViewData(w, w.Person, w.Status, w.Specialty));
 
-            return Utils.Utils.GetPageCollection(templateList, page);
+            var range = Utils.Utils.GetDataRange(page, templateList.Count());
+
+            return templateList.Skip(range.from).Take(range.to);
         }
 
         // получить список работников для выпадающего списка

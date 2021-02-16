@@ -7,102 +7,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Maintenance.Models.MaintenanceEntities;
 using WebApplication.Data;
+using WebApplication.Models.Utils;
 
 namespace WebApplication.Controllers.ControllersModel
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DetailsController : ControllerBase
-    {
+    public class DetailsController : ControllerBase {
         private readonly MaintenanceDatabaseContext _context;
-
-        public DetailsController(MaintenanceDatabaseContext context)
-        {
+        public DetailsController(MaintenanceDatabaseContext context) {
             _context = context;
         }
 
-        // GET: api/Details
+        // получение данных о деталях
+        [HttpGet("{page}")]
+        public async Task<ActionResult<IEnumerable<Detail>>> GetDetails(int page) {
+            // если номер страницы будет нулевой то мы возвращаем null
+            if (page == 0) return null;
+
+            // получение диапазона данных в зависимости от страницы и количества данных
+            var range = Utils.GetDataRange(page, _context.Details.Count());
+
+            // получаем коллекцию
+            return await _context.Details.Skip(range.from).Take(range.to).ToListAsync();
+        }
+
+        // получение данных о таблицах деталях
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Detail>>> GetDetails()
-        {
-            return await _context.Details.ToListAsync();
-        }
-
-        // GET: api/Details/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Detail>> GetDetail(int id)
-        {
-            var detail = await _context.Details.FindAsync(id);
-
-            if (detail == null)
-            {
-                return NotFound();
-            }
-
-            return detail;
-        }
-
-        // PUT: api/Details/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDetail(int id, Detail detail)
-        {
-            if (id != detail.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(detail).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DetailExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Details
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Detail>> PostDetail(Detail detail)
-        {
-            _context.Details.Add(detail);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetDetail", new { id = detail.Id }, detail);
-        }
-
-        // DELETE: api/Details/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDetail(int id)
-        {
-            var detail = await _context.Details.FindAsync(id);
-            if (detail == null)
-            {
-                return NotFound();
-            }
-
-            _context.Details.Remove(detail);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool DetailExists(int id)
-        {
-            return _context.Details.Any(e => e.Id == id);
-        }
+        public async Task<ActionResult<object>> GetTableInfo(int id) =>
+            await Task.Run(() => Utils.GetInfoPage(_context.Details.Count()));
     }
 }
