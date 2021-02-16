@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Maintenance.Models.MaintenanceEntities;
 using WebApplication.Data;
 using WebApplication.Models.Processes;
+using WebApplication.Models.Utils;
 using WebApplication.Models.ViewData;
 using WebApplication.Models.ViewForm;
 
@@ -29,8 +30,7 @@ namespace WebApplication.Controllers.ControllersViewData
             _repairOrderProcess.GetRepairOrdersDataForView(page);
 
         [HttpGet]
-        [ActionName("InfoTable")]
-        public object GetInfoTable() => _repairOrderProcess.GetRepairOrdersInfo();
+        public object GetInfoTable() => Utils.GetInfoPage(_repairOrderProcess.GetTableCount());
 
         [HttpGet("{id}")]
         public RepairOrderViewForm GetRepairOrderForForm(int id) => _repairOrderProcess.GetRepairOrdersDataForForm(id);

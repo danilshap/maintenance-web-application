@@ -6,7 +6,11 @@ import { MalfunctionViewData } from "../view-data/malfunction-view-data";
 export class MalfunctionService{
   constructor(private http: HttpClient){}
 
-  getMalfunctionsViewData(): any {
-    return this.http.get<MalfunctionViewData[]>('http://localhost:55280/api/MalfunctionViewData/GetMalfunctions');
+  getMalfunctionsViewData(page: number): any {
+    return this.http.get<MalfunctionViewData[]>(`http://localhost:55280/api/MalfunctionViewData/GetMalfunctions/${page}`);
+  }
+
+  getMalfunctionsTableInfo(): any {
+    return this.http.get<any>('http://localhost:55280/api/MalfunctionViewData/InfoTable');
   }
 }

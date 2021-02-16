@@ -7,8 +7,12 @@ export class WorkerService{
   constructor(private http: HttpClient) {}
 
   // получение данных о всех работниках
-  getWorkersViewData(): any {
-    return this.http.get<WorkerViewData[]>('http://localhost:55280/api/WorkerViewData/GetWorkers');
+  getWorkersViewData(page: number): any {
+    return this.http.get<WorkerViewData[]>(`http://localhost:55280/api/WorkerViewData/GetWorkers/${page}`);
+  }
+
+  getWorkersTableInfo(): any {
+    return this.http.get<any>('http://localhost:55280/api/WorkerViewData/GetInfoTable');
   }
 
   // получение данных о конкретном работнике
@@ -17,7 +21,7 @@ export class WorkerService{
   }
 
   getWorkersString(): any {
-    return this.http.get<string[]>('http://localhost:55280/api/WorkerViewData/GetWorkerForSelect');
+    return this.http.get<string[]>('http://localhost:55280/api/WorkerViewData/GetWorkersForSelect');
   }
 
   // добавление нового работника

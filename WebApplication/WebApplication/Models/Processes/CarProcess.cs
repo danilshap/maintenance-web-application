@@ -130,13 +130,6 @@ namespace WebApplication.Models.Processes
         // проверка на существование авто для работы с заявкой на ремонт
         public async Task<bool> IsSetCat(string stateNumber) => await _context.Cars.AnyAsync(c => c.StateNumber == stateNumber);
 
-        // получение данных о таблицах автомобилях
-        public object GetCarsTableInfo() {
-            int carsCount = _context.Cars.Count();
-            return new {
-                count = carsCount,
-                maxPages = (carsCount / 10) + (carsCount % 10 > 1 ? 1: 0)
-            };
-        }
+        public int GetTableCount() => _context.Cars.Count();
     }
 }

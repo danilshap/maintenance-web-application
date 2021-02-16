@@ -71,13 +71,6 @@ namespace WebApplication.Models.Processes
         // проверка на существование неисправности для обработки для заявки на ремонт
         public async Task<bool> IsSetMalfunction(string title) => await _context.Malfunctions.AnyAsync(m => m.Title == title);
 
-        // получение данных о таблицах автомобилях
-        public object GetMalfunctionsTableInfo() {
-            int carsCount = _context.Malfunctions.Count();
-            return new {
-                count = carsCount,
-                maxPages = carsCount % 10
-            };
-        }
+        public int GetTableCount() => _context.Malfunctions.Count();
     }
 }

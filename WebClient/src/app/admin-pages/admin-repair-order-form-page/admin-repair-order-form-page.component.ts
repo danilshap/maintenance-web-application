@@ -25,9 +25,13 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
   malfunctionViewData!: MalfunctionViewData[]; // список неисправностей
   isClientOwner!: boolean; // проверка явлется ли клиент влядельцем авто
   repairOrderForm!: FormGroup; // строим форму
-  summ: number = 0;
+  summ = 0;
   personRequestId!: number;
   personProblem?: string;
+
+  currentPage!: number;
+  maxPages!: number;
+  maxCount!: number;
 
   constructor(private repairOrderService: RepairOrderService,
               private personRequestService: PersonRequestService,
@@ -61,14 +65,23 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
 
     this.workerService.getWorkersString().subscribe((data: any[]) => {
       this.workersString = data as string[];
-      if(this.workersString.length <= 0) {
+      if (this.workersString.length <= 0) {
         this.repairOrderForm.disable();
       }
     });
 
-    this.malfunctionService.getMalfunctionsViewData().subscribe((data: any[]) => {
+    this.currentPage = 1;
+    this.malfunctionService.getMalfunctionsViewData(this.currentPage).subscribe((data: any[]) => {
       this.malfunctionViewData = data;
-    })
+
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+
+      this.malfunctionService.getMalfunctionsTableInfo().subscribe((info: any) => {
+        this.maxPages = info.maxPages;
+        this.maxCount = info.count;
+      });
+    });
 
     this.isClientOwner = false;
   }
@@ -158,7 +171,7 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
 
   onChange(id: number): void {
     this.malfunctionViewData.forEach((elem) => {
-      if(elem.id === id) {
+      if (elem.id === id) {
         elem.isSelected = !elem.isSelected;
       }
     });
@@ -202,19 +215,19 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
       this.yearOfIssue.value,
       this.markTitle.value,
       this.markModel.value,
-      this.isClientOwner ? this.surname.value: this.surnameOwner.value,
-      this.isClientOwner ? this.name.value: this.nameOwner.value,
-      this.isClientOwner ? this.patronymic.value: this.patronymicOwner.value,
-      this.isClientOwner ? this.passport.value: this.passportOwner.value,
-      )
+      this.isClientOwner ? this.surname.value : this.surnameOwner.value,
+      this.isClientOwner ? this.name.value : this.nameOwner.value,
+      this.isClientOwner ? this.patronymic.value : this.patronymicOwner.value,
+      this.isClientOwner ? this.passport.value : this.passportOwner.value,
+      );
   }
 
   toIndex(): void {
-    window.location.href = "http://localhost:4200/admin/index";
+    window.location.href = 'http://localhost:4200/admin/index';
   }
 
   selectedMalfunctions(): boolean {
-    return this.malfunctionViewData.filter((elem) => elem.isSelected).length > 0;
+    return this.malfunctionViewData.filter((elem) => elem.isSelected).length !== 0;
   }
 
   get surname(): any { return this.repairOrderForm.controls.surname; }
@@ -236,4 +249,17 @@ export class AdminRepairOrderFormPageComponent implements OnInit{
   get patronymicOwner(): any { return this.repairOrderForm.controls.patronymicOwner; }
   get passportOwner(): any { return this.repairOrderForm.controls.passportOwner; }
   get worker(): any { return this.repairOrderForm.controls.worker; }
+
+
+  changePage(page: number): void {
+    this.malfunctionService.getMalfunctionsViewData(page).subscribe((data: any[]) => {
+      this.malfunctionViewData = data as MalfunctionViewData[];
+
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-outline-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-secondary');
+      this.currentPage = page;
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+    });
+  }
 }

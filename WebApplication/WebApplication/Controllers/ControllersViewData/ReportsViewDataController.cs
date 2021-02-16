@@ -23,15 +23,12 @@ namespace WebApplication.Controllers.ControllersViewData
 
         // GET: api/<ReportsViewDataController>
         [HttpGet]
-        [ActionName("Get")]
         public ReportsViewData Get() => _reportsProcess.GetReport();
 
         [HttpGet]
-        [ActionName("GetCountOfFreeWorker")]
         public int GetCountOfFreeWorker() => _reportsProcess.GetFreeWorkers();
 
         [HttpGet]
-        [ActionName("GetCountOfCarsInService")]
         public int GetCountOfCarsInService() => _reportsProcess.GetCarsOnService();
     }
 }

@@ -10,16 +10,25 @@ import { ClientViewData } from 'src/models/view-data/client-view-data';
 })
 export class AdminClientsTableDataPageComponent implements OnInit, IDate{
   clientsViewData!: ClientViewData[]; // клианты
-  currentPage = 1;
-  maxPages = 10;
-  maxCount = 10;
+  currentPage!: number;
+  maxPages!: number;
+  maxCount!: number;
 
   constructor(private router: Router, private clientService: ClientService){}
 
   ngOnInit(): void {
+    this.currentPage = 1;
     // получаем данные о всех клиентах
-    this.clientService.getClientsViewData().subscribe((data: any[]) => {
+    this.clientService.getClientsViewData(this.currentPage).subscribe((data: any[]) => {
       this.clientsViewData = data as ClientViewData[];
+
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+
+      this.clientService.getClientsTableInfo().subscribe((info: any) => {
+        this.maxPages = info.maxPages;
+        this.maxCount = info.count;
+      });
     });
   }
 
@@ -44,7 +53,7 @@ export class AdminClientsTableDataPageComponent implements OnInit, IDate{
   }
 
   changePage(page: number): void {
-    this.clientService.getClientsViewData().subscribe((data: any[]) => {
+    this.clientService.getClientsViewData(page).subscribe((data: any[]) => {
       this.clientsViewData = data as ClientViewData[];
 
       document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-outline-secondary');
@@ -53,13 +62,5 @@ export class AdminClientsTableDataPageComponent implements OnInit, IDate{
       document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
       document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
     });
-  }
-
-  createRange(range: number): any[] {
-    const items = [];
-    for (let i = 1; i <= range; i++) {
-       items.push(i);
-    }
-    return items;
   }
 }

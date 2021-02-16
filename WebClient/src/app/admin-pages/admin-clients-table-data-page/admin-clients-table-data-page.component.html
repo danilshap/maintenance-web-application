@@ -4,7 +4,7 @@
     <button class="btn btn-success" (click)="appendNewClient()">
       Добавить нового клиента
     </button>
-    <div class="shadow p-2 mt-3" style="overflow: auto;">
+    <div class="shadow p-2 mt-3" style="overflow: auto">
       <table class="table table-bordered table-hover" id="clientsTable">
         <thead class="thead-dark">
           <tr>
@@ -29,7 +29,7 @@
             <td>{{ showCorrectDate(client.dateOfBorn) }}</td>
             <td>
               {{ client.street }} дом. {{ client.building }}
-              <span *ngIf="client.flat !== undefined">
+              <span *ngIf="client.flat !== undefined && client.flat !== 0">
                 кв. {{ client.flat }}</span
               >
             </td>
@@ -43,160 +43,23 @@
               </button>
             </td>
             <td>
-              <button class="btn btn-info btn-block" (click)="infoClient(client.id)">
+              <button
+                class="btn btn-info btn-block"
+                (click)="infoClient(client.id)"
+              >
                 <i class="fas fa-info-circle"></i>
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-      <div *ngIf="maxPages > 1">
-        <div
-          class="btn-group mr-2"
-          role="group"
-          aria-label="First group"
-          *ngIf="maxPages <= 4"
-        >
-          <button
-            *ngFor="let item of createRange(maxPages)"
-            type="button"
-            id="data-page-{{ item }}"
-            (click)="changePage(item)"
-            class="btn btn-outline-secondary"
-          >
-            {{ item }}
-          </button>
-        </div>
-        <div *ngIf="maxPages > 4">
-          <div
-            class="btn-group mr-2"
-            role="group"
-            aria-label="First group"
-            *ngIf="currentPage + 2 >= maxPages"
-          >
-            <button
-              type="button"
-              id="data-page-1"
-              (click)="changePage(1)"
-              class="btn btn-outline-secondary"
-            >
-              1
-            </button>
-            <button type="button" disabled class="btn btn-outline-secondary">
-              ...
-            </button>
-            <button
-              *ngFor="let item of createRange(3).reverse()"
-              type="button"
-              id="data-page-{{ maxPages - item }}"
-              (click)="changePage(maxPages - item)"
-              [attr.class]="
-                maxPages - item === currentPage
-                  ? 'btn btn-secondary'
-                  : 'btn btn-outline-secondary'
-              "
-            >
-              {{ maxPages - item }}
-            </button>
-            <button
-              type="button"
-              id="data-page-{{ maxPages }}"
-              (click)="changePage(maxPages)"
-              [attr.class]="
-                maxPages === currentPage
-                  ? 'btn btn-secondary'
-                  : 'btn btn-outline-secondary'
-              "
-            >
-              {{ maxPages }}
-            </button>
-          </div>
-          <div
-            class="btn-group mr-2"
-            role="group"
-            aria-label="First group"
-            *ngIf="currentPage >= 4 && currentPage + 1 < maxPages - 1"
-          >
-            <button
-              type="button"
-              id="data-page-1"
-              (click)="changePage(1)"
-              class="btn btn-outline-secondary"
-            >
-              1
-            </button>
-            <button type="button" disabled class="btn btn-outline-secondary">
-              ...
-            </button>
-            <button
-              type="button"
-              id="data-page-1"
-              (click)="changePage(currentPage - 1)"
-              class="btn btn-outline-secondary"
-            >
-              {{ currentPage - 1 }}
-            </button>
-            <button
-              type="button"
-              id="data-page-1"
-              (click)="changePage(currentPage)"
-              class="btn btn-secondary"
-            >
-              {{ currentPage }}
-            </button>
-            <button
-              type="button"
-              id="data-page-1"
-              (click)="changePage(currentPage + 1)"
-              class="btn btn-outline-secondary"
-            >
-              {{ currentPage + 1 }}
-            </button>
-            <button type="button" disabled class="btn btn-outline-secondary">
-              ...
-            </button>
-            <button
-              type="button"
-              id="data-page-{{ maxPages }}"
-              (click)="changePage(maxPages)"
-              class="btn btn-outline-secondary"
-            >
-              {{ maxPages }}
-            </button>
-          </div>
-          <div
-            class="btn-group mr-2"
-            role="group"
-            aria-label="First group"
-            *ngIf="currentPage + 2 < maxPages && currentPage < 4"
-          >
-            <button
-              *ngFor="let item of createRange(4)"
-              type="button"
-              id="data-page-{{ item }}"
-              (click)="changePage(item)"
-              [attr.class]="
-                item === currentPage
-                  ? 'btn btn-secondary'
-                  : 'btn btn-outline-secondary'
-              "
-            >
-              {{ item }}
-            </button>
-            <button type="button" disabled class="btn btn-outline-secondary">
-              ...
-            </button>
-            <button
-              type="button"
-              id="data-page-{{ maxPages }}"
-              (click)="changePage(maxPages)"
-              class="btn btn-outline-secondary"
-            >
-              {{ maxPages }}
-            </button>
-          </div>
-        </div>
-      </div>
+      <div class="d-flex justify-content-end">
+        <paginator
+          [currentPage]="currentPage"
+          [maxPages]="maxPages"
+          [maxCount]="maxCount"
+          (changePageEvent)="changePage($event)"
+        ></paginator>
     </div>
   </div>
 </div>

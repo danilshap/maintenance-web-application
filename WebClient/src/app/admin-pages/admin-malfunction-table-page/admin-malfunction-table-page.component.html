@@ -1,8 +1,12 @@
 <div class="row">
   <div class="col">
     <h1>Неисправности</h1>
-    <div class="shadow p-2 mt-3" style="overflow: auto;">
-      <table class="table table-bordered table-hover" id="clientsTable" *ngIf="malfunctions">
+    <div class="shadow p-2 mt-3" style="overflow: auto">
+      <table
+        class="table table-sm table-bordered table-hover"
+        id="clientsTable"
+        *ngIf="malfunctions"
+      >
         <thead class="thead-dark">
           <tr>
             <th>Id</th>
@@ -19,13 +23,21 @@
             <td>
               <ul>
                 <li *ngFor="let detail of malfunction.details">
-                  {{detail.title}} ({{detail.price}} руб.)
+                  {{ detail.title }} ({{ detail.price }} руб.)
                 </li>
               </ul>
             </td>
           </tr>
         </tbody>
       </table>
+      <div class="d-flex justify-content-end">
+        <paginator
+          [currentPage]="currentPage"
+          [maxPages]="maxPages"
+          [maxCount]="maxCount"
+          (changePageEvent)="changePage($event)"
+        ></paginator>
+      </div>
     </div>
   </div>
 </div>

@@ -69,6 +69,13 @@
           </tr>
         </tbody>
       </table>
+      <div class="d-flex justify-content-end">
+        <paginator
+          [currentPage]="currentPage"
+          [maxPages]="maxPages"
+          [maxCount]="maxCount"
+          (changePageEvent)="changePage($event)"
+        ></paginator>
     </div>
   </div>
 </div>

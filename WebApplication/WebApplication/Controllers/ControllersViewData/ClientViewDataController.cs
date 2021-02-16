@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Data;
 using WebApplication.Models.Processes;
+using WebApplication.Models.Utils;
 using WebApplication.Models.ViewData;
 
 namespace WebApplication.Controllers.ControllersViewData
@@ -23,8 +24,7 @@ namespace WebApplication.Controllers.ControllersViewData
         public IEnumerable<ClientViewData> GetClients(int page) => _process.GetClientsData(page);
 
         [HttpGet]
-        [ActionName("GetInfoTable")]
-        public object GetInfoTable() => _process.GetClientsTableInfo();
+        public object GetInfoTable() => Utils.GetInfoPage(_process.GetTableCount());
 
         // GET: api/ClientViewData/5
         [HttpGet("{id}")]

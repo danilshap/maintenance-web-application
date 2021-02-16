@@ -36,6 +36,7 @@ import { AdminPersonRequestsTablePageComponent } from './admin-person-requests-t
 import { AdminPersonsTablePageComponent } from './admin-persons-table-page/admin-persons-table-page.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 @NgModule({
   imports: [
@@ -77,6 +78,7 @@ import * as echarts from 'echarts';
     AdminMarksTablePageComponent,
     AdminPersonRequestsTablePageComponent,
     AdminPersonsTablePageComponent,
+    PaginatorComponent
   ],
   providers: [
     AuthService,

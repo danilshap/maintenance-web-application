@@ -137,13 +137,6 @@ namespace WebApplication.Models.Processes
         public async Task<bool> IsSetClient(string passport) =>
             await _context.Clients.Include(c => c.Person).AnyAsync(c => c.Person.Passport == passport);
 
-        // получение данных о таблицах клиентах
-        public object GetClientsTableInfo() {
-            int carsCount = _context.Clients.Count();
-            return new {
-                count = carsCount,
-                maxPages = carsCount % 10
-            };
-        }
+        public int GetTableCount() => _context.Clients.Count();
     }
 }

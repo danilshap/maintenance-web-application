@@ -9,12 +9,21 @@ import { WorkerViewData } from "src/models/view-data/worker-view-data";
 })
 export class AdminWorkersTableDataPageComponent implements OnInit{
   workersViewData!: WorkerViewData[];
+  currentPage!: number;
+  maxPages!: number;
+  maxCount!: number;
 
   constructor(private router: Router, private workerService: WorkerService){}
 
   ngOnInit(): void {
-    this.workerService.getWorkersViewData().subscribe((data: any[]) => {
+    this.currentPage = 1;
+    this.workerService.getWorkersViewData(this.currentPage).subscribe((data: any[]) => {
       this.workersViewData = data as WorkerViewData[];
+
+      this.workerService.getWorkersTableInfo().subscribe((info: any) => {
+        this.maxPages = info.maxPages;
+        this.maxCount = info.count;
+      });
     });
   }
 
@@ -43,5 +52,17 @@ export class AdminWorkersTableDataPageComponent implements OnInit{
   // получить цвет строки для конкретного работника
   getColorForTableRow(status: string): string{
     return status === 'Уволен' ? 'table-danger' : status === 'На работе. Свободен' ? 'table-success' : 'table-warning';
+  }
+
+  changePage(page: number): void {
+    this.workerService.getWorkerViewData(page).subscribe((data: any[]) => {
+      this.workersViewData = data as WorkerViewData[];
+
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-outline-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-secondary');
+      this.currentPage = page;
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+    });
   }
 }

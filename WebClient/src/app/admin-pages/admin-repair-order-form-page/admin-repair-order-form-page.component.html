@@ -5,7 +5,10 @@
       <hr />
       <div *ngIf="!workersString" class="alert alert-warning">
         <h5>Внимание!</h5>
-        <p>В данный момент оформление новой заявки невозможно поскольку нет свободных мастеров</p>
+        <p>
+          В данный момент оформление новой заявки невозможно поскольку нет
+          свободных мастеров
+        </p>
       </div>
       <form
         [formGroup]="repairOrderForm"
@@ -499,6 +502,14 @@
                   </tr>
                 </tbody>
               </table>
+              <div class="d-flex justify-content-end">
+                <paginator
+                  [currentPage]="currentPage"
+                  [maxPages]="maxPages"
+                  [maxCount]="maxCount"
+                  (changePageEvent)="changePage($event)"
+                ></paginator>
+              </div>
               <div *ngIf="!selectedMalfunctions()">
                 <span class="text-danger"
                   >* Укажите неисправности автомобиля.</span

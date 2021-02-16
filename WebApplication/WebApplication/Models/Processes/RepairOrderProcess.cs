@@ -157,13 +157,6 @@ namespace WebApplication.Models.Processes
                 new CarViewData(new Car(), new Person(), new Mark()), "", new List<MalfunctionViewForm>()));
         }
 
-        // получение данных о таблицах клиентских запросов
-        public object GetRepairOrdersInfo() {
-            int carsCount = _context.RepairOrders.Count();
-            return new {
-                count = carsCount,
-                maxPages = carsCount % 10
-            };
-        }
+        public int GetTableCount() => _context.RepairOrders.Count();
     }
 }

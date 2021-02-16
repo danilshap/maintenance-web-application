@@ -1,0 +1,149 @@
+<div *ngIf="maxPages > 1">
+  <div
+    class="btn-group mr-2"
+    role="group"
+    aria-label="First group"
+    *ngIf="maxPages <= 4"
+  >
+    <button
+      *ngFor="let item of createRange(maxPages)"
+      type="button"
+      id="data-page-{{ item }}"
+      (click)="change(item)"
+      [attr.class]="
+        item === currentPage ? 'btn btn-secondary' : 'btn btn-outline-secondary'
+      "
+    >
+      {{ item }}
+    </button>
+  </div>
+  <div *ngIf="maxPages > 4">
+    <div
+      class="btn-group mr-2"
+      role="group"
+      aria-label="First group"
+      *ngIf="currentPage + 2 >= maxPages"
+    >
+      <button
+        type="button"
+        id="data-page-1"
+        (click)="change(1)"
+        class="btn btn-outline-secondary"
+      >
+        1
+      </button>
+      <button type="button" disabled class="btn btn-outline-secondary">
+        ...
+      </button>
+      <button
+        *ngFor="let item of createRange(3).reverse()"
+        type="button"
+        id="data-page-{{ maxPages - item }}"
+        (click)="change(maxPages - item)"
+        [attr.class]="
+          maxPages - item === currentPage
+            ? 'btn btn-secondary'
+            : 'btn btn-outline-secondary'
+        "
+      >
+        {{ maxPages - item }}
+      </button>
+      <button
+        type="button"
+        id="data-page-{{ maxPages }}"
+        (click)="change(maxPages)"
+        [attr.class]="
+          maxPages === currentPage
+            ? 'btn btn-secondary'
+            : 'btn btn-outline-secondary'
+        "
+      >
+        {{ maxPages }}
+      </button>
+    </div>
+    <div
+      class="btn-group mr-2"
+      role="group"
+      aria-label="First group"
+      *ngIf="currentPage >= 4 && currentPage + 1 < maxPages - 1"
+    >
+      <button
+        type="button"
+        id="data-page-1"
+        (click)="change(1)"
+        class="btn btn-outline-secondary"
+      >
+        1
+      </button>
+      <button type="button" disabled class="btn btn-outline-secondary">
+        ...
+      </button>
+      <button
+        type="button"
+        id="data-page-1"
+        (click)="change(currentPage - 1)"
+        class="btn btn-outline-secondary"
+      >
+        {{ currentPage - 1 }}
+      </button>
+      <button
+        type="button"
+        id="data-page-1"
+        (click)="change(currentPage)"
+        class="btn btn-secondary"
+      >
+        {{ currentPage }}
+      </button>
+      <button
+        type="button"
+        id="data-page-1"
+        (click)="change(currentPage + 1)"
+        class="btn btn-outline-secondary"
+      >
+        {{ currentPage + 1 }}
+      </button>
+      <button type="button" disabled class="btn btn-outline-secondary">
+        ...
+      </button>
+      <button
+        type="button"
+        id="data-page-{{ maxPages }}"
+        (click)="change(maxPages)"
+        class="btn btn-outline-secondary"
+      >
+        {{ maxPages }}
+      </button>
+    </div>
+    <div
+      class="btn-group mr-2"
+      role="group"
+      aria-label="First group"
+      *ngIf="currentPage + 2 < maxPages && currentPage < 4"
+    >
+      <button
+        *ngFor="let item of createRange(4)"
+        type="button"
+        id="data-page-{{ item }}"
+        (click)="change(item)"
+        [attr.class]="
+          item === currentPage
+            ? 'btn btn-secondary'
+            : 'btn btn-outline-secondary'
+        "
+      >
+        {{ item }}
+      </button>
+      <button type="button" disabled class="btn btn-outline-secondary">
+        ...
+      </button>
+      <button
+        type="button"
+        id="data-page-{{ maxPages }}"
+        (click)="change(maxPages)"
+        class="btn btn-outline-secondary"
+      >
+        {{ maxPages }}
+      </button>
+    </div>
+  </div>
+</div>

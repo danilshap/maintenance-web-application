@@ -8,8 +8,12 @@ export class RepairOrderService{
   constructor(private http: HttpClient) { }
 
   // получение списка заявок на ремонт
-  getRepairOrdersViewData(){
-    return this.http.get<RepairOrderViewData[]>('http://localhost:55280/api/RepairOrderViewData/GetRepairOrderForView');
+  getRepairOrdersViewData(page: number): any {
+    return this.http.get<RepairOrderViewData[]>(`http://localhost:55280/api/RepairOrderViewData/GetRepairOrderForView/${page}`);
+  }
+
+  getRepairOrdersTableInfo(): any {
+    return this.http.get<any>('http://localhost:55280/api/RepairOrderViewData/GetInfoTable');
   }
 
   // полуение конкретной заявки на ремонт
@@ -25,7 +29,7 @@ export class RepairOrderService{
 
   // изменение статуса заявки на ремонт
   // PutRepairOrder
-  putRepairOrder(id: number){
+  putRepairOrder(id: number): any {
     return this.http.put(`http://localhost:55280/api/RepairOrderViewData/PutRepairOrder/${id}`, undefined, undefined);
   }
 }

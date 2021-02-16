@@ -9,6 +9,7 @@ using Maintenance.Models.MaintenanceEntities;
 using SQLitePCL;
 using WebApplication.Data;
 using WebApplication.Models.Processes;
+using WebApplication.Models.Utils;
 using WebApplication.Models.ViewData;
 
 namespace WebApplication.Controllers.ControllersViewData
@@ -25,13 +26,12 @@ namespace WebApplication.Controllers.ControllersViewData
 
         // GET: api/MalfunctionViewData
         [HttpGet("{page}")]
-        [ActionName("GetMalfunctions")]
         public IEnumerable<MalfunctionViewData> GetMalfunctions(int page) =>
             _malfunctionProcess.GetMalfunctionsData(page);
 
         [HttpGet]
         [ActionName("InfoTable")]
-        public object GetInfoTable() => _malfunctionProcess.GetMalfunctionsTableInfo();
+        public object GetInfoTable() => Utils.GetInfoPage(_malfunctionProcess.GetTableCount());
 
         // GET: api/MalfunctionViewData/5
         [HttpGet("{id}")]

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Maintenance.Models.MaintenanceEntities;
 using WebApplication.Data;
 using WebApplication.Models.Processes;
+using WebApplication.Models.Utils;
 using WebApplication.Models.ViewData;
 
 namespace WebApplication.Controllers.ControllersViewData
@@ -27,8 +28,7 @@ namespace WebApplication.Controllers.ControllersViewData
         public IEnumerable<WorkerViewData> GetWorkers(int page) => _workerProcess.GetWorkersData(page);
 
         [HttpGet]
-        [ActionName("InfoTable")]
-        public object GetInfoTable() => _workerProcess.GetWorkersInfo();
+        public object GetInfoTable() => Utils.GetInfoPage(_workerProcess.GetTableCount());
 
         [HttpGet]
         public IEnumerable<string> GetWorkersForSelect() => _workerProcess.GetWorkersForSelect();

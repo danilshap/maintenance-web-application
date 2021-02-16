@@ -19,8 +19,8 @@ export class RepairOrderCardComponent implements IDate{
 
   completeRepair(): void {
     this.repairOrderService.putRepairOrder(this.repairOrderViewData.id).subscribe(
-      (data) => {this.repairOrderViewData.isReady = true;},
-      (error) => { alert(error.split('$$$')[0]);}
+      () => {this.repairOrderViewData.isReady = true; },
+      (error: any) => { alert(error.split('$$$')[0]); }
     );
   }
 

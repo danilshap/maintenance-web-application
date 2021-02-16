@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Maintenance.Models.MaintenanceEntities;
 using WebApplication.Data;
 using WebApplication.Models.Processes;
+using WebApplication.Models.Utils;
 using WebApplication.Models.ViewData;
 
 namespace WebApplication.Controllers.ControllersViewData
@@ -28,7 +29,7 @@ namespace WebApplication.Controllers.ControllersViewData
 
         [HttpGet]
         [ActionName("InfoTable")]
-        public object GetInfoTable() => _carProcess.GetCarsTableInfo();
+        public object GetInfoTable() => Utils.GetInfoPage(_carProcess.GetTableCount());
 
         // GET: api/CarViewData/5
         [HttpGet("{id}")]

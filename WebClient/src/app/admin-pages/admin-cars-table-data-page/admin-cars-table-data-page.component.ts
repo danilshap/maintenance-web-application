@@ -8,7 +8,7 @@ import { CarViewData } from 'src/models/view-data/car-view-data';
   templateUrl: './admin-cars-table-data-page.component.html',
 })
 export class AdminCarsTableDataPageComponent implements OnInit{
-  carsViewData!: CarViewData[];
+  collection!: CarViewData[];
   currentPage!: number;
   maxPages!: number;
   maxCount!: number;
@@ -18,10 +18,7 @@ export class AdminCarsTableDataPageComponent implements OnInit{
   ngOnInit(): void {
     this.currentPage = 1;
     this.carService.getCarsViewData(this.currentPage).subscribe((data: any[]) => {
-      this.carsViewData = data as CarViewData[];
-
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+      this.collection = data as CarViewData[];
 
       this.carService.getCarsTableInfo().subscribe((info: any) => {
         this.maxPages = info.maxPages;
@@ -44,7 +41,7 @@ export class AdminCarsTableDataPageComponent implements OnInit{
 
   changePage(page: number): void {
     this.carService.getCarsViewData(page).subscribe((data: any[]) => {
-      this.carsViewData = data as CarViewData[];
+      this.collection = data as CarViewData[];
 
       document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-outline-secondary');
       document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-secondary');
@@ -52,13 +49,5 @@ export class AdminCarsTableDataPageComponent implements OnInit{
       document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
       document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
     });
-  }
-
-  createRange(range: number): any[] {
-    const items = [];
-    for (let i = 1; i <= range; i++) {
-       items.push(i);
-    }
-    return items;
   }
 }

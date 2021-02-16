@@ -19,5 +19,10 @@ namespace WebApplication.Models.Utils
             for (int i = range.from; i < range.to; i++) responseList.Add(basicCollection[i]);
             return responseList;
         }
-    }
+
+        public static object GetInfoPage(int count) => new {
+            count,
+            maxPages = (count / 10) + (count % 10 >= 1 ? 1 : 0)
+        };
+}
 }

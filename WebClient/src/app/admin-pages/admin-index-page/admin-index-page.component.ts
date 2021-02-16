@@ -15,6 +15,9 @@ export class AdminIndexPageComponent implements OnInit {
   repairOrdersViewData: RepairOrderViewData[] = [];
   countOfFreeWorkers!: number;
   countOfCarsInService!: number;
+  currentPage!: number;
+  maxPages!: number;
+  maxCount!: number;
 
   constructor(private router: Router,
               private repairOrderService: RepairOrderService,
@@ -22,9 +25,15 @@ export class AdminIndexPageComponent implements OnInit {
   {}
 
   ngOnInit(): void {
+    this.currentPage = 1;
     // плдучение данных о заявках на ремонт
-    this.repairOrderService.getRepairOrdersViewData().subscribe((data: any[]) => {
+    this.repairOrderService.getRepairOrdersViewData(this.currentPage).subscribe((data: any[]) => {
       this.repairOrdersViewData = data as RepairOrderViewData[];
+
+      this.repairOrderService.getRepairOrdersTableInfo().subscribe((info: any) => {
+        this.maxPages = info.maxPages;
+        this.maxCount = info.count;
+      });
     });
 
     this.reportsService.getFreeWorkers().subscribe((data: any) => {
@@ -42,8 +51,21 @@ export class AdminIndexPageComponent implements OnInit {
   }
 
   // есть ли свободные работники для оформления новой заявки
-  haveFreeWorkers(): Boolean {
+  haveFreeWorkers(): boolean {
     return this.repairOrdersViewData.filter(ro => ro.isReady === false).length > 2;
+  }
+
+
+  changePage(page: number): void {
+    this.repairOrderService.getRepairOrdersViewData(page).subscribe((data: any[]) => {
+      this.repairOrdersViewData = data as RepairOrderViewData[];
+
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-outline-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-secondary');
+      this.currentPage = page;
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
+      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+    });
   }
 }
 

@@ -113,6 +113,7 @@
           <!-- Nav Item - Messages -->
           <li class="nav-item dropdown no-arrow mx-1">
             <a
+              *ngIf="personRequests.length > 0"
               class="nav-link dropdown-toggle"
               href="#"
               id="messagesDropdown"
@@ -123,7 +124,7 @@
             >
               <i class="fas fa-envelope fa-fw"></i>
               <!-- Counter - Messages -->
-              <span class="badge badge-danger badge-counter">{{
+              <span *ngIf="personRequests.length > 0" class="badge badge-danger badge-counter">{{
                 personRequests.length
               }}</span>
             </a>
