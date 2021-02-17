@@ -1,24 +1,23 @@
-import { Component, OnInit } from "@angular/core";
-import { MalfunctionService } from "src/models/sevices/malfunction.service";
-import { MalfunctionViewData } from "src/models/view-data/malfunction-view-data";
+import { Component, OnInit } from '@angular/core';
+import { MalfunctionService } from 'src/models/sevices/malfunction.service';
+import { MalfunctionViewData } from 'src/models/view-data/malfunction-view-data';
 
 @Component({
   selector: 'malfunction-table-page',
   templateUrl: './admin-malfunction-table-page.component.html'
 })
 export class AdminMalfunctionTablePageComponent implements OnInit{
-  malfunctions!: MalfunctionViewData[];
-  currentPage!: number;
-  maxPages!: number;
-  maxCount!: number;
+  malfunctions!: MalfunctionViewData[]; // список неисправностей
+  currentPage!: number; // конкретная страница таблицы
+  maxPages!: number;  // максимальное олкичество страниц
+  maxCount!: number;  // максимальное количество данных
 
   constructor(private malfuncationService: MalfunctionService){}
 
   ngOnInit(): void {
+    // определение текущей страницы
     this.currentPage = 1;
-    this.malfuncationService.getMalfunctionsViewData(1).subscribe((data: any) => {
-      this.malfunctions = data as MalfunctionViewData[];
-
+    this.sendData(this.currentPage, () => {
       this.malfuncationService.getMalfunctionsTableInfo().subscribe((info: any) => {
         this.maxPages = info.maxPages;
         this.maxCount = info.count;
@@ -26,15 +25,16 @@ export class AdminMalfunctionTablePageComponent implements OnInit{
     });
   }
 
-  changePage(page: number): void {
-    this.malfuncationService.getMalfunctionsViewData(page).subscribe((data: any[]) => {
+  // отправка запроса на сервер с дополнительным действием
+  sendData(page: number, addEvent: any): void {
+    // пофторное получение данных по конкретной странице таблицы
+    this.malfuncationService.getMalfunctionsViewData(page).subscribe((data: any) => {
       this.malfunctions = data as MalfunctionViewData[];
 
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-outline-secondary');
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-secondary');
-      this.currentPage = page;
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+      // если у нас нет дополнительного действия, то мы естественно его не выполняем :)
+      if (addEvent !== null && addEvent !== undefined) {
+        addEvent();
+      }
     });
   }
 }

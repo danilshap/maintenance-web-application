@@ -11,7 +11,7 @@
         </div>
         <div></div>
       </div>
-      <table class="table table-bordered table-hover">
+      <table class="table table-sm table-bordered table-hover">
         <thead class="thead-dark">
           <tr>
             <th>Id</th>
@@ -58,7 +58,7 @@
           [currentPage]="currentPage"
           [maxPages]="maxPages"
           [maxCount]="maxCount"
-          (changePageEvent)="changePage($event)"
+          (changePageEvent)="sendData($event, null)"
         ></paginator>
       </div>
     </div>

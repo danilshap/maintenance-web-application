@@ -24,8 +24,8 @@ export class AdminWorkerFormPageComponent implements OnInit{
 
   ngOnInit(): void {
     // получение данных из роутера
-    this.activatedRoute.params.forEach((params: Params) => {
-      this.specialtyService.getSpecialties().subscribe((data: any) => {
+    this.activatedRoute.params.forEach(() => {
+      this.specialtyService.getSpecialtiesStr().subscribe((data: any) => {
         this.specialties = data as string[];
       });
       this.createNewWorker();
@@ -75,10 +75,8 @@ export class AdminWorkerFormPageComponent implements OnInit{
     );
 
     this.workerService.postWorkerViewData(this.workerViewData).subscribe(
-      (data: any) => {
-        this.location.back();
-      },
-      (error: any) => { alert(error.message);}
+      () => {this.location.back(); },
+      (error: any) => { alert(error.message); }
     );
   }
 

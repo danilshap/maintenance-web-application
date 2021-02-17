@@ -28,16 +28,10 @@ namespace WebApplication.Models.Processes
         public IEnumerable<CarViewData> GetCarsData(int page = 1) {
             // если вдруг у нас номер таблицы будет равен нулю то мы кидаем исключение
             if (page == 0) throw new Exception("Недопустимая страница данных.");
-
-            // получение базовой коллекции данных
-            var templateList = _context.Cars
+            return _context.Cars
                 .Include(c => c.Mark)
                 .Include(c => c.Owner)
-                .Select(c => new CarViewData(c, c.Owner, c.Mark));
-
-            var range = Utils.Utils.GetDataRange(page, templateList.Count());
-
-            return templateList.Skip(range.from).Take(range.to);
+                .Select(c => new CarViewData(c, c.Owner, c.Mark)).Skip(page * 10 - 10).Take(10);
         }
 
         // получить определенного клиента
@@ -67,11 +61,7 @@ namespace WebApplication.Models.Processes
                 throw new WebApiException("Человек с таким паспортом уже существует. Проверьте корректность данных");
 
             // если у нас нет такого человека с такими данными, то мы добавляем его
-            if (_context.Persons.Any(p =>
-                p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
-                p.Patronymic == person.Patronymic || p.Passport != person.Passport))
-                await _personProcess.AppendPerson(person);
-
+            if (!_context.Persons.Any(p => p.Passport == person.Passport)) await _personProcess.AppendPerson(person);
 
             // проверка данных по адресу
             Mark mark = new Mark {

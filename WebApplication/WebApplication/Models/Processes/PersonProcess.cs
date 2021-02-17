@@ -17,7 +17,7 @@ namespace WebApplication.Models.Processes
 
         // добавить персону
         public async Task AppendPerson(Person person) {
-            _context.Persons.Add(person);
+            _context.Persons.Add(person); 
             await _context.SaveChangesAsync();
         }
 

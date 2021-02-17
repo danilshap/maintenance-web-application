@@ -2,7 +2,7 @@
 <div id="wrapper">
   <!-- Sidebar -->
   <ul
-    class="navbar-nav bg-primary sidebar sidebar-dark accordion"
+    class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
     id="accordionSidebar"
   >
     <a
@@ -69,11 +69,11 @@
           <a class="collapse-item text-wrap" routerLink="repair_order_table"
             >Заявки на ремонт</a
           >
-          <a class="collapse-item text-wrap" routerLink="worker_statuses_table"
+          <a class="collapse-item text-wrap" routerLink="specialties_table"
             >Специальности работников</a
           >
           <a class="collapse-item" routerLink="workers_table">Работники</a>
-          <a class="collapse-item" routerLink="specialties_table"
+          <a class="collapse-item" routerLink="worker_statuses_table"
             >Статусы работников</a
           >
         </div>
@@ -113,7 +113,7 @@
           <!-- Nav Item - Messages -->
           <li class="nav-item dropdown no-arrow mx-1">
             <a
-              *ngIf="personRequests.length > 0"
+              *ngIf="maxCount > 0"
               class="nav-link dropdown-toggle"
               href="#"
               id="messagesDropdown"
@@ -124,9 +124,11 @@
             >
               <i class="fas fa-envelope fa-fw"></i>
               <!-- Counter - Messages -->
-              <span *ngIf="personRequests.length > 0" class="badge badge-danger badge-counter">{{
-                personRequests.length
-              }}</span>
+              <span
+                *ngIf="maxCount > 0"
+                class="badge badge-danger badge-counter"
+                >{{ maxCount }}</span
+              >
             </a>
             <!-- Dropdown - Messages -->
             <div
@@ -152,7 +154,7 @@
                 </div>
               </button>
               <a
-                *ngIf="personRequests.length > 3"
+                *ngIf="maxCount > 3"
                 class="dropdown-item text-center small text-gray-500"
                 routerLink="requests"
                 >Больше обращений</a

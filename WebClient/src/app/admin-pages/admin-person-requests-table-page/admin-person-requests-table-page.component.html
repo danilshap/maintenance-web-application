@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col">
+    <h1>Статусы обращений людей в сервисный центр</h1>
+    <div class="alert alert-info">
+      <b>Информация.</b>
+      <span>
+        В данный момент функции:
+        <span class="badge badge-warning h5">Редактирование</span> и
+        <span class="badge badge-danger h5">Удаление</span> для "обращения людей
+        в сервисный центр"
+        <b>недоступны</b>
+        <br />
+        <i>Добавление новой заявки осуществляет клиент</i>
+      </span>
+    </div>
+    <div class="shadow p-2 mt-3" style="overflow: auto">
+      <table
+        class="table table-sm table-bordered table-hover"
+        id="clientsTable"
+        *ngIf="personRequests"
+      >
+        <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Паспорт</th>
+            <th>Номер телефона</th>
+            <th>Проблема</th>
+            <th>Статус заявки</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let personRequest of personRequests"
+            [attr.class]="getTableClassByStatus(personRequest.status)"
+          >
+            <td>{{ personRequest.id }}</td>
+            <td>{{ personRequest.name }}</td>
+            <td>{{ personRequest.surname }}</td>
+            <td>{{ personRequest.patronymic }}</td>
+            <td>{{ personRequest.passport }}</td>
+            <td>{{ personRequest.telephone }}</td>
+            <td>{{ personRequest.descriptionOfTheProblem }}</td>
+            <td>{{ personRequest.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-end">
+        <paginator
+          [currentPage]="currentPage"
+          [maxPages]="maxPages"
+          [maxCount]="maxCount"
+          (changePageEvent)="sendData($event, null)"
+        ></paginator>
+      </div>
+    </div>
+  </div>
+</div>

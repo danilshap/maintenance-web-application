@@ -12,6 +12,7 @@ import { PersonRequestService } from 'src/models/sevices/person-request.service'
 export class AdminHomePageComponent implements OnInit {
   user!: User;
   personRequests: PersonRequestViewData[] = [];
+  maxCount!: number;  // максимальное количество данных
 
   constructor(private router: Router,
               private authService: AuthService,
@@ -20,12 +21,12 @@ export class AdminHomePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.personRequestService.getPersonRequests().subscribe((data: any) => {
-      let template = data as PersonRequestViewData[];
-      for (let i = 0; i < template.length; i++) {
-        if (i > 3) { break; }
-        this.personRequests.push(template[i]);
-      }
+    this.personRequestService.getPersonRequests(1, false).subscribe((data: any) => {
+      this.personRequests = data.slice(0, 3) as PersonRequestViewData[];
+
+      this.personRequestService.getPersonRequestsTableInfo(false).subscribe((info: any) => {
+        this.maxCount = info.count;
+      });
     });
   }
 
@@ -35,7 +36,7 @@ export class AdminHomePageComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
-  toRepairOrdeer(id: number) : void {
+  toRepairOrdeer(id: number): void {
     this.router.navigate(['admin/repair_order_form', id]);
   }
 }

@@ -25,11 +25,8 @@ namespace WebApplication.Controllers.ControllersModel
             // если номер страницы будет нулевой то мы возвращаем null
             if (page == 0) return null;
 
-            // получение диапазона данных в зависимости от страницы и количества данных
-            var range = Utils.GetDataRange(page, _context.WorkerStatuses.Count());
-
             // получаем коллекцию
-            return await _context.WorkerStatuses.Skip(range.from).Take(range.to).ToListAsync();
+            return await _context.WorkerStatuses.Skip(page * 10 - 10).Take(10).ToListAsync();
         }
 
         // получение данных о таблицах специальностей

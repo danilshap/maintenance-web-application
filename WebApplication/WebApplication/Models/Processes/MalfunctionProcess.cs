@@ -13,7 +13,6 @@ namespace WebApplication.Models.Processes
 {
     public class MalfunctionProcess {
         private readonly MaintenanceDatabaseContext _context;
-
         public MalfunctionProcess(MaintenanceDatabaseContext context) {
             _context = context;
         }
@@ -22,14 +21,9 @@ namespace WebApplication.Models.Processes
         public IEnumerable<MalfunctionViewData> GetMalfunctionsData(int page = 1) {
             // если вдруг у нас номер таблицы будет равен нулю то мы кидаем исключение
             if (page == 0) throw new Exception("Недопустимая страница данных.");
-
-            // получение базовой коллекции данных
-            var templateList = _context.Malfunctions
-                .Select(m => new MalfunctionViewData(m, m.Details.ToList()));
-
-            var range = Utils.Utils.GetDataRange(page, templateList.Count());
-
-            return templateList.Skip(range.from).Take(range.to);
+            return _context.Malfunctions
+                .Select(m => new MalfunctionViewData(m, m.Details.ToList()))
+                .Skip(page * 10 - 10).Take(10);
         }
 
         // выбор конкретной неисправности

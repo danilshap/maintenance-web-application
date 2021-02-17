@@ -19,12 +19,7 @@ export class AdminClientsTableDataPageComponent implements OnInit, IDate{
   ngOnInit(): void {
     this.currentPage = 1;
     // получаем данные о всех клиентах
-    this.clientService.getClientsViewData(this.currentPage).subscribe((data: any[]) => {
-      this.clientsViewData = data as ClientViewData[];
-
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
-
+    this.sendData(this.currentPage, () => {
       this.clientService.getClientsTableInfo().subscribe((info: any) => {
         this.maxPages = info.maxPages;
         this.maxCount = info.count;
@@ -52,15 +47,16 @@ export class AdminClientsTableDataPageComponent implements OnInit, IDate{
     return new Date(date).toLocaleDateString();
   }
 
-  changePage(page: number): void {
+  // отправка запроса на сервер с дополнительным действием
+  sendData(page: number, addEvent: any): void {
+    // пофторное получение данных по конкретной странице таблицы
     this.clientService.getClientsViewData(page).subscribe((data: any[]) => {
       this.clientsViewData = data as ClientViewData[];
 
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-outline-secondary');
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-secondary');
-      this.currentPage = page;
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+      // если у нас нет дополнительного действия, то мы естественно его не выполняем :)
+      if (addEvent !== null && addEvent !== undefined) {
+        addEvent();
+      }
     });
   }
 }

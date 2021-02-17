@@ -30,8 +30,7 @@ namespace WebApplication.Models.ViewData
 
             var templ = new List<MalfunctionViewData>();
             carsInServicesViewData.ForEach(c => templ.AddRange(c.MalfunctionsViewData));
-            MalfunctionsViewData = templ.GroupBy(t => t.Title).Select(t => new GroupMalfunctionViewData
-            {
+            MalfunctionsViewData = templ.GroupBy(t => t.Title).Select(t => new GroupMalfunctionViewData {
                 Title = t.Key,
                 Count = t.Count()
             }).ToList();

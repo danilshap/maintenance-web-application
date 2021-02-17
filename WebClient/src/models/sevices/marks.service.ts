@@ -6,7 +6,13 @@ import { Mark } from '../entities/mark';
 export class MarksService{
   constructor(private http: HttpClient) {}
 
-  getMarks(): any {
-    return this.http.get<Mark[]>('http://localhost:55280/api/Marks');
+  // получить данные о марках для конкретной страницы
+  getMarks(page: number): any {
+    return this.http.get<Mark[]>(`http://localhost:55280/api/Marks/${page}`);
+  }
+
+  // получить данные о таблице деталей
+  getMarksTableInfo(): any {
+    return this.http.get<any>('http://localhost:55280/api/Marks');
   }
 }

@@ -1,3 +1,5 @@
+import { WorkerStatusesService } from './../models/sevices/worker-statuses.service';
+import { PersonRequestStausesService } from './../models/sevices/person-request-status.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReportsService } from './../models/sevices/reports.service';
 import { RepairOrderService } from './../models/sevices/repair-order.service';
@@ -25,6 +27,7 @@ import { AddressesService } from 'src/models/sevices/adresses.service';
 import { DetailsService } from 'src/models/sevices/details.service';
 import { MarksService } from 'src/models/sevices/marks.service';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { PersonService } from 'src/models/sevices/person.service';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,9 @@ import { NgxEchartsModule } from 'ngx-echarts';
     DetailsService,
     AddressesService,
     MarksService,
+    PersonRequestStausesService,
+    WorkerStatusesService,
+    PersonService,
   ],
   bootstrap: [AppComponent]
 })

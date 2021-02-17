@@ -31,15 +31,12 @@ namespace WebApplication.Models.Processes
             // если вдруг у нас номер таблицы будет равен нулю то мы кидаем исключение
             if (page == 0) throw new Exception("Недопустимая страница данных.");
 
-            // получение базовой коллекции данных
-            var templateList = _context.Clients
+            return _context.Clients
                 .Include(c => c.Address)
                 .Include(c => c.Person)
-                .Select(c => new ClientViewData(c, c.Person, c.Address));
-
-            var range = Utils.Utils.GetDataRange(page, templateList.Count());
-
-            return templateList.Skip(range.from).Take(range.to);
+                .Select(c => new ClientViewData(c, c.Person, c.Address))
+                .Skip(page * 10 - 10)
+                .Take(10);
         }
 
         // получить определенного клиента
@@ -69,10 +66,7 @@ namespace WebApplication.Models.Processes
                 throw new WebApiException("Человек с таким паспортом уже существует. Проверьте корректность данных");
 
             // если у нас нет такого человека с такими данными, то мы добавляем его
-            if (_context.Persons.Any(p =>
-                p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
-                p.Patronymic == person.Patronymic || p.Passport != person.Passport))
-                await _personProcess.AppendPerson(person);
+            if (!_context.Persons.Any(p => p.Passport == person.Passport)) await _personProcess.AppendPerson(person);
 
             // проверка данных по адресу
             Address address = new Address {
@@ -136,7 +130,7 @@ namespace WebApplication.Models.Processes
 
         // поиск клиента для обработки в заявке на ремонт
         public async Task<bool> IsSetClient(string passport) =>
-            await _context.Clients.Include(c => c.Person).AnyAsync(c => c.Person.Passport == passport);
+            await _context.Clients.AnyAsync(c => c.Person.Passport == passport);
 
         public int GetTableCount() => _context.Clients.Count();
     }

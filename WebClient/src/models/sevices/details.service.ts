@@ -7,10 +7,13 @@ export class DetailsService{
   // Details
   constructor(private http: HttpClient) {}
 
-  getDetails(): any {
-    return this.http.get<Detail[]>('http://localhost:55280/api/Details');
+  // получить список деталей в зависимости от страницы данных
+  getDetails(page: number): any {
+    return this.http.get<Detail[]>(`http://localhost:55280/api/Details/${page}`);
   }
 
-  // TODO: добавить функции для формирования запроса на получение конкретной детали,
-  // отправка данных на изменение деали, добавление детали и удаления заданной детали
+  // получить данные о таблице деталей
+  getDetailsTableInfo(): any {
+    return this.http.get<any>('http://localhost:55280/api/Details');
+  }
 }

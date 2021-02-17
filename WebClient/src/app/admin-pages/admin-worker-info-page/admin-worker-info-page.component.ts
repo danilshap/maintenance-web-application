@@ -32,7 +32,7 @@ export class AdminWorkerInfoPageComponent implements OnInit, IInfoPageComponent{
   }
 
   // реализация интерфеса - вернуться назад
-  goBack(): void { this.location.back();}
+  goBack(): void { this.location.back(); }
 
   // реализация интерфеса - редактировать данные
   edit(): void {

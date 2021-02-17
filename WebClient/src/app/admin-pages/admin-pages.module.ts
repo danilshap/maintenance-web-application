@@ -1,3 +1,6 @@
+import { AdminWorkerStatusesTablePageComponent } from './admin-worker-statuses-table-page/admin-worker-statuses-table-page.component';
+import { AdminSpecialtiesTablePageComponent } from './admin-specialties-table-page/admin-specialties-table-page.component';
+import { AdminPersonRequestStatusesTablePageComponent } from './admin-person-request-statuses-table-page/admin-person-request-statuses-table-page.component';
 import { AuthService } from './../../models/sevices/auth.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -78,6 +81,9 @@ import { PaginatorComponent } from './paginator/paginator.component';
     AdminMarksTablePageComponent,
     AdminPersonRequestsTablePageComponent,
     AdminPersonsTablePageComponent,
+    AdminPersonRequestStatusesTablePageComponent,
+    AdminSpecialtiesTablePageComponent,
+    AdminWorkerStatusesTablePageComponent,
     PaginatorComponent
   ],
   providers: [

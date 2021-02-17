@@ -21,17 +21,14 @@ namespace WebApplication.Models.Processes
         }
 
         // получить всех клиентов
-        public IEnumerable<WorkerViewData> GetWorkersData(int page = 1) {
+        public IEnumerable<WorkerViewData> GetWorkersData(int page) {
             // если вдруг у нас номер таблицы будет равен нулю то мы кидаем исключение
             if (page == 0) throw new Exception("Недопустимая страница данных.");
 
             // получение базовой коллекции данных
-            var templateList = _context.Workers
-                .Select(w => new WorkerViewData(w, w.Person, w.Status, w.Specialty));
-
-            var range = Utils.Utils.GetDataRange(page, templateList.Count());
-
-            return templateList.Skip(range.from).Take(range.to);
+            return _context.Workers
+                .Select(w => new WorkerViewData(w, w.Person, w.Status, w.Specialty))
+                .Skip(page * 10 - 10).Take(10);
         }
 
         // получить список работников для выпадающего списка
@@ -67,7 +64,7 @@ namespace WebApplication.Models.Processes
             if (_context.Persons.Any(p =>
                 p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
                 p.Patronymic == person.Patronymic || p.Passport != person.Passport))
-                await _personProcess.AppendPerson(person);
+                _personProcess.AppendPerson(person);
 
             // ищем данные о статусе. если мы не находим, то кидаем исклчение
             WorkerStatus status = _context.WorkerStatuses.First(ws => ws.Status == workerViewData.Status);

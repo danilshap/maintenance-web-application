@@ -20,13 +20,21 @@ namespace WebApplication.Models.Processes
             _personProcess = new PersonProcess(context);
         }
 
-        // получение всех запросов клиентов
-        public IEnumerable<PersonRequestViewData> PersonRequestsViewData() =>
-            _context.PersonRequests
-                .Include(pr => pr.Person)
-                .Include(pr => pr.PersonRequestStatus)
-                .Where(pr => pr.PersonRequestStatus.Title == "Необходимо перезвонить!")
-                .Select(pr => new PersonRequestViewData(pr, pr.Person, pr.PersonRequestStatus));
+        // получение запросов клиентов которым нужно перезвонить
+        public IEnumerable<PersonRequestViewData> PersonRequestsViewData(int page, bool isAll) {
+            if (page == 0) return null;
+            return isAll
+                ? _context.PersonRequests
+                    .OrderBy(pr => pr.PersonRequestStatus.Title == "Необходимо перезвонить")
+                    .Select(pr => new PersonRequestViewData(pr, pr.Person, pr.PersonRequestStatus))
+                    .Skip(page * 10 - 10).Take(10)
+                : _context.PersonRequests
+                    .Where(pr => pr.PersonRequestStatus.Title == "Необходимо перезвонить!")
+                    .Select(pr => new PersonRequestViewData(pr, pr.Person, pr.PersonRequestStatus))
+                    .Skip(page * 10 - 10).Take(10);
+        }
+
+ 
 
         // получение конкретного обращение в сервисный центр
         public PersonRequestViewData PersonRequestViewData(int id) {
@@ -55,10 +63,7 @@ namespace WebApplication.Models.Processes
                 throw new WebApiException("Человек с таким паспортом уже существует. Проверьте корректность данных");
 
             // если у нас нет такого человека с такими данными, то мы добавляем его
-            if (_context.Persons.Any(p =>
-                p.Passport == person.Passport && p.Surname == person.Surname && p.Name == person.Name &&
-                p.Patronymic == person.Patronymic || p.Passport != person.Passport))
-                await _personProcess.AppendPerson(person);
+            if (!_context.Persons.Any(p => p.Passport == person.Passport)) await _personProcess.AppendPerson(person);
 
             PersonRequest personRequest = new PersonRequest {
                 PersonId = _context.Persons.First(p => p.Passport == person.Passport).Id,
@@ -87,5 +92,9 @@ namespace WebApplication.Models.Processes
             personRequest.PersonRequestStatusId = personRequestStatus.Id;
             await _context.SaveChangesAsync();
         }
+
+        public int GetTableCount(bool isAll) => isAll
+            ? _context.PersonRequests.Count()
+            : _context.PersonRequests.Count(pr => pr.PersonRequestStatus.Title == "Необходимо перезвонить!");
     }
 }

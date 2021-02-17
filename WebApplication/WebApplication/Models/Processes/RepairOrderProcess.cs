@@ -19,15 +19,12 @@ namespace WebApplication.Models.Processes
         private readonly ClientProcess _clientProcess;
         // обработка по авто
         private readonly CarProcess _carProcess;
-        // обработка по работникам
-        private readonly WorkerProcess _workerProcess;
 
         public RepairOrderProcess(MaintenanceDatabaseContext context) {
             _context = context;
 
             _carProcess = new CarProcess(context);
             _clientProcess = new ClientProcess(context);
-            _workerProcess = new WorkerProcess(context);
         }
 
         // получить все заказы
@@ -36,17 +33,15 @@ namespace WebApplication.Models.Processes
             if (page == 0) throw new Exception("Недопустимая страница данных.");
 
             // получение базовой коллекции данных
-            var templateList = _context.RepairOrders
+            return _context.RepairOrders
                 .OrderBy(ro => ro.IsReady)
                 .Select(ro => new RepairOrderViewData(ro,
                     new ClientViewData(ro.Client, ro.Client.Person, ro.Client.Address),
                     new CarViewData(ro.Car, ro.Car.Owner, ro.Car.Mark),
                     new WorkerViewData(ro.Worker, ro.Worker.Person, ro.Worker.Status, ro.Worker.Specialty),
-                    ro.Malfunctions.Select(m => new MalfunctionViewData(m, m.Details.ToList())).ToList()));
-
-            var range = Utils.Utils.GetDataRange(page, templateList.Count());
-
-            return templateList.Skip(range.from).Take(range.to);
+                    ro.Malfunctions.Select(m => new MalfunctionViewData(m, m.Details.ToList())).ToList()))
+                .Skip(page * 10 - 10)
+                .Take(10);
         }
 
         // получить заявку на неисправность для отображения в форме по id
@@ -96,6 +91,7 @@ namespace WebApplication.Models.Processes
             // поиск клиента. если не нашли, то добавляем
             if (!_clientProcess.IsSetClient(repairOrderViewForm.ClientViewData.Passport).Result)
                 await _clientProcess.AppendClient(repairOrderViewForm.ClientViewData);
+
             // поиск после добавления клиента
             Client client = _context.Clients.Include(c => c.Person)
                 .FirstOrDefault(c => c.Person.Passport == repairOrderViewForm.ClientViewData.Passport);

@@ -23,6 +23,13 @@ export class PaginatorComponent{
 
   // событие изменение страницы
   change(value: number): any {
-        this.changePageEvent.emit(value);
+    this.changePageEvent.emit(value,);
+
+    // изменение внешнего вида пагинатора.
+    document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-outline-secondary');
+    document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-secondary');
+    this.currentPage = value;
+    document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
+    document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
   }
 }

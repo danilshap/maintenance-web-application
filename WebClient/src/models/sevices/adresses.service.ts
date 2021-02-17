@@ -6,10 +6,11 @@ import { Injectable } from '@angular/core';
 export class AddressesService{
   constructor(private http: HttpClient) {}
 
-  getAddresses(): any {
-    return this.http.get<Address[]>('http://localhost:55280/api/Addresses');
+  getAddresses(page: number): any {
+    return this.http.get<Address[]>(`http://localhost:55280/api/Addresses/${page}`);
   }
 
-  // TODO: добавить функции для формирования запроса на получение конкретного адреса,
-  // отправка данных на изменение адреса, добавление адреса и удаления заданного адреса
+  getAddressesTableInfo(): any {
+    return this.http.get<any>('http://localhost:55280/api/Addresses');
+  }
 }

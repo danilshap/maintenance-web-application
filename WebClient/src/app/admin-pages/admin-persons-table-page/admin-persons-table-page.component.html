@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col">
+    <h1>Персоны</h1>
+    <div class="alert alert-info">
+      <b>Информация.</b>
+      <span>
+        В данный момент функции:
+        <span class="badge badge-warning h5">Редактирование</span> и
+        <span class="badge badge-danger h5">Удаление</span> для "персон"
+        <b>недоступны</b>
+      </span>
+    </div>
+    <div class="shadow p-2 mt-3" style="overflow: auto">
+      <table
+        class="table table-sm table-bordered table-hover"
+        id="clientsTable"
+        *ngIf="persons"
+      >
+        <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Паспорт</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let person of persons">
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.surname }}</td>
+            <td>{{ person.patronymic }}</td>
+            <td>{{ person.passport }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-end">
+        <paginator
+          [currentPage]="currentPage"
+          [maxPages]="maxPages"
+          [maxCount]="maxCount"
+          (changePageEvent)="sendData($event, null)"
+        ></paginator>
+      </div>
+    </div>
+  </div>
+</div>

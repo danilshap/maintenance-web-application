@@ -8,18 +8,19 @@ import { CarViewData } from 'src/models/view-data/car-view-data';
   templateUrl: './admin-cars-table-data-page.component.html',
 })
 export class AdminCarsTableDataPageComponent implements OnInit{
-  collection!: CarViewData[];
-  currentPage!: number;
-  maxPages!: number;
-  maxCount!: number;
+  collection!: CarViewData[]; // коллекция автомобилей
+  currentPage!: number; // конкретная страница таблицы
+  maxPages!: number;  // максимальное олкичество страниц
+  maxCount!: number;  // максимальное количество данных
 
   constructor(private router: Router, private carService: CarService){}
 
   ngOnInit(): void {
+    // определение текущей страницы при загрузки
     this.currentPage = 1;
-    this.carService.getCarsViewData(this.currentPage).subscribe((data: any[]) => {
-      this.collection = data as CarViewData[];
-
+    // отправляем запрос на сервер с дополнительным запросом на получение данных о
+    // таблице автомобилей
+    this.sendData(this.currentPage, () => {
       this.carService.getCarsTableInfo().subscribe((info: any) => {
         this.maxPages = info.maxPages;
         this.maxCount = info.count;
@@ -27,27 +28,31 @@ export class AdminCarsTableDataPageComponent implements OnInit{
     });
   }
 
+  // переадресация на страницу добавления нового авто
   appendNewCar(): void {
     this.router.navigate(['admin/car_form']);
   }
 
+  // переадресация на страницу редактирования автомобиля
   editCar(id: number): void{
     this.router.navigate(['admin/car_form', id]);
   }
 
+  // переадресация на страницу просмотра подробной информации об автомобиле
   infoCar(id: number): void{
     this.router.navigate(['admin/car_info', id]);
   }
 
-  changePage(page: number): void {
+  // отправка запроса на сервер с дополнительным действием
+  sendData(page: number, addEvent: any): void {
+    // пофторное получение данных по конкретной странице таблицы
     this.carService.getCarsViewData(page).subscribe((data: any[]) => {
       this.collection = data as CarViewData[];
 
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-outline-secondary');
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-secondary');
-      this.currentPage = page;
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.add('btn-secondary');
-      document.getElementById(`data-page-${this.currentPage}`)?.classList.remove('btn-outline-secondary');
+      // если у нас нет дополнительного действия, то мы естественно его не выполняем :)
+      if (addEvent !== null && addEvent !== undefined) {
+        addEvent();
+      }
     });
   }
 }

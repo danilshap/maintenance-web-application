@@ -25,11 +25,8 @@ namespace WebApplication.Controllers.ControllersModel
             // если номер страницы будет нулевой то мы возвращаем null
             if (page == 0) return null;
 
-            // получение диапазона данных в зависимости от страницы и количества данных
-            var range = Utils.GetDataRange(page, _context.Addresses.Count());
-
             // получаем коллекцию
-            return await _context.Addresses.Skip(range.from).Take(range.to).ToListAsync();
+            return await _context.Addresses.Skip(page * 10 - 10).Take(10).ToListAsync();
         }
 
         // получение информации о таблицах адресов

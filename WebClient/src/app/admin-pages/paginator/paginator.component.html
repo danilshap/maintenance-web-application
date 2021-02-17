@@ -3,7 +3,7 @@
     class="btn-group mr-2"
     role="group"
     aria-label="First group"
-    *ngIf="maxPages <= 4"
+    *ngIf="maxPages <= 5"
   >
     <button
       *ngFor="let item of createRange(maxPages)"
@@ -17,7 +17,7 @@
       {{ item }}
     </button>
   </div>
-  <div *ngIf="maxPages > 4">
+  <div *ngIf="maxPages > 5">
     <div
       class="btn-group mr-2"
       role="group"

@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col">
+    <h1>Специальности работников</h1>
+    <div class="alert alert-info">
+      <b>Информация.</b>
+      <span>
+        В данный момент функции:
+        <span class="badge badge-success h5">Добавление</span>,
+        <span class="badge badge-warning h5">Редактирование</span> и
+        <span class="badge badge-danger h5">Удаление</span> для "Статусы работников"
+        <b>недоступны</b>
+      </span>
+    </div>
+    <div class="shadow p-2 mt-3" style="overflow: auto">
+      <table
+        class="table table-sm table-bordered table-hover"
+        id="clientsTable"
+        *ngIf="workerStatuses"
+      >
+        <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Название</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let workerStatus of workerStatuses">
+            <td>{{ workerStatus.id }}</td>
+            <td>{{ workerStatus.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-end">
+        <paginator
+          [currentPage]="currentPage"
+          [maxPages]="maxPages"
+          [maxCount]="maxCount"
+          (changePageEvent)="sendData($event, null)"
+        ></paginator>
+      </div>
+    </div>
+  </div>
+</div>

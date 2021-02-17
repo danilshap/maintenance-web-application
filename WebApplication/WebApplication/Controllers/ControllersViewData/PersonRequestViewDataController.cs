@@ -8,22 +8,26 @@ using Microsoft.EntityFrameworkCore;
 using Maintenance.Models.MaintenanceEntities;
 using WebApplication.Data;
 using WebApplication.Models.Processes;
+using WebApplication.Models.Utils;
 using WebApplication.Models.ViewData;
 
 namespace WebApplication.Controllers.ControllersViewData
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class PersonRequestViewDataController : ControllerBase {
         private readonly PersonRequestProcess _personRequestProcess;
-
         public PersonRequestViewDataController(MaintenanceDatabaseContext context) {
             _personRequestProcess = new PersonRequestProcess(context);
         }
 
         // GET: api/PersonRequestViewData
+        [HttpGet("{page}")]
+        public IEnumerable<PersonRequestViewData> GetPersonRequests(int page, bool isAll) => 
+            _personRequestProcess.PersonRequestsViewData(page, isAll);
+
         [HttpGet]
-        public IEnumerable<PersonRequestViewData> GetPersonRequests() => _personRequestProcess.PersonRequestsViewData();
+        public object GetInfoTable(bool isAll) => Utils.GetInfoPage(_personRequestProcess.GetTableCount(isAll));
 
         // GET: api/PersonRequestViewData/5
         [HttpGet("{id}")]
@@ -33,8 +37,6 @@ namespace WebApplication.Controllers.ControllersViewData
         public async Task PutPersonRequest(int id, string status) =>
             await _personRequestProcess.ChangePersonRequest(id, status);
 
-        // POST: api/PersonRequestViewData
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task PostPersonRequest(PersonRequestViewData personRequestViewData) =>
             await _personRequestProcess.AppendPersonRequest(personRequestViewData);
