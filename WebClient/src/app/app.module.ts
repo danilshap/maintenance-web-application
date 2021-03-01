@@ -1,3 +1,4 @@
+import { ACCESS_TOKEN_KEY } from './../models/sevices/auth.service';
 import { WorkerStatusesService } from './../models/sevices/worker-statuses.service';
 import { PersonRequestStausesService } from './../models/sevices/person-request-status.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -28,6 +29,13 @@ import { DetailsService } from 'src/models/sevices/details.service';
 import { MarksService } from 'src/models/sevices/marks.service';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { PersonService } from 'src/models/sevices/person.service';
+import { API_URL } from './app-injection-token';
+import { enviroment } from 'src/models/enviroments/enviroments';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem(ACCESS_TOKEN_KEY);
+}
 
 @NgModule({
   declarations: [
@@ -45,6 +53,12 @@ import { PersonService } from 'src/models/sevices/person.service';
     BrowserAnimationsModule,
     HttpClientModule,
     NgxEchartsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: enviroment.tokenWhiteListedDomains
+      }
+    })
   ],
   providers: [
     RepairOrderService,
@@ -64,6 +78,10 @@ import { PersonService } from 'src/models/sevices/person.service';
     PersonRequestStausesService,
     WorkerStatusesService,
     PersonService,
+    {
+      provide: API_URL,
+      useValue: enviroment.api
+    }
   ],
   bootstrap: [AppComponent]
 })

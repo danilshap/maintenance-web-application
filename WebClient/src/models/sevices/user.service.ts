@@ -8,6 +8,7 @@ export class UserService{
 
   // отправка запроса для аутентификации
   canLoginUser(user: User): any{
-    return this.http.post<boolean>('http://localhost:55280/api/UsersProcess/CanLogin', user, {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
+    return this.http.post<boolean>('http://localhost:55280/api/UsersProcess/CanLogin',
+    user, {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
   }
 }

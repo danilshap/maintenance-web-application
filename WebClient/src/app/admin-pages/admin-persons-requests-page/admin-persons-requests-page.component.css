@@ -1,0 +1,16 @@
+.requests-card {
+  position: relative;
+  width: 25%;
+}
+
+@media only screen and (max-width: 1050px) {
+  .requests-card {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .requests-card {
+    width: 100%;
+  }
+}

@@ -12,7 +12,7 @@
   </div>
   <div class="col" *ngIf="requests && requests.length > 0">
     <div class="d-flex align-content-start flex-wrap">
-      <div *ngFor="let request of requests" class="w-50 h-100">
+      <div *ngFor="let request of requests" class="requests-card">
         <person-reqest-card [request]="request"></person-reqest-card>
       </div>
     </div>

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Maintenance.Models.MaintenanceEntities;
+using Microsoft.AspNetCore.Authorization;
 using WebApplication.Data;
 using WebApplication.Models.Utils;
 
@@ -13,6 +14,7 @@ namespace WebApplication.Controllers.ControllersModel
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class WorkerStatusController : ControllerBase {
         private readonly MaintenanceDatabaseContext _context;
         public WorkerStatusController(MaintenanceDatabaseContext context) {

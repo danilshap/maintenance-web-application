@@ -18,12 +18,6 @@ export class LoginPageComponent implements OnInit{
               private router: Router,
               private fb: FormBuilder)
   {
-    this.setMessage();
-  }
-
-  // получить сообщение
-  setMessage(): void {
-    this.message = this.authService.isLoginIn ? 'Авторизация прошла успешно' : '';
   }
 
   // авторизация
@@ -33,23 +27,14 @@ export class LoginPageComponent implements OnInit{
     this.user.userName = this.nickname.value;
     this.user.password = this.password.value;
 
-    this.authService.login(this.user).subscribe((data: any) => {
-      this.authService.isLoginIn = data as boolean;
-
-      this.authService.redirectTo = this.authService.isLoginIn ? '/admin/index' : this.authService.redirectTo;
-
-      // tslint:disable-next-line:new-parens
-      localStorage.setItem('login', JSON.stringify({'time': new Date().getTime(), 'status': this.authService.isLoginIn, 'user': this.user.userName}));
-
+    this.authService.login(this.user).subscribe(() => {
+      this.authService.redirectTo = this.authService.isAuthentificated() ? '/admin/index' : this.authService.redirectTo;
       this.router.navigate([this.authService.redirectTo]);
     });
   }
 
   // выход из аккаунта
-  logout(): void {
-    this.authService.logout();
-    this.setMessage();
-  }
+  logout(): void { this.authService.logout(); }
 
   ngOnInit(): void {
     this.userFormGroup = this.fb.group({
@@ -58,6 +43,7 @@ export class LoginPageComponent implements OnInit{
     });
   }
 
+  // геттеры для удобного использования
   get nickname(): any { return this.userFormGroup.controls.nickname; }
   get password(): any { return this.userFormGroup.controls.password; }
 }

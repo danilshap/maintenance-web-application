@@ -5,7 +5,8 @@ import { PersonRequestViewData } from 'src/models/view-data/person-request-view-
 
 @Component({
   selector: 'admin-persons-requests-page',
-  templateUrl: './admin-persons-requests-page.component.html'
+  templateUrl: './admin-persons-requests-page.component.html',
+  styleUrls: ['./admin-persons-requests-page.component.css']
 })
 export class AdminPersonsRequestsPageComponent implements OnInit {
   requests!: PersonRequestViewData[];

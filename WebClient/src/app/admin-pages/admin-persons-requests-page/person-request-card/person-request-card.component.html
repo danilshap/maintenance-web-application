@@ -1,4 +1,4 @@
-<div *ngIf="hidden" class="card text-left mr-1 mt-1">
+<div *ngIf="hidden" class="card text-left m-1 current-card">
   <div class="card-body">
     <p class="card-text">
       <b>Заявитель:</b> {{ request.surname }} {{ request.name }}
@@ -11,10 +11,10 @@
   </div>
   <div class="card-footer">
     <button class="btn btn-success m-1" (click)="confirmRequest()">
-      Оформить заявку на ремонт
+      Оформить
     </button>
     <button class="btn btn-danger m-1" (click)="removeRequest()">
-      Отклонить оформление
+      Отклонить
     </button>
   </div>
 </div>

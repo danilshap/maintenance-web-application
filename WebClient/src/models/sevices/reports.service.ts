@@ -1,5 +1,5 @@
 import { ReportsViewData } from './../view-data/reports-view-data';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -11,10 +11,12 @@ export class ReportsService{
   }
 
   getFreeWorkers(): any {
-    return this.http.get<number>('http://localhost:55280/api/ReportsViewData/GetCountOfFreeWorker');
+    return this.http.get<number>('http://localhost:55280/api/ReportsViewData/GetCountOfFreeWorker',
+    {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
   }
 
   getCarsInService(): any {
-    return this.http.get<number>('http://localhost:55280/api/ReportsViewData/GetCountOfCarsInService');
+    return this.http.get<number>('http://localhost:55280/api/ReportsViewData/GetCountOfCarsInService',
+    {headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'Access-Control-Allow-Methods')});
   }
 }

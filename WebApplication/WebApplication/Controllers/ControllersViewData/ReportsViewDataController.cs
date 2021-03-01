@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using WebApplication.Data;
 using WebApplication.Models.Processes;
 using WebApplication.Models.ViewData;
@@ -12,6 +13,7 @@ using WebApplication.Models.ViewData;
 namespace WebApplication.Controllers.ControllersViewData
 {
     [Route("api/[controller]/[action]")]
+    [Authorize]
     [ApiController]
     public class ReportsViewDataController : ControllerBase {
 

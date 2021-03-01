@@ -20,7 +20,7 @@ namespace WebApplication.Models.Processes
             .Include(ro => ro.Worker)
             .Include(ro => ro.Car)
             .Include(ro => ro.Malfunctions)
-            .Where(ro => ro.DateOfTheApplication.Month >= DateTime.Now.Month && ro.IsReady)
+            .Where(ro => ro.DateOfTheApplication.AddMonths(1) >= DateTime.Now && ro.IsReady)
             .Select(ro => new CarInServiceViewData(
                 new CarViewData(ro.Car, ro.Car.Owner, ro.Car.Mark),
                 new WorkerViewData(ro.Worker, ro.Worker.Person, ro.Worker.Status, ro.Worker.Specialty),

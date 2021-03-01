@@ -10,8 +10,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using WebApplication.Data;
+using WebApplication.Models.Utils;
 
 namespace WebApplication
 {
@@ -42,6 +48,31 @@ namespace WebApplication
                     Configuration.GetConnectionString("DefaultConnection")
                 ));
 
+            // добавление авторизации
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters {
+                        ValidateIssuer = true,  // будет ли валидироваться издатель при валидации токена
+                        ValidIssuer = AuthOptions.ISSUER, // представление издателя
+                        ValidateAudience = true, // будет ли валидироваться потребитель
+                        ValidAudience = AuthOptions.AUDIENCE, // потребитель токена
+                        ValidateLifetime = true, // валидироваться время существования
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(), // установка ключа бузопассности
+                        ValidateIssuerSigningKey = true // валидация ключа безопасности
+                    };
+                });
+
+            services.AddAuthorization(options => {
+                var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(
+                    JwtBearerDefaults.AuthenticationScheme);
+
+                defaultAuthorizationPolicyBuilder =
+                    defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+
+                options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+            });
+
             services.AddCors(o => o.AddPolicy("MyPolicy", builder => {
                 builder.AllowAnyOrigin()
                     .AllowAnyMethod()
@@ -63,6 +94,9 @@ namespace WebApplication
             }
 
             app.UseRouting();
+            app.UseAuthorization();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             // Use HTTPS Redirection Middleware to redirect HTTP requests to HTTPS.

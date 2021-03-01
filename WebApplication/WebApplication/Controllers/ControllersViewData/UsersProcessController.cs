@@ -22,6 +22,7 @@ namespace WebApplication.Controllers.ControllersViewData
 
         [HttpPost]
         [ActionName("CanLogin")]
-        public bool CanLogin([FromBody] User user) => _usersProcess.CanLogin(user);
+        public object CanLogin([FromBody] User user) =>
+            _usersProcess.CanLogin(user);
     }
 }

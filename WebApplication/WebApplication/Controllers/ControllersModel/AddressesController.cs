@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Maintenance.Models.MaintenanceEntities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
 using WebApplication.Models.Utils;
@@ -12,7 +14,7 @@ using WebApplication.Models.Utils;
 namespace WebApplication.Controllers.ControllersModel
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [Authorize]
     public class AddressesController : ControllerBase {
         private readonly MaintenanceDatabaseContext _context;
         public AddressesController(MaintenanceDatabaseContext context) {
