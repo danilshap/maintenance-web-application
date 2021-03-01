@@ -6,8 +6,7 @@ import { PersonRequestViewData } from "src/models/view-data/person-request-view-
 
 @Component({
   selector: 'person-reqest-card',
-  templateUrl: './person-request-card.component.html',
-  styleUrls: ['./person-request-card.component.css']
+  templateUrl: './person-request-card.component.html'
 })
 export class PersonRequestCardComponent{
   hidden: boolean = true; // статус вывода карточки
