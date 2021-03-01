@@ -13,7 +13,7 @@ On frontend:
 	
 On backend:
 * WebApi .Net Core v.5
-* Swagger UI (just for simple testing of WebApi methods
+* Swagger UI (just for simple testing of WebApi methods)
 * EF Core (_Code_ _First_)
 	
 Database:
