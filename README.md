@@ -15,11 +15,13 @@ On backend:
 * WebApi .Net Core v.5
 * Swagger UI (just for simple testing of WebApi methods)
 * EF Core (_Code_ _First_)
+* JWT
 	
 Database:
 * MsSQL
 	
 ### Get Start
+-----------------------------------
 
 First of all you must creat database.
 You must create **two** migration for create and use database.
@@ -42,3 +44,14 @@ After that you must install node_modules on ClientApplication
 ```` npm i ````
 
 and run application. You must run WebApi-Application and Client-Application as you wish.
+
+### Screenshots
+
+Client area
+![Screenshot_2021-03-04 Станция техобслуживания(1)](https://user-images.githubusercontent.com/60642588/109949727-60999e00-7ce4-11eb-95dc-1d67fae9ec70.png)
+
+Admin page
+![Screenshot_2021-03-04 Станция техобслуживания(2)](https://user-images.githubusercontent.com/60642588/109949726-5f687100-7ce4-11eb-95b3-1599f2ce8861.png)
+
+Charts exapmle
+![Screenshot_2021-03-04 Станция техобслуживания(3)](https://user-images.githubusercontent.com/60642588/109949730-61323480-7ce4-11eb-825d-121bde91bf62.png)
