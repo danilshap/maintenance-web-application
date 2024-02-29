@@ -9,7 +9,7 @@
       <b>Примерная дата завершения ремонта:</b>
       {{ showCorrectDate(repairOrderViewData.dateOfCompletion) }}
     </p>
-    <p><b>Примерная стоимость ремонта:</b> ~{{ repairOrderViewData.price }} руб.</p>
+    <p><b>Примерная стоимость ремонта:</b> ~{{ repairOrderViewData.price }} грн.</p>
     <p><b>Статус ремонта:</b> {{ repairOrderStatus() }}</p>
   </div>
   <div class="col-md-8" class="d-flex align-content-start flex-wrap" style="overflow: auto;">
@@ -17,7 +17,7 @@
       <p>{{ malfunction.title }}</p>
       <ul>
         <div *ngFor="let detail of malfunction.details">
-          <li>{{ detail.title }} ({{ detail.price }} руб.)</li>
+          <li>{{ detail.title }} ({{ detail.price }} грн.)</li>
         </div>
       </ul>
     </div>
