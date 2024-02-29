@@ -29,6 +29,20 @@ You create the first migration as usual:
 
 For postgres use base EF tool in Rider
 
+add-migration init
+
+update-database
+
+Then in file "MaintenanceWeb/WebApplication/WebApplication/Data/MaintenanceDatabaseContext.cs", uncomment 16 line, create new Migration
+
+add-migration appendData
+
+Comment out this line again (16 line) and update databse
+
+update-database
+
+After that you must install node_modules on ClientApplication
+
 ### Screenshots
 
 Client area
