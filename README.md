@@ -1,47 +1,54 @@
-# Course project
+# Course Project
 
-This is web version of my last project. This is Angular + WebApi application
+This project is a web version of my previous project. It combines Angular with a .NET Core Web API.
 
-### Technologies
+## Technologies
 
-On frontend:
-* Angular
-* Botstrap
-* jQuery (for Bootstrap)
-* FontAwsome
-* Sb2-AdminPanel (css library)
-	
-On backend:
-* WebApi .Net Core v.5
-* Swagger UI (just for simple testing of WebApi methods)
-* EF Core (_Code_ _First_)
-* JWT
-	
-Database:
-* Postgres
-	
-### Get Start
------------------------------------
+### Frontend
+- **Angular**: Framework for building user interfaces
+- **Bootstrap**: Styling and responsive design
+- **jQuery**: JavaScript library (used primarily for Bootstrap functionality)
+- **FontAwesome**: Icon toolkit
+- **SB2-AdminPanel**: CSS library for admin panel design
 
-First of all you must creat database.
-You must create **two** migration for create and use database.
-You create the first migration as usual:
+### Backend
+- **WebApi .NET Core v5**: Framework for building APIs
+- **Swagger UI**: Tool for testing WebApi methods easily
+- **Entity Framework (EF) Core**: Code-first database approach
+- **JWT (JSON Web Tokens)**: For secure user authentication
 
-For postgres use base EF tool in Rider
+### Database
+- **PostgreSQL**: Open source object-relational database system
 
-add-migration init
+## Getting Started
 
-update-database
+### Database Setup
 
-Then in file "MaintenanceWeb/WebApplication/WebApplication/Data/MaintenanceDatabaseContext.cs", uncomment 16 line, create new Migration
+1. **Create the database:**
+   - Use the base EF tool provided in JetBrains Rider for PostgreSQL.
+   - Run the following commands:
+     ```
+     add-migration init
+     update-database
+     ```
 
-add-migration appendData
+2. **Populate the database:**
+   - Navigate to `MaintenanceWeb/WebApplication/WebApplication/Data/MaintenanceDatabaseContext.cs`.
+   - Uncomment line 16, then create a new migration by running:
+     ```
+     add-migration appendData
+     ```
+   - Comment out line 16 again and update the database:
+     ```
+     update-database
+     ```
 
-Comment out this line again (16 line) and update databse
+### Client Application Setup
 
-update-database
+1. **Install Node Modules:**
+   - Navigate to the `ClientApplication` directory.
+   - Run `npm install` to install all required node modules.
 
-After that you must install node_modules on ClientApplication
 
 ### Screenshots
 
